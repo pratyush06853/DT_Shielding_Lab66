@@ -1,0 +1,36 @@
+/IronFilter/det/setFilterCellSpacing 50.0 cm
+/IronFilter/det/setPolyHeight 41.0 cm
+/IronFilter/det/setMultiplierLeadHeightFront 15.0 cm
+/IronFilter/det/setModeratorAluminumHeight 30 cm
+/IronFilter/det/setModeratorTitaniumHeight 5.0 cm # to get the DT position add the number till here
+/IronFilter/det/setMultiplierLeadHeightRear 20.0 cm
+/IronFilter/det/setMultiplierLeadRadius 15.0 cm
+/IronFilter/det/setModeratorAluminumRadius 15.0 cm
+/IronFilter/det/setModeratorTitaniumRadius 15.0 cm
+
+
+/run/initialize
+/tracking/verbose 0
+/control/getEnv SEED
+/control/getEnv a
+/control/getEnv b
+
+/random/setSeeds {a} {b}
+#/random/setSeeds 8426 1347
+
+/process/list
+/run/printProgress 100000
+
+/gps/particle neutron
+/gps/energy 14.1 MeV
+#/gps/position 0 0 7.5 cm   #add all the heights/2.0-DD_Height-0.5  i.e. (20+15+30+5)/2.0-20-0.5
+/gps/position 0 141 0 cm
+/gps/ang/type iso
+
+
+#/analysis/setFileName 24Filter_test_air1_1
+#/analysis/setFileName PbFLuFe_15_20_40_IronsurrPoly_files_{SEED}_{a}_{b}   # name based on the parameters you vary
+#/analysis/setFileName PbFeSc_15_30_35_3_5_ScsurrPoly_files_{SEED}_{a}_{b}
+/analysis/setFileName PbFluTiSc_15_30_5_35_3_5_ScsurrPoly_files_{SEED}_{a}_{b}
+/run/beamOn 10000000   #10000000
+/run/initialize
