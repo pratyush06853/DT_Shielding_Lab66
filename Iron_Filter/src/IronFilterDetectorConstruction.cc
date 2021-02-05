@@ -125,7 +125,7 @@ IronFilterDetectorConstruction::IronFilterDetectorConstruction()
   fFilterCellSpacing= 50.0*cm+26.0*cm;//5
 
   ftestx = 0*m;
-  ftesty = 15*m;
+  ftesty = 0*m;
   ftestz = 0.0*m;
 
 
@@ -705,8 +705,10 @@ G4double Phantom_Size=0.25*m/2.0;
   Test_CENTERPOINT_PV = new G4PVPlacement(turnAlongZ, G4ThreeVector(0., 0., 0.), Test_CENTERPOINT_LV, "Test_CENTERPOINT", vacuum_solid_LV, false, 0, fCheckOverlaps);
   Test_CENTERPOINT_LV->SetVisAttributes(G4VisAttributes(G4Colour::Yellow()));
 
-  G4ThreeVector Origin_DT=G4ThreeVector(0., fFilterCellSpacing+NeutronFilter_length/2.0, 0.)
-                  +G4ThreeVector(0., NeutronFilter_length/2.0-(fMultiplierLeadHeightRear+fMultiplierLeadHeightFront)/2.0,0.);
+  //G4ThreeVector Origin_DT=G4ThreeVector(0., fFilterCellSpacing+NeutronFilter_length/2.0, 0.)
+  //                +G4ThreeVector(0., NeutronFilter_length/2.0-(fMultiplierLeadHeightRear+fMultiplierLeadHeightFront)/2.0,0.);
+
+  G4ThreeVector Origin_DT=G4ThreeVector(0., fFilterCellSpacing+NeutronFilter_length+(Insulation_Thickness+34.0*mm)/2.0, 0.);
 
   G4double assymetric_factor_positivey=Water_rear_side+fMultiplierLeadHeightRear;
   G4double assymetric_factor_negativey=NeutronFilter_length-fMultiplierLeadHeightRear;
@@ -726,13 +728,13 @@ G4double Phantom_Size=0.25*m/2.0;
   //G4ThreeVector Phantom_Placement_8= Origin_DT + G4ThreeVector(-ftestx-Water_x/2.0, -ftesty-assymetric_factor_negativey, ftestz);
 
   // Poly need to change
-  ////G4VSolid* Phantom_S = new G4Tubs("Phantom", zeroRadius, Phantom_Radius/2.0, Phantom_Height/2.0, startAngle, spanningAngle);
-  ////G4VSolid* Phantom_S = new G4Box("Phantom",Phantom_Size/2.0, Phantom_Size/2.0, Phantom_Size/2.0-delta);
-  //G4VSolid* Phantom_S = new G4Sphere("Phantom", zeroRadius,Phantom_Size, startAngle, spanningAngle, startAngle, spanningAngle);
-  ////G4LogicalVolume* Phantom_LV = new G4LogicalVolume(Phantom_S, Air, "Phantom");
-  ////G4LogicalVolume* Phantom_LV = new G4LogicalVolume(Phantom_S, Soft_Tissue, "Phantom");
-  //G4LogicalVolume* Phantom_LV = new G4LogicalVolume(Phantom_S, Vacuum, "Phantom");
-  //Phantom_PV = new G4PVPlacement(NO_ROT, Phantom_Placement, Phantom_LV, "Phantom", vacuum_solid_LV, false, 0, fCheckOverlaps);
+  //G4VSolid* Phantom_S = new G4Tubs("Phantom", zeroRadius, Phantom_Radius/2.0, Phantom_Height/2.0, startAngle, spanningAngle);
+  //G4VSolid* Phantom_S = new G4Box("Phantom",Phantom_Size/2.0, Phantom_Size/2.0, Phantom_Size/2.0-delta);
+  G4VSolid* Phantom_S = new G4Sphere("Phantom", zeroRadius,Phantom_Size, startAngle, spanningAngle, startAngle, spanningAngle);
+  //G4LogicalVolume* Phantom_LV = new G4LogicalVolume(Phantom_S, Air, "Phantom");
+  //G4LogicalVolume* Phantom_LV = new G4LogicalVolume(Phantom_S, Soft_Tissue, "Phantom");
+  G4LogicalVolume* Phantom_LV = new G4LogicalVolume(Phantom_S, Vacuum, "Phantom");
+  Phantom_PV = new G4PVPlacement(NO_ROT, Phantom_Placement, Phantom_LV, "Phantom", vacuum_solid_LV, false, 0, fCheckOverlaps);
 
   //Phantom2_PV = new G4PVPlacement(NO_ROT, Phantom_Placement_2, Phantom_LV, "Phantom2", vacuum_solid_LV, false, 0, fCheckOverlaps);
 
