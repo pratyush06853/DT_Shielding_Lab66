@@ -69,6 +69,8 @@ class IronFilterDetectorConstruction : public G4VUserDetectorConstruction
     //
     const G4VPhysicalVolume* GetboratedwaterPV() const;
     const G4VPhysicalVolume* GetcollimationholePV() const;
+    const G4VPhysicalVolume* GetConcreteSupportPV() const;
+    const G4VPhysicalVolume* GetInsulationPV() const;
     const G4VPhysicalVolume* GetPhantomPV() const;
     //const G4VPhysicalVolume* GetPhantom2PV() const;
     //const G4VPhysicalVolume* GetPhantom3PV() const;
@@ -125,6 +127,8 @@ class IronFilterDetectorConstruction : public G4VUserDetectorConstruction
 
     G4VPhysicalVolume* boratedwater_PV;
     G4VPhysicalVolume* collimation_hole_PV;
+    G4VPhysicalVolume* ConcreteSupport_PV;
+    G4VPhysicalVolume* Insulation_PV;
     G4VPhysicalVolume* Phantom_PV;
     //G4VPhysicalVolume* Phantom2_PV;
     //G4VPhysicalVolume* Phantom3_PV;
@@ -262,6 +266,14 @@ inline const G4VPhysicalVolume* IronFilterDetectorConstruction::Getfilterscandiu
 
 inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetcollimationholePV() const {
   return collimation_hole_PV;
+}
+
+inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetConcreteSupportPV() const {
+  return ConcreteSupport_PV;
+}
+
+inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetInsulationPV() const {
+  return Insulation_PV;
 }
 
 inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetPhantomPV() const {
