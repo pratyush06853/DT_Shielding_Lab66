@@ -757,7 +757,7 @@ G4double Phantom_Size=0.25*m/2.0;
 
 
   //Lab donot include ceiling
-  G4double soil_width=30*m;
+  G4double soil_width=2*m;
   //G4VSolid* LabFloorExtended_solid_S=  new G4Box("LabFloorExtended_solid", 25.0*m, 25.0*m , 15.0*m);
   G4VSolid* LabFloorExtended_solid_S=  new G4Box("LabFloorExtended_solid", 20.0*m, 20.0*m , soil_width/2.0);
   //G4SubtractionSolid* Main_2a_S= new G4SubtractionSolid("Main_2a_solid", Main_2_S, hole_2_S, NO_ROT, G4ThreeVector(0.,0., 0.));
