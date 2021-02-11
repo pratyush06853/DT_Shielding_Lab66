@@ -71,7 +71,7 @@ class IronFilterDetectorConstruction : public G4VUserDetectorConstruction
     const G4VPhysicalVolume* GetcollimationholePV() const;
     const G4VPhysicalVolume* GetConcreteSupportPV() const;
     const G4VPhysicalVolume* GetInsulationPV() const;
-    const G4VPhysicalVolume* GetPhantomPV() const;
+    //const G4VPhysicalVolume* GetPhantomPV() const;
     //const G4VPhysicalVolume* GetPhantom2PV() const;
     //const G4VPhysicalVolume* GetPhantom3PV() const;
     //const G4VPhysicalVolume* GetPhantom4PV() const;
@@ -93,6 +93,7 @@ class IronFilterDetectorConstruction : public G4VUserDetectorConstruction
     const G4VPhysicalVolume* GetTestSurfacesolidPV() const;
     const G4VPhysicalVolume* GetmultiplierleadPV() const;
     const G4VPhysicalVolume* GetmoderatoraluminumPV() const;
+    const G4VPhysicalVolume* GetshieldcapironPV() const;
     const G4VPhysicalVolume* GetmoderatortitaniumPV() const;
     const G4VPhysicalVolume* GetinnerBPolyPV() const;
     const G4VPhysicalVolume* GetTestCENTERPOINTPV() const;
@@ -129,7 +130,7 @@ class IronFilterDetectorConstruction : public G4VUserDetectorConstruction
     G4VPhysicalVolume* collimation_hole_PV;
     G4VPhysicalVolume* ConcreteSupport_PV;
     G4VPhysicalVolume* Insulation_PV;
-    G4VPhysicalVolume* Phantom_PV;
+    //G4VPhysicalVolume* Phantom_PV;
     //G4VPhysicalVolume* Phantom2_PV;
     //G4VPhysicalVolume* Phantom3_PV;
     //G4VPhysicalVolume* Phantom4_PV;
@@ -156,6 +157,7 @@ class IronFilterDetectorConstruction : public G4VUserDetectorConstruction
     G4VPhysicalVolume* inner_BPoly_PV;
     G4VPhysicalVolume* Test_CENTERPOINT_PV;
     G4VPhysicalVolume* filter_scandium_PV;
+    G4VPhysicalVolume* shield_cap_iron_PV;
 
 
     //for messenger, these are declared here but values are set in src file
@@ -276,9 +278,9 @@ inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetInsulationPV(
   return Insulation_PV;
 }
 
-inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetPhantomPV() const {
-  return Phantom_PV;
-}
+//inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetPhantomPV() const {
+//  return Phantom_PV;
+//}
 
 //inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetPhantom2PV() const {
 //  return Phantom2_PV;
@@ -312,6 +314,10 @@ inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetTestCENTERPOI
   return Test_CENTERPOINT_PV;
 }
 
+
+inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetshieldcapironPV() const {
+  return shield_cap_iron_PV;
+}
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
