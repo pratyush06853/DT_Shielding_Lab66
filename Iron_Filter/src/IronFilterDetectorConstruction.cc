@@ -526,7 +526,8 @@ G4double Li6F_thickness=1.0*cm;
 
   // Start with a  vacuum layer. This will be the mother volume
 
-  G4VSolid* vacuum_solid =new G4Box("vacuum_solid", 150.0*m, 150.0*m, 150.0*m);
+  //G4VSolid* vacuum_solid =new G4Box("vacuum_solid", 150.0*m, 150.0*m, 150.0*m);
+  G4VSolid* vacuum_solid =new G4Box("vacuum_solid", 15.0*m, 15.0*m, 15.0*m);
   G4LogicalVolume* vacuum_solid_LV = new G4LogicalVolume(vacuum_solid, Vacuum, "vacuum_solid");
   G4VPhysicalVolume* vacuum_solid_PV = new G4PVPlacement(NO_ROT,G4ThreeVector{0.,0.,0.}, vacuum_solid_LV, "Vacuum_solid", 0, false, 0, fCheckOverlaps);
   vacuum_solid_LV->SetVisAttributes(G4VisAttributes::Invisible);
@@ -539,8 +540,8 @@ G4double Li6F_thickness=1.0*cm;
   G4SubtractionSolid* LabFloorWall_solid_S= new G4SubtractionSolid("LabFloorWall_solid", Main_2_S, hole_2_S, NO_ROT, G4ThreeVector(0.,0., 0.));
   //G4SubtractionSolid* Main_2a_S= new G4SubtractionSolid("Main_2a_solid", Main_2_S, hole_2_S, NO_ROT, G4ThreeVector(0.,0., 0.));
   G4LogicalVolume* LabFloorWall_solid_LV = new G4LogicalVolume(LabFloorWall_solid_S, Concrete, "LabFloorWall_solid");
-  LabFloorWall_solid_PV = new G4PVPlacement(turnAlong, G4ThreeVector{lab68_wall_x/2.0,-lab68_wall_y/2.0,lab68_wall_z/2.0}-position_of_origin, LabFloorWall_solid_LV, "LabFloorWall", vacuum_solid_LV, false, 0, fCheckOverlaps);
-  LabFloorWall_solid_LV->SetVisAttributes(G4VisAttributes(G4Colour::Grey()));
+  //LabFloorWall_solid_PV = new G4PVPlacement(turnAlong, G4ThreeVector{lab68_wall_x/2.0,-lab68_wall_y/2.0,lab68_wall_z/2.0}-position_of_origin, LabFloorWall_solid_LV, "LabFloorWall", vacuum_solid_LV, false, 0, fCheckOverlaps);
+  //LabFloorWall_solid_LV->SetVisAttributes(G4VisAttributes(G4Colour::Grey()));
 
 
 
@@ -554,63 +555,63 @@ G4double Li6F_thickness=1.0*cm;
   G4VSolid* frontglassdoor_S = new G4Box("frontglassdoor_solid", lab68_frontdoor_glass_width/2.0, lab68_wall_thickness/2.0, lab68_frontdoor_glass_height/2.0);
   //G4SubtractionSolid* Main_2b_S= new G4SubtractionSolid("Main_2b_solid", Main_2a_S, frontdoor_S, NO_ROT, G4ThreeVector(lab68_frontdoor_x_coordinate ,-lab68_wall_y/2.0, -(lab68_wall_z-2*lab68_wall_thickness-lab68_frontdoor_glass_height)/2.0));
   G4LogicalVolume* frontglassdoor_LV = new G4LogicalVolume(frontglassdoor_S, Quartz, "frontglassdoor");
-  frontglassdoor_PV = new G4PVPlacement(NO_ROT, G4ThreeVector(lab68_frontdoor_x_coordinate ,-(lab68_wall_y-lab68_wall_thickness)/2.0, -(lab68_wall_z-2*lab68_wall_thickness-lab68_frontdoor_glass_height)/2.0), frontglassdoor_LV, "Front Glass Door", LabFloorWall_solid_LV, false, 0, fCheckOverlaps);
-  frontglassdoor_LV->SetVisAttributes(G4VisAttributes(G4Colour::Cyan()));
+  //frontglassdoor_PV = new G4PVPlacement(NO_ROT, G4ThreeVector(lab68_frontdoor_x_coordinate ,-(lab68_wall_y-lab68_wall_thickness)/2.0, -(lab68_wall_z-2*lab68_wall_thickness-lab68_frontdoor_glass_height)/2.0), frontglassdoor_LV, "Front Glass Door", LabFloorWall_solid_LV, false, 0, fCheckOverlaps);
+  //frontglassdoor_LV->SetVisAttributes(G4VisAttributes(G4Colour::Cyan()));
 
 
   G4VSolid* frontdoor_S = new G4Box("frontdoor_solid", lab68_frontdoor_wood_width/2.0, lab68_wall_thickness/2.0, lab68_frontdoor_wood_height/2.0);
   //G4SubtractionSolid* Main_2b_S= new G4SubtractionSolid("Main_2b_solid", Main_2a_S, frontdoor_S, NO_ROT, G4ThreeVector(lab68_frontdoor_x_coordinate ,-lab68_wall_y/2.0, -(lab68_wall_z-2*lab68_wall_thickness-lab68_frontdoor_glass_height)/2.0));
   G4LogicalVolume* frontdoor_LV = new G4LogicalVolume(frontdoor_S, Wood, "frontdoor");
-  frontdoor_PV = new G4PVPlacement(NO_ROT, G4ThreeVector(lab68_frontdoor_glass_width/2.0-lab68_frontdoor_wood_width/2.0 ,0, -lab68_frontdoor_glass_height/2.0+lab68_frontdoor_wood_height/2.0), frontdoor_LV, "Front Wood Door", frontglassdoor_LV, false, 0, fCheckOverlaps);
-  frontdoor_LV->SetVisAttributes(G4VisAttributes(G4Colour::Brown()));
+  //frontdoor_PV = new G4PVPlacement(NO_ROT, G4ThreeVector(lab68_frontdoor_glass_width/2.0-lab68_frontdoor_wood_width/2.0 ,0, -lab68_frontdoor_glass_height/2.0+lab68_frontdoor_wood_height/2.0), frontdoor_LV, "Front Wood Door", frontglassdoor_LV, false, 0, fCheckOverlaps);
+  //frontdoor_LV->SetVisAttributes(G4VisAttributes(G4Colour::Brown()));
 
 
   G4VSolid* glasswindow_S = new G4Box("glasswindow_solid", lab68_glasswindow_width/2.0, lab68_wall_thickness/2.0, lab68_glasswindow_height/2.0);
   //G4SubtractionSolid* Main_2b_S= new G4SubtractionSolid("Main_2b_solid", Main_2a_S, frontdoor_S, NO_ROT, G4ThreeVector(lab68_frontdoor_x_coordinate ,-lab68_wall_y/2.0, -(lab68_wall_z-2*lab68_wall_thickness-lab68_frontdoor_glass_height)/2.0));
   G4LogicalVolume* glasswindow_LV = new G4LogicalVolume(glasswindow_S, Quartz, "glasswindow");
-  glasswindow_PV = new G4PVPlacement(NO_ROT, G4ThreeVector(lab68_frontdoor_wood_width/2.0-0.16*m-lab68_glasswindow_width/2.0, 0, -lab68_frontdoor_wood_height/2.0+1.11*m+lab68_glasswindow_height/2.0), glasswindow_LV, "Front Glass Window", frontdoor_LV, false, 0, fCheckOverlaps);
-  glasswindow_LV->SetVisAttributes(G4VisAttributes(G4Colour::Cyan()));
+  //glasswindow_PV = new G4PVPlacement(NO_ROT, G4ThreeVector(lab68_frontdoor_wood_width/2.0-0.16*m-lab68_glasswindow_width/2.0, 0, -lab68_frontdoor_wood_height/2.0+1.11*m+lab68_glasswindow_height/2.0), glasswindow_LV, "Front Glass Window", frontdoor_LV, false, 0, fCheckOverlaps);
+  //glasswindow_LV->SetVisAttributes(G4VisAttributes(G4Colour::Cyan()));
 
 
   G4VSolid* reardoor_S = new G4Box("reardoor_solid", lab68_reardoor_width/2.0, lab68_wall_thickness/2.0, lab68_reardoor_height/2.0);
   //G4SubtractionSolid* LabFloorWall_solid_S= new G4SubtractionSolid("LabFloorWall_solid", Main_2b_S, reardoor_S, NO_ROT, G4ThreeVector(lab68_reardoor_x_coordinate ,lab68_wall_y/2.0, -(lab68_wall_z-2*lab68_wall_thickness-lab68_reardoor_height)/2.0));
   G4LogicalVolume* reardoor_LV = new G4LogicalVolume(reardoor_S, Wood, "reardoor");
-  reardoor_PV = new G4PVPlacement(NO_ROT, G4ThreeVector(lab68_reardoor_x_coordinate ,(lab68_wall_y-lab68_wall_thickness)/2.0, -(lab68_wall_z-2*lab68_wall_thickness-lab68_reardoor_height)/2.0), reardoor_LV, "Rear Wooden Door", LabFloorWall_solid_LV, false, 0, fCheckOverlaps);
-  reardoor_LV->SetVisAttributes(G4VisAttributes(G4Colour::Brown()));
+  //reardoor_PV = new G4PVPlacement(NO_ROT, G4ThreeVector(lab68_reardoor_x_coordinate ,(lab68_wall_y-lab68_wall_thickness)/2.0, -(lab68_wall_z-2*lab68_wall_thickness-lab68_reardoor_height)/2.0), reardoor_LV, "Rear Wooden Door", LabFloorWall_solid_LV, false, 0, fCheckOverlaps);
+  //reardoor_LV->SetVisAttributes(G4VisAttributes(G4Colour::Brown()));
 
   //Lab_69 include ceiling
   G4ThreeVector position_lab66 = G4ThreeVector{-lab68_wall_x/2.0,-lab68_wall_y/2.0,lab68_wall_z/2.0}-position_of_origin
                                   +G4ThreeVector{0.0,TMath::Sin(TMath::DegToRad() * 10)*lab68_wall_x,0.0};
-  lab70FloorWall_solid_PV = new G4PVPlacement(turnAlong, position_lab66, LabFloorWall_solid_LV, "lab66FloorWall", vacuum_solid_LV, false, 0, fCheckOverlaps);
+  //lab70FloorWall_solid_PV = new G4PVPlacement(turnAlong, position_lab66, LabFloorWall_solid_LV, "lab66FloorWall", vacuum_solid_LV, false, 0, fCheckOverlaps);
 
   //Pump_chase_y
   //Lab_67 include ceiling
   G4ThreeVector position_lab70 = G4ThreeVector{3*lab68_wall_x/2.0,-lab68_wall_y/2.0,lab68_wall_z/2.0}-position_of_origin
                                   +G4ThreeVector{0.0,-TMath::Sin(TMath::DegToRad() * 10)*lab68_wall_x,0.0};
-  lab70FloorWall_solid_PV = new G4PVPlacement(turnAlong, position_lab70, LabFloorWall_solid_LV, "lab70FloorWall", vacuum_solid_LV, false, 0, fCheckOverlaps);
+  //lab70FloorWall_solid_PV = new G4PVPlacement(turnAlong, position_lab70, LabFloorWall_solid_LV, "lab70FloorWall", vacuum_solid_LV, false, 0, fCheckOverlaps);
 
 
   //Lab_30 include ceiling
   G4ThreeVector position_lab30 = G4ThreeVector{lab68_wall_x/2.0,lab68_wall_y/2.0+Pump_chase_y,lab68_wall_z/2.0}-position_of_origin
                                   +G4ThreeVector{TMath::Sin(TMath::DegToRad() * 10)*(lab68_wall_y+Pump_chase_y),0.0,0.0};
-  lab30FloorWall_solid_PV = new G4PVPlacement(turnAlong190, position_lab30, LabFloorWall_solid_LV, "lab30FloorWall", vacuum_solid_LV, false, 0, fCheckOverlaps);
+  //lab30FloorWall_solid_PV = new G4PVPlacement(turnAlong190, position_lab30, LabFloorWall_solid_LV, "lab30FloorWall", vacuum_solid_LV, false, 0, fCheckOverlaps);
 
   //Lab_30 include ceiling
   G4ThreeVector position_lab28 = G4ThreeVector{3*lab68_wall_x/2.0,lab68_wall_y/2.0+Pump_chase_y,lab68_wall_z/2.0}-position_of_origin
                                   +G4ThreeVector{TMath::Sin(TMath::DegToRad() * 10)*(lab68_wall_y+Pump_chase_y),-TMath::Sin(TMath::DegToRad() * 10)*lab68_wall_x,0.0};
-  lab28FloorWall_solid_PV = new G4PVPlacement(turnAlong190, position_lab28, LabFloorWall_solid_LV, "lab28FloorWall", vacuum_solid_LV, false, 0, fCheckOverlaps);
+  //lab28FloorWall_solid_PV = new G4PVPlacement(turnAlong190, position_lab28, LabFloorWall_solid_LV, "lab28FloorWall", vacuum_solid_LV, false, 0, fCheckOverlaps);
 
   //Lab_32 include ceiling
   G4ThreeVector position_lab32 = G4ThreeVector{-lab68_wall_x/2.0,lab68_wall_y/2.0+Pump_chase_y,lab68_wall_z/2.0}-position_of_origin
                                   +G4ThreeVector{TMath::Sin(TMath::DegToRad() * 10)*(lab68_wall_y+Pump_chase_y),TMath::Sin(TMath::DegToRad() * 10)*lab68_wall_x,0.0};
-  Lab32FloorWall_solid_PV = new G4PVPlacement(turnAlong190, position_lab32, LabFloorWall_solid_LV, "Lab32FloorWall", vacuum_solid_LV, false, 0, fCheckOverlaps);
+  //Lab32FloorWall_solid_PV = new G4PVPlacement(turnAlong190, position_lab32, LabFloorWall_solid_LV, "Lab32FloorWall", vacuum_solid_LV, false, 0, fCheckOverlaps);
 
 
 
-  //G4LogicalVolume* LabFloorWall_solid_LV = new G4LogicalVolume(LabFloorWall_solid_S, Concrete, "LabFloorWall_solid");
-  LabFloorWall_solid_PV = new G4PVPlacement(turnAlong, G4ThreeVector{lab68_wall_x/2.0,-lab68_wall_y/2.0,lab68_wall_z/2.0}-position_of_origin, LabFloorWall_solid_LV, "OutSpacer", vacuum_solid_LV, false, 0, fCheckOverlaps);
-  LabFloorWall_solid_LV->SetVisAttributes(G4VisAttributes(G4Colour::Grey()));
-  //LabFloorWall_solid_LV->SetVisAttributes(G4VisAttributes::Invisible);
+  ////G4LogicalVolume* LabFloorWall_solid_LV = new G4LogicalVolume(LabFloorWall_solid_S, Concrete, "LabFloorWall_solid");
+  //LabFloorWall_solid_PV = new G4PVPlacement(turnAlong, G4ThreeVector{lab68_wall_x/2.0,-lab68_wall_y/2.0,lab68_wall_z/2.0}-position_of_origin, LabFloorWall_solid_LV, "OutSpacer", vacuum_solid_LV, false, 0, fCheckOverlaps);
+  //LabFloorWall_solid_LV->SetVisAttributes(G4VisAttributes(G4Colour::Grey()));
+  ////LabFloorWall_solid_LV->SetVisAttributes(G4VisAttributes::Invisible);
 
 
 
@@ -707,11 +708,12 @@ G4double Li6F_thickness=1.0*cm;
   shield_cap_iron_PV = new G4PVPlacement( turnAlongX, G4ThreeVector(0., fFilterCellSpacing-colimator_length-(Li6F_thickness/2.0), 0),shield_cap_iron_LV, "LiF_layer", vacuum_solid_LV, false, 0, fCheckOverlaps );
   shield_cap_iron_LV->SetVisAttributes(G4VisAttributes(G4Colour::Red()));
 
-
   //At the center
-  G4VSolid* Test_CENTERPOINT_S = new G4Box("Test_CENTERPOINT_solid", Water_x/2.0, delta/2.0, Water_z/2.0);
+  //G4VSolid* Test_CENTERPOINT_S = new G4Box("Test_CENTERPOINT_solid", Water_x/2.0, delta/2.0, Water_z/2.0);
+  G4VSolid* Test_CENTERPOINT_S = new G4Tubs("Test_CENTERPOINT_solid", zeroRadius, fMultiplierLeadRadius, delta/2.0, startAngle, spanningAngle);
   G4LogicalVolume *Test_CENTERPOINT_LV = new G4LogicalVolume(Test_CENTERPOINT_S, Vacuum,"Test_CENTERPOINT" );
-  Test_CENTERPOINT_PV = new G4PVPlacement(turnAlongZ, G4ThreeVector(0., 0., 0.), Test_CENTERPOINT_LV, "Test_CENTERPOINT", vacuum_solid_LV, false, 0, fCheckOverlaps);
+  //Test_CENTERPOINT_PV = new G4PVPlacement(turnAlongZ, G4ThreeVector(0., 0., 0.), Test_CENTERPOINT_LV, "Test_CENTERPOINT", vacuum_solid_LV, false, 0, fCheckOverlaps);
+  Test_CENTERPOINT_PV = new G4PVPlacement(turnAlongX, G4ThreeVector(0., 0., 0.), Test_CENTERPOINT_LV, "Test_CENTERPOINT", vacuum_solid_LV, false, 0, fCheckOverlaps);
   Test_CENTERPOINT_LV->SetVisAttributes(G4VisAttributes(G4Colour::Yellow()));
 
   //G4ThreeVector Origin_DT=G4ThreeVector(0., fFilterCellSpacing+NeutronFilter_length/2.0, 0.)
@@ -771,10 +773,10 @@ G4double Li6F_thickness=1.0*cm;
   G4VSolid* LabFloorExtended_solid_S=  new G4Box("LabFloorExtended_solid", 20.0*m, 20.0*m , soil_width/2.0);
   //G4SubtractionSolid* Main_2a_S= new G4SubtractionSolid("Main_2a_solid", Main_2_S, hole_2_S, NO_ROT, G4ThreeVector(0.,0., 0.));
   G4LogicalVolume* LabFloorExtended_solid_LV = new G4LogicalVolume(LabFloorExtended_solid_S, Soil, "LabFloorExtended_solid");
-  //G4LogicalVolume* LabFloorExtended_solid_LV = new G4LogicalVolume(LabFloorExtended_solid_S, Vacuum, "LabFloorExtended_solid");
-  LabFloorExtended_solid_PV = new G4PVPlacement(turnAlong, G4ThreeVector{lab68_wall_x/2.0,-lab68_wall_y/2.0,lab68_wall_z/2.0}-position_of_origin-G4ThreeVector(0., 0., lab68_wall_z/2.0+soil_width/2.0), LabFloorExtended_solid_LV, "LabFloor_extended", vacuum_solid_LV, false, 0, fCheckOverlaps);
-  LabFloorExtended_solid_LV->SetVisAttributes(G4VisAttributes(G4Colour::Brown()));
-  //LabFloorExtended_solid_LV->SetVisAttributes(G4VisAttributes::Invisible);
+  ////G4LogicalVolume* LabFloorExtended_solid_LV = new G4LogicalVolume(LabFloorExtended_solid_S, Vacuum, "LabFloorExtended_solid");
+  //LabFloorExtended_solid_PV = new G4PVPlacement(turnAlong, G4ThreeVector{lab68_wall_x/2.0,-lab68_wall_y/2.0,lab68_wall_z/2.0}-position_of_origin-G4ThreeVector(0., 0., lab68_wall_z/2.0+soil_width/2.0), LabFloorExtended_solid_LV, "LabFloor_extended", vacuum_solid_LV, false, 0, fCheckOverlaps);
+  //LabFloorExtended_solid_LV->SetVisAttributes(G4VisAttributes(G4Colour::Brown()));
+  ////LabFloorExtended_solid_LV->SetVisAttributes(G4VisAttributes::Invisible);
 
 
   //G4VSolid* Boundary_S=  new G4Box("Boundary", 0.3*m, 5.0*m , 5.0*m);
