@@ -95,6 +95,7 @@ class IronFilterDetectorConstruction : public G4VUserDetectorConstruction
     const G4VPhysicalVolume* GetmoderatoraluminumPV() const;
     const G4VPhysicalVolume* GetshieldcapironPV() const;
     const G4VPhysicalVolume* GetmoderatortitaniumPV() const;
+    const G4VPhysicalVolume* GetLeadaroundTiAndFPV() const;
     const G4VPhysicalVolume* GetinnerBPolyPV() const;
     const G4VPhysicalVolume* GetTestCENTERPOINTPV() const;
     const G4VPhysicalVolume* GetfilterscandiumPV() const; //Test_LEFTSIDE
@@ -153,6 +154,7 @@ class IronFilterDetectorConstruction : public G4VUserDetectorConstruction
     G4VPhysicalVolume* multiplier_lead_PV;
     G4VPhysicalVolume* moderator_aluminum_PV;
     G4VPhysicalVolume* moderator_titanium_PV;
+    G4VPhysicalVolume* Lead_around_TiAndF_PV;
     //G4VPhysicalVolume* LiF_solid_PV;
     G4VPhysicalVolume* inner_BPoly_PV;
     G4VPhysicalVolume* Test_CENTERPOINT_PV;
@@ -260,6 +262,10 @@ inline const G4VPhysicalVolume* IronFilterDetectorConstruction::Getmoderatoralum
 
 inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetmoderatortitaniumPV() const {
   return moderator_titanium_PV;
+}
+
+inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetLeadaroundTiAndFPV() const {
+  return Lead_around_TiAndF_PV;
 }
 
 inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetfilterscandiumPV() const {
