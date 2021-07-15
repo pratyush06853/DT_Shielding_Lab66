@@ -460,7 +460,8 @@ G4double ConcreteSupport_height = 80.0*cm;
 
 
 G4double Poly_a = 40.0*cm;
-G4double hole_length = NeutronFilter_length-(fMultiplierLeadHeightRear+fMultiplierLeadHeightFront)-fModeratorAluminumHeight-fModeratorTitaniumHeight-Scandium_height_limited;
+G4double hole_length = NeutronFilter_length-(fMultiplierLeadHeightRear+fMultiplierLeadHeightFront)-fModeratorAluminumHeight-fModeratorTitaniumHeight;
+//G4double hole_length = NeutronFilter_length-(fMultiplierLeadHeightRear+fMultiplierLeadHeightFront)-fModeratorAluminumHeight-fModeratorTitaniumHeight;
 G4double colimator_length=26.0*cm;
 
 G4double lab68_wall_thickness = 25.0*cm ;
@@ -659,11 +660,11 @@ G4double Li6F_thickness=1.0*cm;
 
 
   // inner Shield made of of Borated Poly
-  //G4VSolid* Main_1_S = new G4Box("Main_1_solid", Poly_a/2.0 , Poly_a/2.0, NeutronFilter_length/2.0);
-  //G4VSolid* hole_1_S = new G4Tubs("hole_1_solid", 0 , Scandium_diameter_limited/2.0, hole_length/2.0,startAngle, spanningAngle);
-  //G4SubtractionSolid* inner_BPoly_S= new G4SubtractionSolid("inner_BPoly_solid", Main_1_S, hole_1_S, NO_ROT, G4ThreeVector(0., 0, -NeutronFilter_length/2.0+hole_length/2.0));
+  G4VSolid* MainShield_1_S = new G4Tubs("MainShield_1_solid", zeroRadius,fMultiplierLeadRadius, NeutronFilter_length/2.0, startAngle, spanningAngle);
+  G4VSolid* holeShield_1_S = new G4Tubs("holeShield_1_solid", 0 , Scandium_diameter_limited/2.0, hole_length/2.0,startAngle, spanningAngle);
+  G4SubtractionSolid* inner_BPoly_S= new G4SubtractionSolid("inner_BPoly_solid", MainShield_1_S, holeShield_1_S, NO_ROT, G4ThreeVector(0., 0, -NeutronFilter_length/2.0+hole_length/2.0));
   //G4VSolid* inner_BPoly_S= new G4Box("Main_1_solid", Poly_a/2.0 , Poly_a/2.0, NeutronFilter_length/2.0);
-  G4VSolid* inner_BPoly_S= new G4Tubs("Main_1_solid", zeroRadius,fMultiplierLeadRadius, NeutronFilter_length/2.0, startAngle, spanningAngle);
+  //G4VSolid* inner_BPoly_S= new G4Tubs("Main_1_solid", zeroRadius,fMultiplierLeadRadius, NeutronFilter_length/2.0, startAngle, spanningAngle);
   G4LogicalVolume *inner_BPoly_LV = new G4LogicalVolume(inner_BPoly_S, BoratedPoly,"inner_BPoly" );
   inner_BPoly_PV = new G4PVPlacement( turnAlongX, G4ThreeVector(0., fFilterCellSpacing+NeutronFilter_length/2.0, 0.), inner_BPoly_LV, "inner_BPoly", vacuum_solid_LV, false, 0, fCheckOverlaps);
   inner_BPoly_LV->SetVisAttributes(G4VisAttributes(G4Colour::Yellow()));
@@ -697,7 +698,8 @@ G4double Li6F_thickness=1.0*cm;
   //Scandium as a the final filter
   G4VSolid* filter_scandium_S = new G4Tubs("filter_scandium", zeroRadius,  Scandium_diameter_limited/2.0,(Scandium_height_limited/2.0), startAngle, spanningAngle);
   G4LogicalVolume *filter_scandium_LV = new G4LogicalVolume(filter_scandium_S, Scandium,"filter_scandium" );
-  filter_scandium_PV = new G4PVPlacement( NO_ROT, G4ThreeVector(0,0,NeutronFilter_length/2.0-(fMultiplierLeadHeightRear+fMultiplierLeadHeightFront)-fModeratorAluminumHeight-fModeratorTitaniumHeight-Scandium_height_limited/2.0), filter_scandium_LV, "Filter_scandium",inner_BPoly_LV,false, 0, fCheckOverlaps);
+  //filter_scandium_PV = new G4PVPlacement( NO_ROT, G4ThreeVector(0,0,NeutronFilter_length/2.0-(fMultiplierLeadHeightRear+fMultiplierLeadHeightFront)-fModeratorAluminumHeight-fModeratorTitaniumHeight-Scandium_height_limited/2.0), filter_scandium_LV, "Filter_scandium",inner_BPoly_LV,false, 0, fCheckOverlaps);
+  filter_scandium_PV = new G4PVPlacement( turnAlongX, G4ThreeVector(0., fFilterCellSpacing-colimator_length+Scandium_height_limited/2.0, 0), filter_scandium_LV, "Filter_scandium",vacuum_solid_LV,false, 0, fCheckOverlaps);
   filter_scandium_LV->SetVisAttributes(G4VisAttributes(G4Colour::Red()));
 
 
