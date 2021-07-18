@@ -86,6 +86,7 @@ IronFilterDetectorConstruction::IronFilterDetectorConstruction()
    moderator_aluminum_PV(0),
    moderator_titanium_PV(0),
    filter_scandium_PV(0),
+   filter_scandium_2_PV(0),
    collimation_hole_PV(0),
    ConcreteSupport_PV(0),
    shield_cap_iron_PV(0),
@@ -624,8 +625,8 @@ G4double Li6F_thickness=1.0*cm;
   G4SubtractionSolid* TestSurface_solid_S= new G4SubtractionSolid("TestSurface_solid", Main_3_S, hole_3_S, NO_ROT, G4ThreeVector(0.,0., 0.));
   G4LogicalVolume* TestSurface_solid_LV = new G4LogicalVolume(TestSurface_solid_S, Vacuum, "TestSurface_solid");
   TestSurface_solid_PV = new G4PVPlacement(turnAlongZ, G4ThreeVector(0., (fFilterCellSpacing-colimator_length)+(colimator_length+Water_y+20.0*cm)/2.0, 0), TestSurface_solid_LV, "TestSurface", vacuum_solid_LV, false, 0, fCheckOverlaps);
-  TestSurface_solid_LV->SetVisAttributes(G4VisAttributes(G4Colour::Grey()));
-  //TestSurface_solid_LV->SetVisAttributes(G4VisAttributes::Invisible);
+  //TestSurface_solid_LV->SetVisAttributes(G4VisAttributes(G4Colour::Grey()));
+  TestSurface_solid_LV->SetVisAttributes(G4VisAttributes::Invisible);
 
 
 
@@ -639,10 +640,10 @@ G4double Li6F_thickness=1.0*cm;
   //G4VSolid* hole_S = new G4Box("hole_solid", Poly_a/2.0 , Poly_a/2.0, NeutronFilter_length/2.0);
   G4VSolid* hole_S = new G4Tubs("hole_solid", zeroRadius,fMultiplierLeadRadius, NeutronFilter_length/2.0, startAngle, spanningAngle);
   //G4VSolid* hole_S = new G4Box("hole_solid", Poly_a/2.0 , Poly_a/2.0, NeutronFilter_length/2.0);
-  //G4SubtractionSolid* boratedwater_S= new G4SubtractionSolid("boratedwater", Main_S, hole_S, turnAlongX, G4ThreeVector(0., -Water_cylindercal_can_radius/2.0+NeutronFilter_length/2.0, -(Water_cylindercal_can_height)/2.0 + DT_Ti_T_location + Insulation_Thickness));
-  G4SubtractionSolid* SecondMain_S= new G4SubtractionSolid("Second", Main_S, hole_S, turnAlongX, G4ThreeVector(0., -Water_cylindercal_can_radius/2.0+NeutronFilter_length/2.0, -(Water_cylindercal_can_height)/2.0 + DT_Ti_T_location + Insulation_Thickness));
-  G4VSolid* Secondhole_S = new G4Tubs("Secondhole_solid", zeroRadius, (2*Insulation_Thickness+34*mm)/2.0, (Water_cylindercal_can_height)/2.0, startAngle, spanningAngle);
-  G4SubtractionSolid* boratedwater_S= new G4SubtractionSolid("boratedwater", SecondMain_S, Secondhole_S, NO_ROT, G4ThreeVector(0., -Water_cylindercal_can_radius/2.0+NeutronFilter_length+(2*Insulation_Thickness+34*mm)/2.0,0.0));
+  G4SubtractionSolid* boratedwater_S= new G4SubtractionSolid("boratedwater", Main_S, hole_S, turnAlongX, G4ThreeVector(0., -Water_cylindercal_can_radius/2.0+NeutronFilter_length/2.0, -(Water_cylindercal_can_height)/2.0 + DT_Ti_T_location + Insulation_Thickness));
+  //G4SubtractionSolid* SecondMain_S= new G4SubtractionSolid("Second", Main_S, hole_S, turnAlongX, G4ThreeVector(0., -Water_cylindercal_can_radius/2.0+NeutronFilter_length/2.0, -(Water_cylindercal_can_height)/2.0 + DT_Ti_T_location + Insulation_Thickness));
+  //G4VSolid* Secondhole_S = new G4Tubs("Secondhole_solid", zeroRadius, (2*Insulation_Thickness+34*mm)/2.0, (Water_cylindercal_can_height)/2.0, startAngle, spanningAngle);
+  //G4SubtractionSolid* boratedwater_S= new G4SubtractionSolid("boratedwater", SecondMain_S, Secondhole_S, NO_ROT, G4ThreeVector(0., -Water_cylindercal_can_radius/2.0+NeutronFilter_length+(2*Insulation_Thickness+34*mm)/2.0,0.0));
 
   //G4LogicalVolume* boratedwater_LV = new G4LogicalVolume(boratedwater_S, Vacuum, "boratedwater");
   G4LogicalVolume* boratedwater_LV = new G4LogicalVolume(boratedwater_S, BoraxBoricAcidBuffer, "boratedwater");
@@ -661,7 +662,7 @@ G4double Li6F_thickness=1.0*cm;
 
   // inner Shield made of of Borated Poly
   G4VSolid* MainShield_1_S = new G4Tubs("MainShield_1_solid", zeroRadius,fMultiplierLeadRadius, NeutronFilter_length/2.0, startAngle, spanningAngle);
-  G4VSolid* holeShield_1_S = new G4Tubs("holeShield_1_solid", 0 , Scandium_diameter_limited/2.0, hole_length/2.0,startAngle, spanningAngle);
+  G4VSolid* holeShield_1_S = new G4Tubs("holeShield_1_solid", 0 , 3*Scandium_diameter_limited/2.0, hole_length/2.0,startAngle, spanningAngle);
   G4SubtractionSolid* inner_BPoly_S= new G4SubtractionSolid("inner_BPoly_solid", MainShield_1_S, holeShield_1_S, NO_ROT, G4ThreeVector(0., 0, -NeutronFilter_length/2.0+hole_length/2.0));
   //G4VSolid* inner_BPoly_S= new G4Box("Main_1_solid", Poly_a/2.0 , Poly_a/2.0, NeutronFilter_length/2.0);
   //G4VSolid* inner_BPoly_S= new G4Tubs("Main_1_solid", zeroRadius,fMultiplierLeadRadius, NeutronFilter_length/2.0, startAngle, spanningAngle);
@@ -696,10 +697,11 @@ G4double Li6F_thickness=1.0*cm;
   Lead_around_TiAndF_LV->SetVisAttributes(G4VisAttributes(G4Colour::Blue()));
 
   //Scandium as a the final filter
-  G4VSolid* filter_scandium_S = new G4Tubs("filter_scandium", zeroRadius,  Scandium_diameter_limited/2.0,(Scandium_height_limited/2.0), startAngle, spanningAngle);
+  G4VSolid* filter_scandium_S = new G4Tubs("filter_scandium", zeroRadius,  Scandium_diameter_limited/2.0,(Scandium_height_limited/4.0), startAngle, spanningAngle);
   G4LogicalVolume *filter_scandium_LV = new G4LogicalVolume(filter_scandium_S, Scandium,"filter_scandium" );
   //filter_scandium_PV = new G4PVPlacement( NO_ROT, G4ThreeVector(0,0,NeutronFilter_length/2.0-(fMultiplierLeadHeightRear+fMultiplierLeadHeightFront)-fModeratorAluminumHeight-fModeratorTitaniumHeight-Scandium_height_limited/2.0), filter_scandium_LV, "Filter_scandium",inner_BPoly_LV,false, 0, fCheckOverlaps);
-  filter_scandium_PV = new G4PVPlacement( turnAlongX, G4ThreeVector(0., fFilterCellSpacing-colimator_length+Scandium_height_limited/2.0, 0), filter_scandium_LV, "Filter_scandium",vacuum_solid_LV,false, 0, fCheckOverlaps);
+  filter_scandium_PV = new G4PVPlacement( turnAlongX, G4ThreeVector(0, fFilterCellSpacing-colimator_length+Scandium_height_limited/4.0, Scandium_diameter_limited/2.0), filter_scandium_LV, "Filter_scandium",vacuum_solid_LV,false, 0, fCheckOverlaps);
+  filter_scandium_2_PV = new G4PVPlacement( turnAlongX, G4ThreeVector(0, fFilterCellSpacing-colimator_length+Scandium_height_limited/4.0, -Scandium_diameter_limited/2.0), filter_scandium_LV, "Filter_scandium_2",vacuum_solid_LV,false, 0, fCheckOverlaps);
   filter_scandium_LV->SetVisAttributes(G4VisAttributes(G4Colour::Red()));
 
 
@@ -707,8 +709,9 @@ G4double Li6F_thickness=1.0*cm;
   //G4VSolid* Main_1_S = new G4Box("Main_1_solid", Poly_a/2.0 , Poly_a/2.0, colimator_length/2.0);
   G4VSolid* Main_1_S = new G4Tubs("Main_1_solid", zeroRadius,fMultiplierLeadRadius, colimator_length/2.0, startAngle, spanningAngle);
   G4VSolid* hole_1_S = new G4Tubs("hole_1_solid", 0 , Scandium_diameter_limited/2.0, colimator_length/2.0,startAngle, spanningAngle);
-  //G4SubtractionSolid* inner_BPoly_S= new G4SubtractionSolid("inner_BPoly_solid", Main_1_S, hole_1_S, NO_ROT, G4ThreeVector(0., 0, -NeutronFilter_length/2.0+hole_length/2.0));
-  G4SubtractionSolid* collimation_hole_S= new G4SubtractionSolid("inner_BPoly_solid", Main_1_S, hole_1_S, NO_ROT, G4ThreeVector(0., 0, 0));
+  G4SubtractionSolid* Main_12_S= new G4SubtractionSolid("Main_12_solid", Main_1_S, hole_1_S, NO_ROT, G4ThreeVector(0, -Scandium_diameter_limited/2.0, 0));
+  G4SubtractionSolid* collimation_hole_S= new G4SubtractionSolid("collimation_hole_solid", Main_12_S, hole_1_S, NO_ROT, G4ThreeVector(0, Scandium_diameter_limited/2.0, 0));
+  //G4SubtractionSolid* collimation_hole_S= new G4SubtractionSolid("inner_BPoly_solid", Main_1_S, hole_1_S, NO_ROT, G4ThreeVector(0., 0, 0));
   //G4VSolid* collimation_hole_S = new G4Tubs("collimation_hole", zeroRadius, Scandium_diameter_limited/2.0, hole_length/2.0, startAngle, spanningAngle);
   G4LogicalVolume* collimation_hole_LV = new G4LogicalVolume(collimation_hole_S, BoratedPoly, "collimation_hole");
   collimation_hole_PV = new G4PVPlacement(turnAlongX, G4ThreeVector(0., fFilterCellSpacing-colimator_length/2.0, 0), collimation_hole_LV, "collimation_hole", vacuum_solid_LV, false, 0, fCheckOverlaps);
@@ -806,7 +809,8 @@ G4double Li6F_thickness=1.0*cm;
   G4LogicalVolume* ConcreteSupport_LV = new G4LogicalVolume(ConcreteSupport_S, BoraxBoricAcidBuffer, "ConcreteSupport");
   //G4LogicalVolume* ConcreteSupport_LV = new G4LogicalVolume(ConcreteSupport_S, Vacuum, "ConcreteSupport");
   ConcreteSupport_PV = new G4PVPlacement(NO_ROT, G4ThreeVector(0., fFilterCellSpacing+Water_cylindercal_can_radius/2.0, -(DT_Ti_T_location+Insulation_Thickness)-ConcreteSupport_height/2.0), ConcreteSupport_LV, "ConcreteSupport", vacuum_solid_LV, false, 0, fCheckOverlaps);
-  ConcreteSupport_LV->SetVisAttributes(G4VisAttributes(G4Colour::Grey()));
+  //ConcreteSupport_LV->SetVisAttributes(G4VisAttributes(G4Colour::Grey()));
+  ConcreteSupport_LV->SetVisAttributes(G4VisAttributes(G4Colour::Cyan()));
 
 
   //Insulation but this is actually a surface to see the neutrons coming out of the concrete and borated water

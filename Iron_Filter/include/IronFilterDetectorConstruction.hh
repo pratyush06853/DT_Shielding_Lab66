@@ -99,6 +99,7 @@ class IronFilterDetectorConstruction : public G4VUserDetectorConstruction
     const G4VPhysicalVolume* GetinnerBPolyPV() const;
     const G4VPhysicalVolume* GetTestCENTERPOINTPV() const;
     const G4VPhysicalVolume* GetfilterscandiumPV() const; //Test_LEFTSIDE
+    const G4VPhysicalVolume* Getfilterscandium2PV() const;
     //const G4VPhysicalVolume* GetLiFsolidPV() const;
 
     //for Messenger
@@ -159,6 +160,7 @@ class IronFilterDetectorConstruction : public G4VUserDetectorConstruction
     G4VPhysicalVolume* inner_BPoly_PV;
     G4VPhysicalVolume* Test_CENTERPOINT_PV;
     G4VPhysicalVolume* filter_scandium_PV;
+    G4VPhysicalVolume* filter_scandium_2_PV;
     G4VPhysicalVolume* shield_cap_iron_PV;
 
 
@@ -270,6 +272,10 @@ inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetLeadaroundTiA
 
 inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetfilterscandiumPV() const {
   return filter_scandium_PV;
+}
+
+inline const G4VPhysicalVolume* IronFilterDetectorConstruction::Getfilterscandium2PV() const {
+  return filter_scandium_2_PV;
 }
 
 inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetcollimationholePV() const {
