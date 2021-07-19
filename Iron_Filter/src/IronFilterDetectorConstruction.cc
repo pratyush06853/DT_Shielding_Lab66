@@ -392,6 +392,20 @@ void IronFilterDetectorConstruction::DefineMaterials()
   concrete->AddElement(elFe,0.014);
 
 
+  //borated concrete
+  G4Material* borated_concrete = new G4Material("borated_concrete",density= 2.32*g/cm3,nComponents=10);
+  borated_concrete->AddElement(elH,0.96*perCent);
+  borated_concrete->AddElement(elC,5.36*perCent);
+  borated_concrete->AddElement(elO,51.3*perCent);
+  borated_concrete->AddElement(NatB,2.9*perCent);
+  borated_concrete->AddElement(elMg,0.42*perCent);
+  borated_concrete->AddElement(elAl,0.79*perCent);
+  borated_concrete->AddElement(elSi,15.7*perCent);
+  borated_concrete->AddElement(elS,0.42*perCent);
+  borated_concrete->AddElement(elCa,23*perCent);
+  borated_concrete->AddElement(elFe,0.50*perCent);
+
+
   // Print materials
   G4cout << *(G4Material::GetMaterialTable()) << G4endl;
 }
@@ -418,6 +432,7 @@ G4VPhysicalVolume* IronFilterDetectorConstruction::DefineVolumes()
   G4Material* Iron54 = G4Material::GetMaterial("Fe54");
   G4Material*  Soft_Tissue=G4Material::GetMaterial("soft_tissue");
   G4Material*  Concrete = G4Material::GetMaterial("concrete");
+  G4Material*  Borated_Concrete = G4Material::GetMaterial("borated_concrete");
   G4Material*  Wood = G4Material::GetMaterial("wood");
   G4Material*  Quartz = G4Material::GetMaterial("quartz");
   G4Material*  Soil = G4Material::GetMaterial("soil");
@@ -722,8 +737,8 @@ G4double Li6F_thickness=1.0*cm;
   //G4VSolid* shield_cap_iron_S = new G4Box("Shield_cap_iron", Poly_a/2.0 , Poly_a/2.0,(Li6F_thickness/2.0));
   G4VSolid* shield_cap_iron_S = new G4Tubs("Shield_cap_iron", zeroRadius,fMultiplierLeadRadius,(Li6F_thickness/2.0), startAngle, spanningAngle);
   G4LogicalVolume *shield_cap_iron_LV = new G4LogicalVolume(shield_cap_iron_S, Lithium6_Fluoride,"shield_cap_iron_S" );
-  shield_cap_iron_PV = new G4PVPlacement( turnAlongX, G4ThreeVector(0., fFilterCellSpacing-colimator_length-(Li6F_thickness/2.0), 0),shield_cap_iron_LV, "LiF_layer", vacuum_solid_LV, false, 0, fCheckOverlaps );
-  shield_cap_iron_LV->SetVisAttributes(G4VisAttributes(G4Colour::Red()));
+  //shield_cap_iron_PV = new G4PVPlacement( turnAlongX, G4ThreeVector(0., fFilterCellSpacing-colimator_length-(Li6F_thickness/2.0), 0),shield_cap_iron_LV, "LiF_layer", vacuum_solid_LV, false, 0, fCheckOverlaps );
+  //shield_cap_iron_LV->SetVisAttributes(G4VisAttributes(G4Colour::Red()));
 
   //At the center
   //G4VSolid* Test_CENTERPOINT_S = new G4Box("Test_CENTERPOINT_solid", Water_x/2.0, delta/2.0, Water_z/2.0);
@@ -806,8 +821,8 @@ G4double Li6F_thickness=1.0*cm;
 
   G4VSolid* ConcreteSupport_S = new G4Box("ConcreteSupport", Water_cylindercal_can_radius/2.0 , Water_cylindercal_can_radius/2.0 , (ConcreteSupport_height)/2.0);
   //G4LogicalVolume* ConcreteSupport_LV = new G4LogicalVolume(ConcreteSupport_S, Concrete, "ConcreteSupport");
-  G4LogicalVolume* ConcreteSupport_LV = new G4LogicalVolume(ConcreteSupport_S, BoraxBoricAcidBuffer, "ConcreteSupport");
-  //G4LogicalVolume* ConcreteSupport_LV = new G4LogicalVolume(ConcreteSupport_S, Vacuum, "ConcreteSupport");
+  //G4LogicalVolume* ConcreteSupport_LV = new G4LogicalVolume(ConcreteSupport_S, BoraxBoricAcidBuffer, "ConcreteSupport");
+  G4LogicalVolume* ConcreteSupport_LV = new G4LogicalVolume(ConcreteSupport_S, Borated_Concrete, "ConcreteSupport");
   ConcreteSupport_PV = new G4PVPlacement(NO_ROT, G4ThreeVector(0., fFilterCellSpacing+Water_cylindercal_can_radius/2.0, -(DT_Ti_T_location+Insulation_Thickness)-ConcreteSupport_height/2.0), ConcreteSupport_LV, "ConcreteSupport", vacuum_solid_LV, false, 0, fCheckOverlaps);
   //ConcreteSupport_LV->SetVisAttributes(G4VisAttributes(G4Colour::Grey()));
   ConcreteSupport_LV->SetVisAttributes(G4VisAttributes(G4Colour::Cyan()));
