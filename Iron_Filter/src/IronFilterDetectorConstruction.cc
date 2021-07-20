@@ -545,8 +545,8 @@ G4double Li6F_thickness=1.0*cm;
 
   // Start with a  vacuum layer. This will be the mother volume
 
-  //G4VSolid* vacuum_solid =new G4Box("vacuum_solid", 150.0*m, 150.0*m, 150.0*m);
-  G4VSolid* vacuum_solid =new G4Box("vacuum_solid", 15.0*m, 15.0*m, 15.0*m);
+  G4VSolid* vacuum_solid =new G4Box("vacuum_solid", 150.0*m, 150.0*m, 150.0*m);
+  //G4VSolid* vacuum_solid =new G4Box("vacuum_solid", 15.0*m, 15.0*m, 15.0*m);
   G4LogicalVolume* vacuum_solid_LV = new G4LogicalVolume(vacuum_solid, Vacuum, "vacuum_solid");
   G4VPhysicalVolume* vacuum_solid_PV = new G4PVPlacement(NO_ROT,G4ThreeVector{0.,0.,0.}, vacuum_solid_LV, "Vacuum_solid", 0, false, 0, fCheckOverlaps);
   vacuum_solid_LV->SetVisAttributes(G4VisAttributes::Invisible);
@@ -639,9 +639,9 @@ G4double Li6F_thickness=1.0*cm;
   G4VSolid* hole_3_S = new G4Box("hole_3_solid", Water_x/2.0, (Water_y+20.0*cm+colimator_length+ Li6F_thickness)/2.0, Water_z/2.0);
   G4SubtractionSolid* TestSurface_solid_S= new G4SubtractionSolid("TestSurface_solid", Main_3_S, hole_3_S, NO_ROT, G4ThreeVector(0.,0., 0.));
   G4LogicalVolume* TestSurface_solid_LV = new G4LogicalVolume(TestSurface_solid_S, Vacuum, "TestSurface_solid");
-  TestSurface_solid_PV = new G4PVPlacement(turnAlongZ, G4ThreeVector(0., (fFilterCellSpacing-colimator_length)+(colimator_length+Water_y+20.0*cm)/2.0, 0), TestSurface_solid_LV, "TestSurface", vacuum_solid_LV, false, 0, fCheckOverlaps);
+  //TestSurface_solid_PV = new G4PVPlacement(turnAlongZ, G4ThreeVector(0., (fFilterCellSpacing-colimator_length)+(colimator_length+Water_y+20.0*cm)/2.0, 0), TestSurface_solid_LV, "TestSurface", vacuum_solid_LV, false, 0, fCheckOverlaps);
   //TestSurface_solid_LV->SetVisAttributes(G4VisAttributes(G4Colour::Grey()));
-  TestSurface_solid_LV->SetVisAttributes(G4VisAttributes::Invisible);
+  //TestSurface_solid_LV->SetVisAttributes(G4VisAttributes::Invisible);
 
 
 
