@@ -402,7 +402,8 @@ void IronFilterDetectorConstruction::DefineMaterials()
   borated_concrete->AddElement(elAl,0.79*perCent);
   borated_concrete->AddElement(elSi,15.7*perCent);
   borated_concrete->AddElement(elS,0.42*perCent);
-  borated_concrete->AddElement(elCa,23*perCent);
+  //borated_concrete->AddElement(elCa,23*perCent);//doesnot add up to 100
+  borated_concrete->AddElement(elCa,21.65*perCent);
   borated_concrete->AddElement(elFe,0.50*perCent);
 
 
