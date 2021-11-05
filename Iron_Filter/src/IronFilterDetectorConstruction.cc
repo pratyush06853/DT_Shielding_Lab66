@@ -326,17 +326,19 @@ void IronFilterDetectorConstruction::DefineMaterials()
 
 
   //polyethyleneBorated
-  G4Material* boratedPoly = new G4Material( "boratedPoly", density=1.19*g/cm3, nComponents=3,kStateSolid, 296*kelvin);
+  //G4Material* boratedPoly = new G4Material( "boratedPoly", density=1.19*g/cm3, nComponents=3,kStateSolid, 296*kelvin);
+  G4Material* boratedPoly = new G4Material( "boratedPoly", density=0.95*g/cm3, nComponents=3,kStateSolid, 296*kelvin);
+  //https://www.shieldwerx.com/assets/SWX-201HD%202018.2.pdf
+  boratedPoly->AddElement( NatB, 5.*perCent );
+  boratedPoly->AddElement( NatC, 83.3*perCent );
+  boratedPoly->AddElement(TS_H_P, 11.7*perCent );
   //boratedPoly->AddElement( NatB, 3.*perCent );
-  //boratedPoly->AddElement( NatC, 81.4*0.97*perCent );
-  //boratedPoly->AddElement(NatH, 18.6*0.97*perCent );
-  boratedPoly->AddElement( NatB, 3.*perCent );
-  boratedPoly->AddElement( NatC, 82.576*perCent );
-  boratedPoly->AddElement(TS_H_P, 14.424*perCent );
+  //boratedPoly->AddElement( NatC, 82.576*perCent );
+  //boratedPoly->AddElement(TS_H_P, 14.424*perCent );
 
   // wood
   G4Material* wood = new G4Material("wood", density=0.9*g/cm3, nComponents=3);
-  wood->AddElement(TS_H_P , 4);
+  wood->AddElement(TS_H_P, 4);
   wood->AddElement(elO , 1);
   wood->AddElement(elC, 2);
 
@@ -379,25 +381,35 @@ void IronFilterDetectorConstruction::DefineMaterials()
 
 
   //concrete
-  G4Material*concrete = new G4Material("concrete",density= 2.3*g/cm3,nComponents=10);
-  concrete->AddElement(elH,0.01);
-  concrete->AddElement(elC,0.001);
-  concrete->AddElement(elO,0.529107);
-  concrete->AddElement(elNa,0.016);
-  concrete->AddElement(elMg,0.002);
-  concrete->AddElement(elAl,0.033872);
-  concrete->AddElement(elSi,0.337021);
-  concrete->AddElement(elK,0.013);
-  concrete->AddElement(elCa,0.044);
-  concrete->AddElement(elFe,0.014);
+  //G4Material*concrete = new G4Material("concrete",density= 2.3*g/cm3,nComponents=10);
+  //concrete->AddElement(elH,0.01);
+  //concrete->AddElement(elC,0.001);
+  //concrete->AddElement(elO,0.529);
+  //concrete->AddElement(elNa,0.016);
+  //concrete->AddElement(elMg,0.002);
+  //concrete->AddElement(elAl,0.0334);
+  //concrete->AddElement(elSi,0.337);
+  //concrete->AddElement(elK,0.013);
+  //concrete->AddElement(elCa,0.044);
+  //concrete->AddElement(elFe,0.014);
+
+  G4Material*concrete = new G4Material("concrete",density= 2.3*g/cm3,nComponents=6);
+  concrete->AddElement(elO, 0.52);
+  concrete->AddElement(elSi, 0.325);
+  concrete->AddElement(elCa, 0.06);
+  concrete->AddElement(elNa, 0.015);
+  concrete->AddElement(elFe, 0.04);
+  concrete->AddElement(elAl, 0.04);
+
+
 
 
   //borated concrete
   G4Material* borated_concrete = new G4Material("borated_concrete",density= 2.32*g/cm3,nComponents=10);
   borated_concrete->AddElement(elH,0.96*perCent);
-  borated_concrete->AddElement(elC,5.36*perCent);
   borated_concrete->AddElement(elO,51.3*perCent);
   borated_concrete->AddElement(NatB,2.9*perCent);
+  borated_concrete->AddElement(elC,5.36*perCent);
   borated_concrete->AddElement(elMg,0.42*perCent);
   borated_concrete->AddElement(elAl,0.79*perCent);
   borated_concrete->AddElement(elSi,15.7*perCent);
@@ -822,9 +834,9 @@ G4double Li6F_thickness=1.0*cm;
 
 
   G4VSolid* ConcreteSupport_S = new G4Box("ConcreteSupport", Water_cylindercal_can_radius/2.0 , Water_cylindercal_can_radius/2.0 , (ConcreteSupport_height)/2.0);
-  //G4LogicalVolume* ConcreteSupport_LV = new G4LogicalVolume(ConcreteSupport_S, Concrete, "ConcreteSupport");
+  G4LogicalVolume* ConcreteSupport_LV = new G4LogicalVolume(ConcreteSupport_S, Concrete, "ConcreteSupport");
   //G4LogicalVolume* ConcreteSupport_LV = new G4LogicalVolume(ConcreteSupport_S, BoraxBoricAcidBuffer, "ConcreteSupport");
-  G4LogicalVolume* ConcreteSupport_LV = new G4LogicalVolume(ConcreteSupport_S, Borated_Concrete, "ConcreteSupport");
+  //G4LogicalVolume* ConcreteSupport_LV = new G4LogicalVolume(ConcreteSupport_S, Borated_Concrete, "ConcreteSupport");
   ConcreteSupport_PV = new G4PVPlacement(NO_ROT, G4ThreeVector(0., fFilterCellSpacing+Water_cylindercal_can_radius/2.0, -(DT_Ti_T_location+Insulation_Thickness)-ConcreteSupport_height/2.0), ConcreteSupport_LV, "ConcreteSupport", vacuum_solid_LV, false, 0, fCheckOverlaps);
   //ConcreteSupport_LV->SetVisAttributes(G4VisAttributes(G4Colour::Grey()));
   ConcreteSupport_LV->SetVisAttributes(G4VisAttributes(G4Colour::Cyan()));
