@@ -328,11 +328,19 @@ void IronFilterDetectorConstruction::DefineMaterials()
   //polyethyleneBorated
   //G4Material* boratedPoly = new G4Material( "boratedPoly", density=1.19*g/cm3, nComponents=3,kStateSolid, 296*kelvin);
   //G4Material* boratedPoly = new G4Material( "boratedPoly", density=0.95*g/cm3, nComponents=3,kStateSolid, 296*kelvin);
-  G4Material* boratedPoly = new G4Material( "boratedPoly", density=1.08*g/cm3, nComponents=3,kStateSolid, 296*kelvin);
+
+  //G4Material* boratedPoly = new G4Material( "boratedPoly", density=1.08*g/cm3, nComponents=3,kStateSolid, 296*kelvin);
   //https://www.shieldwerx.com/assets/SWX-201HD%202018.2.pdf
-  boratedPoly->AddElement( NatB, 5.*perCent );
-  boratedPoly->AddElement( NatC, 83.3*perCent );
-  boratedPoly->AddElement(TS_H_P, 11.7*perCent );
+  //boratedPoly->AddElement( NatB, 5.*perCent );
+  //boratedPoly->AddElement( NatC, 83.3*perCent );
+  //boratedPoly->AddElement(TS_H_P, 11.7*perCent );
+
+  G4Material* boratedPoly = new G4Material( "boratedPoly", density=0.95*g/cm3, nComponents=3,kStateSolid, 296*kelvin);
+  boratedPoly->AddElement(NatB, 30.*perCent);
+  boratedPoly->AddElement(NatC, 61.37*perCent);
+  boratedPoly->AddElement(TS_H_P, 8.63*perCent);
+
+
   //boratedPoly->AddElement( NatB, 3.*perCent );
   //boratedPoly->AddElement( NatC, 82.576*perCent );
   //boratedPoly->AddElement(TS_H_P, 14.424*perCent );
@@ -352,6 +360,8 @@ void IronFilterDetectorConstruction::DefineMaterials()
   //boratedPoly->AddElement(NatH,  14.424*perCent);
   //boratedPoly->AddElement(NatC,  82.576*perCent);
   //boratedPoly->AddElement(NatB,  3.00*perCent);
+
+
   G4Material*soft_tissue = new G4Material("soft_tissue",density= 0.9869*g/cm3,nComponents=9);
   soft_tissue->AddElement(elH,0.105);
   soft_tissue->AddElement(elC,0.256);
