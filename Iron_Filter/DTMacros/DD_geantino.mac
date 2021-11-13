@@ -1,4 +1,4 @@
-#/IronFilter/det/setMultiplierLeadHeightRear 20.0 cm
+/IronFilter/det/setMultiplierLeadHeightRear 20.0 cm
 /IronFilter/det/setMultiplierLeadHeightFront 15.0 cm
 /IronFilter/det/setModeratorAluminumHeight 30 cm
 /IronFilter/det/setModeratorTitaniumHeight 5.0 cm

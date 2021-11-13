@@ -68,9 +68,9 @@ void IronFilterSteppingAction::UserSteppingAction(const G4Step* step)
 
   // get volume of the current step
   const G4VPhysicalVolume* volume = postStep->GetTouchableHandle()->GetVolume();
-  const G4ParticleDefinition* particle = track->GetDefinition();
+  //const G4ParticleDefinition* particle = track->GetDefinition();
   const G4String processName = postStep->GetProcessDefinedStep()->GetProcessName();
-  G4double energy = preStep->GetKineticEnergy();
+  //G4double energy = postStep->GetKineticEnergy();
 
 //if ( (volume == fDetConstruction->GetboratedwatersolidPV() && processName == "Transportation" ))
 //{
@@ -137,7 +137,7 @@ void IronFilterSteppingAction::UserSteppingAction(const G4Step* step)
                // get analysis manager
                G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
                G4int eventID = G4EventManager::GetEventManager()->GetConstCurrentEvent()->GetEventID();
-
+               G4double energy = postStep->GetKineticEnergy();
                G4int trackID = track->GetTrackID();
                G4int stepID = track->GetCurrentStepNumber();
                G4int particle_ID = track->GetParticleDefinition()->GetPDGEncoding();
@@ -145,7 +145,7 @@ void IronFilterSteppingAction::UserSteppingAction(const G4Step* step)
                // TODO: turn this into a tree that gets filled 2112 neutrons
                //if( (particle_ID == 2112 || particle_ID == 22) ){
               if( (particle_ID == 2112) ){
-                   //G4cout<<eventID<<"     "<<trackID<<"      "<<particle_ID<<"      "<<test_volumeID<<G4endl;
+                   G4cout<<eventID<<"     "<<trackID<<"      "<<particle_ID<<"      "<<energy<<G4endl;
                    //analysisManager->FillNtupleDColumn(0, step->GetTotalEnergyDeposit());
                    analysisManager->FillNtupleDColumn(0, energy);
                    analysisManager->FillNtupleDColumn(1, track->GetPosition().x());
