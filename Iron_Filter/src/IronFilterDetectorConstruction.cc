@@ -501,6 +501,7 @@ G4double Insulation_Thickness = 5*mm;
 
 
 G4double Water_cylindercal_can_radius = 152.7175*cm;
+//G4double Water_cylindercal_can_radius = 120*cm;
 G4double Water_cylindercal_can_height = 115.8875*cm;
 G4double ConcreteSupport_height = 80.0*cm;
 
@@ -508,7 +509,8 @@ G4double ConcreteSupport_height = 80.0*cm;
 G4double Poly_a = 40.0*cm;
 G4double hole_length = NeutronFilter_length-(fMultiplierLeadHeightRear+fMultiplierLeadHeightFront)-fModeratorAluminumHeight-fModeratorTitaniumHeight;
 //G4double hole_length = NeutronFilter_length-(fMultiplierLeadHeightRear+fMultiplierLeadHeightFront)-fModeratorAluminumHeight-fModeratorTitaniumHeight;
-G4double colimator_length=26.0*cm;
+//G4double colimator_length=26.0*cm;
+G4double colimator_length=30.0*cm;
 
 G4double lab68_wall_thickness = 25.0*cm ;
 //distance from the outer egdes
