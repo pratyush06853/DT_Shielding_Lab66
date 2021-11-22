@@ -123,7 +123,8 @@ IronFilterDetectorConstruction::IronFilterDetectorConstruction()
   fModeratorTitaniumRadius = 15.0*cm;
 
   //fPolyHeight = 41.0*cm;//
-  fPolyHeight = 35.0*cm;//
+  //fPolyHeight = 35.0*cm;//
+  fPolyHeight = 30.0*cm;//
 
   //fFilterCellSpacing= 50.0*cm;//5
   fFilterCellSpacing= 50.0*cm+26.0*cm;//5
@@ -501,7 +502,8 @@ G4double Insulation_Thickness = 5*mm;
 
 
 G4double Water_cylindercal_can_radius = 152.7175*cm;
-G4double Water_cylindercal_can_radius_x = 120*cm;
+//G4double Water_cylindercal_can_radius_x = 120*cm;
+G4double Water_cylindercal_can_radius_x = 152.7175*cm;
 G4double Water_cylindercal_can_height = 115.8875*cm;
 G4double ConcreteSupport_height = 80.0*cm;
 
