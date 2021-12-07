@@ -411,13 +411,22 @@ void IronFilterDetectorConstruction::DefineMaterials()
   //concrete->AddElement(elCa,0.044);
   //concrete->AddElement(elFe,0.014);
 
-  G4Material*concrete = new G4Material("concrete",density= 2.3*g/cm3,nComponents=6);
-  concrete->AddElement(elO, 0.52);
-  concrete->AddElement(elSi, 0.325);
-  concrete->AddElement(elCa, 0.06);
-  concrete->AddElement(elNa, 0.015);
-  concrete->AddElement(elFe, 0.04);
-  concrete->AddElement(elAl, 0.04);
+  //G4Material*concrete = new G4Material("concrete",density= 2.3*g/cm3,nComponents=6);
+  //concrete->AddElement(elO, 0.52);
+  //concrete->AddElement(elSi, 0.325);
+  //concrete->AddElement(elCa, 0.06);
+  //concrete->AddElement(elNa, 0.015);
+  //concrete->AddElement(elFe, 0.04);
+  //concrete->AddElement(elAl, 0.04);
+
+  G4Material*concrete = new G4Material("concrete",density= 2.3*g/cm3,nComponents=7);
+  concrete->AddElement(elH, 0.0068);
+  concrete->AddElement(elO, 0.5323);
+  concrete->AddElement(elSi, 0.3391);
+  concrete->AddElement(elCa, 0.0443);
+  concrete->AddElement(elNa, 0.0292);
+  concrete->AddElement(elFe, 0.0141);
+  concrete->AddElement(elAl, 0.0342);
 
 
 
@@ -696,8 +705,8 @@ G4double Li6F_thickness=1.0*cm;
 
   //G4LogicalVolume* boratedwater_LV = new G4LogicalVolume(boratedwater_S, Vacuum, "boratedwater");
   //G4LogicalVolume* boratedwater_LV = new G4LogicalVolume(boratedwater_S, BoraxBoricAcidBuffer, "boratedwater");
-  //G4LogicalVolume* boratedwater_LV = new G4LogicalVolume(boratedwater_S, Concrete, "boratedwater");
-  G4LogicalVolume* boratedwater_LV = new G4LogicalVolume(boratedwater_S, Water, "boratedwater");
+  G4LogicalVolume* boratedwater_LV = new G4LogicalVolume(boratedwater_S, Concrete, "boratedwater");
+  //G4LogicalVolume* boratedwater_LV = new G4LogicalVolume(boratedwater_S, Water, "boratedwater");
   //G4LogicalVolume* boratedwater_LV = new G4LogicalVolume(boratedwater_S, BoratedPoly, "boratedwater");
   boratedwater_PV = new G4PVPlacement(NO_ROT, G4ThreeVector(0., fFilterCellSpacing+ Water_cylindercal_can_radius/2.0, (Water_cylindercal_can_height)/2.0 - DT_Ti_T_location - Insulation_Thickness), boratedwater_LV, "BoratedWater", vacuum_solid_LV, false, 0, fCheckOverlaps);
   ////boratedwater_PV = new G4PVPlacement(turnAlongZ, G4ThreeVector(0., fFilterCellSpacing+Water_y/2.0, 0), boratedwater_LV, "BoratedWater", vacuum_solid_LV, false, 0, fCheckOverlaps);
@@ -705,16 +714,16 @@ G4double Li6F_thickness=1.0*cm;
 
 
 
-  G4VSolid* Main_S_1 = new G4Box("Main_solid_1", Water_cylindercal_can_radius_x/2.0 , (Water_cylindercal_can_radius)/2.0 , (Water_cylindercal_can_height)/2.0);
-  G4VSolid* hole_S_1 = new G4Box("hole_solid_1", 1.5*fMultiplierLeadRadius , NeutronFilter_length/2.0 , (Water_cylindercal_can_height)/2.0);
-  //G4VSolid* hole_S_1 = new G4Tubs("hole_solid_1", zeroRadius,fMultiplierLeadRadius, NeutronFilter_length/2.0, startAngle, spanningAngle);
-  G4SubtractionSolid* Concrete_S= new G4SubtractionSolid("boratedwater", Main_S_1, hole_S_1, NO_ROT, G4ThreeVector(0., -Water_cylindercal_can_radius/2.0+NeutronFilter_length/2.0, 0.0));
-  //G4LogicalVolume* Concrete_LV = new G4LogicalVolume(Concrete_S, Vacuum, "Concrete_shielding");
-  //G4LogicalVolume* Concrete_LV = new G4LogicalVolume(Concrete_S, BoraxBoricAcidBuffer, "Concrete_shielding");
-  G4LogicalVolume* Concrete_LV = new G4LogicalVolume(Concrete_S, Concrete, "Concrete_shielding");
-  //G4LogicalVolume* Concrete_LV = new G4LogicalVolume(Concrete_S, BoratedPoly, "boratedwater");
-  new G4PVPlacement(NO_ROT, G4ThreeVector(0., 0, 0), Concrete_LV, "Concrete", boratedwater_LV, false, 0, fCheckOverlaps);
-  Concrete_LV->SetVisAttributes(G4VisAttributes(G4Colour::Green()));
+  //G4VSolid* Main_S_1 = new G4Box("Main_solid_1", Water_cylindercal_can_radius_x/2.0 , (Water_cylindercal_can_radius)/2.0 , (Water_cylindercal_can_height)/2.0);
+  //G4VSolid* hole_S_1 = new G4Box("hole_solid_1", 1.5*fMultiplierLeadRadius , NeutronFilter_length/2.0 , (Water_cylindercal_can_height)/2.0);
+  ////G4VSolid* hole_S_1 = new G4Tubs("hole_solid_1", zeroRadius,fMultiplierLeadRadius, NeutronFilter_length/2.0, startAngle, spanningAngle);
+  //G4SubtractionSolid* Concrete_S= new G4SubtractionSolid("boratedwater_2", Main_S_1, hole_S_1, NO_ROT, G4ThreeVector(0., -Water_cylindercal_can_radius/2.0+NeutronFilter_length/2.0, 0.0));
+  ////G4LogicalVolume* Concrete_LV = new G4LogicalVolume(Concrete_S, Vacuum, "Concrete_shielding");
+  ////G4LogicalVolume* Concrete_LV = new G4LogicalVolume(Concrete_S, BoraxBoricAcidBuffer, "Concrete_shielding");
+  //G4LogicalVolume* Concrete_LV = new G4LogicalVolume(Concrete_S, Concrete, "Concrete_shielding");
+  ////G4LogicalVolume* Concrete_LV = new G4LogicalVolume(Concrete_S, BoratedPoly, "boratedwater");
+  //new G4PVPlacement(NO_ROT, G4ThreeVector(0., 0, 0), Concrete_LV, "Concrete", boratedwater_LV, false, 0, fCheckOverlaps);
+  //Concrete_LV->SetVisAttributes(G4VisAttributes(G4Colour::Green()));
 
   //Insulation
   //G4VSolid* Insulation_S = new G4Tubs("Insulation", zeroRadius, (2*Insulation_Thickness+34*mm)/2.0, (Water_cylindercal_can_height)/2.0, startAngle, spanningAngle);
