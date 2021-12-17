@@ -93,14 +93,69 @@ class IronFilterDetectorConstruction : public G4VUserDetectorConstruction
     const G4VPhysicalVolume* GetTestSurfacesolidPV() const;
     const G4VPhysicalVolume* GetmultiplierleadPV() const;
     const G4VPhysicalVolume* GetmoderatoraluminumPV() const;
-    const G4VPhysicalVolume* GetshieldcapironPV() const;
+    //const G4VPhysicalVolume* GetshieldcapironPV() const;
     const G4VPhysicalVolume* GetmoderatortitaniumPV() const;
     const G4VPhysicalVolume* GetLeadaroundTiAndFPV() const;
     const G4VPhysicalVolume* GetinnerBPolyPV() const;
-    const G4VPhysicalVolume* GetTestCENTERPOINTPV() const;
+    //const G4VPhysicalVolume* GetTestCENTERPOINTPV() const;
     const G4VPhysicalVolume* GetfilterscandiumPV() const; //Test_LEFTSIDE
     const G4VPhysicalVolume* Getfilterscandium2PV() const;
     //const G4VPhysicalVolume* GetLiFsolidPV() const;
+
+
+    //1st Detector type A
+    const G4VPhysicalVolume* GetshieldingleadPV2() const;
+    const G4VPhysicalVolume* GetfilteraluminumPV2() const;
+    //const G4VPhysicalVolume* GetmoderatorironPV2() const;
+    const G4VPhysicalVolume* GetshieldcapironPV2() const;
+    const G4VPhysicalVolume* GetinnershieldPV2() const;
+    const G4VPhysicalVolume* GetDTsolidPV2() const;
+    const G4VPhysicalVolume* GetIronsolidPV2() const;
+
+
+    //2nd Detector type A
+    const G4VPhysicalVolume* GetshieldingleadPV() const;
+    const G4VPhysicalVolume* GetfilteraluminumPV() const;
+    //const G4VPhysicalVolume* GetmoderatorironPV() const;
+    const G4VPhysicalVolume* GetshieldcapironPV() const;
+    const G4VPhysicalVolume* GetinnershieldPV() const;
+    const G4VPhysicalVolume* GetDTsolidPV() const;
+    const G4VPhysicalVolume* GetIronsolidPV() const;
+
+    //3rd Detector type A
+    const G4VPhysicalVolume* GetshieldingleadPV3() const;
+    const G4VPhysicalVolume* GetfilteraluminumPV3() const;
+    //const G4VPhysicalVolume* GetmoderatorironPV3() const;
+    const G4VPhysicalVolume* GetshieldcapironPV3() const;
+    const G4VPhysicalVolume* GetinnershieldPV3() const;
+    const G4VPhysicalVolume* GetDTsolidPV3() const;
+    const G4VPhysicalVolume* GetIronsolidPV3() const;
+
+    //4th Detector type B
+    const G4VPhysicalVolume* GetshieldingleadPV1() const;
+    const G4VPhysicalVolume* GetfilteraluminumPV1() const;
+    //const G4VPhysicalVolume* GetmoderatorironPV1() const;
+    const G4VPhysicalVolume* GetshieldcapironPV1() const;
+    const G4VPhysicalVolume* GetDTsolidPV1() const;
+    const G4VPhysicalVolume* GetIronsolidPV1() const;
+
+    //5th Detector type B
+    const G4VPhysicalVolume* GetshieldingleadPV1_5() const;
+    const G4VPhysicalVolume* GetfilteraluminumPV1_5() const;
+    //const G4VPhysicalVolume* GetmoderatorironPV1_5() const;
+    const G4VPhysicalVolume* GetshieldcapironPV1_5() const;
+    const G4VPhysicalVolume* GetDTsolidPV1_5() const;
+    const G4VPhysicalVolume* GetIronsolidPV1_5() const;
+
+    //6th Detector type B
+    const G4VPhysicalVolume* GetshieldingleadPV1_6() const;
+    const G4VPhysicalVolume* GetfilteraluminumPV1_6() const;
+    //const G4VPhysicalVolume* GetmoderatorironPV1_6() const;
+    const G4VPhysicalVolume* GetshieldcapironPV1_6() const;
+    const G4VPhysicalVolume* GetDTsolidPV1_6() const;
+    const G4VPhysicalVolume* GetIronsolidPV1_6() const;
+
+
 
     //for Messenger
     G4double GetPolyHeight() const    {return fPolyHeight;};
@@ -161,7 +216,73 @@ class IronFilterDetectorConstruction : public G4VUserDetectorConstruction
     G4VPhysicalVolume* Test_CENTERPOINT_PV;
     G4VPhysicalVolume* filter_scandium_PV;
     G4VPhysicalVolume* filter_scandium_2_PV;
+    //G4VPhysicalVolume* shield_cap_iron_PV;
+
+
+    //fridge
+    G4VPhysicalVolume* DilutionUnit_PV;
+    G4VPhysicalVolume* MixingPlate_PV;
+    G4VPhysicalVolume* ColdPlate2_PV;
+    G4VPhysicalVolume* ColdPlate1_PV;
+    G4VPhysicalVolume* OneKPlate_PV;
+    G4VPhysicalVolume* OneKShield_PV;
+    G4VPhysicalVolume* DilutionChamber_PV;
+    G4VPhysicalVolume* FourKPlate_PV;
+    G4VPhysicalVolume* FourKShield_PV;
+    G4VPhysicalVolume* SeventyKPlate_PV;
+    G4VPhysicalVolume* SeventyKShield_PV;
+    G4VPhysicalVolume* OVCShield_PV;
+
+    //1st Detector type A
+    G4VPhysicalVolume* shielding_lead_PV_2;
+    G4VPhysicalVolume* filter_aluminum_PV_2;
+    //G4VPhysicalVolume* moderator_iron_PV_2;
+    G4VPhysicalVolume* shield_cap_iron_PV_2;
+    G4VPhysicalVolume* inner_shield_PV_2;
+    G4VPhysicalVolume* DT_solid_PV_2;
+    G4VPhysicalVolume* Iron_solid_PV_2;
+
+    //2nd Detector type A
+    G4VPhysicalVolume* shielding_lead_PV;
+    G4VPhysicalVolume* filter_aluminum_PV;
+    //G4VPhysicalVolume* moderator_iron_PV;
     G4VPhysicalVolume* shield_cap_iron_PV;
+    G4VPhysicalVolume* inner_shield_PV;
+    G4VPhysicalVolume* DT_solid_PV;
+    G4VPhysicalVolume* Iron_solid_PV;
+
+    //3rd Detector type A
+    G4VPhysicalVolume* shielding_lead_PV_3;
+    G4VPhysicalVolume* filter_aluminum_PV_3;
+    //G4VPhysicalVolume* moderator_iron_PV_3;
+    G4VPhysicalVolume* shield_cap_iron_PV_3;
+    G4VPhysicalVolume* inner_shield_PV_3;
+    G4VPhysicalVolume* DT_solid_PV_3;
+    G4VPhysicalVolume* Iron_solid_PV_3;
+
+    //4th Detector type B
+    G4VPhysicalVolume* shielding_lead_PV_1;
+    G4VPhysicalVolume* filter_aluminum_PV_1;
+    //G4VPhysicalVolume* moderator_iron_PV_1;
+    G4VPhysicalVolume* shield_cap_iron_PV_1;
+    G4VPhysicalVolume* DT_solid_PV_1;
+    G4VPhysicalVolume* Iron_solid_PV_1;
+
+    //5th Detector type B
+    G4VPhysicalVolume* shielding_lead_PV_1_5;
+    G4VPhysicalVolume* filter_aluminum_PV_1_5;
+    //G4VPhysicalVolume* moderator_iron_PV_1_5;
+    G4VPhysicalVolume* shield_cap_iron_PV_1_5;
+    G4VPhysicalVolume* DT_solid_PV_1_5;
+    G4VPhysicalVolume* Iron_solid_PV_1_5;
+
+    //6th Detector type B
+    G4VPhysicalVolume* shielding_lead_PV_1_6;
+    G4VPhysicalVolume* filter_aluminum_PV_1_6;
+    //G4VPhysicalVolume* moderator_iron_PV_1_6;
+    G4VPhysicalVolume* shield_cap_iron_PV_1_6;
+    G4VPhysicalVolume* DT_solid_PV_1_6;
+    G4VPhysicalVolume* Iron_solid_PV_1_6;
 
 
     //for messenger, these are declared here but values are set in src file
@@ -322,15 +443,197 @@ inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetInsulationPV(
 //  return Phantom8_PV;
 //}
 
-inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetTestCENTERPOINTPV() const {
-  return Test_CENTERPOINT_PV;
+//teh surface at the center
+//inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetTestCENTERPOINTPV() const {
+//  return Test_CENTERPOINT_PV;
+//}
+
+//the LiF layer to absorb the thermal neutrons
+//inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetshieldcapironPV() const {
+//  return shield_cap_iron_PV;
+//}
+
+
+
+
+//Arrays of backing detector
+
+
+//1st Detector type A
+
+inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetshieldingleadPV2() const {
+  return shielding_lead_PV_2;
 }
 
+//inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetmoderatorironPV2() const {
+// return moderator_iron_PV_2;
+//}
+
+inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetfilteraluminumPV2() const {
+  return filter_aluminum_PV_2;
+}
+
+inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetshieldcapironPV2() const {
+  return shield_cap_iron_PV_2;
+}
+
+inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetDTsolidPV2() const {
+  return DT_solid_PV_2;
+}
+
+inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetIronsolidPV2() const {
+  return Iron_solid_PV_2;
+}
+
+//2nd Detector type A
+inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetshieldingleadPV() const {
+  return shielding_lead_PV;
+}
+
+inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetfilteraluminumPV() const {
+  return filter_aluminum_PV;
+}
+
+//inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetmoderatorironPV() const {
+// return moderator_iron_PV;
+//}
 
 inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetshieldcapironPV() const {
   return shield_cap_iron_PV;
 }
 
+inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetinnershieldPV() const {
+  return inner_shield_PV;
+}
+
+inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetDTsolidPV() const {
+  return DT_solid_PV;
+}
+
+inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetIronsolidPV() const {
+  return Iron_solid_PV;
+}
+
+//3rd Detector type A
+
+inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetshieldingleadPV3() const {
+  return shielding_lead_PV_3;
+}
+
+//inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetmoderatorironPV3() const {
+// return moderator_iron_PV_3;
+//}
+
+inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetfilteraluminumPV3() const {
+  return filter_aluminum_PV_3;
+}
+
+inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetshieldcapironPV3() const {
+  return shield_cap_iron_PV_3;
+}
+
+inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetDTsolidPV3() const {
+  return DT_solid_PV_3;
+}
+
+inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetIronsolidPV3() const {
+  return Iron_solid_PV_3;
+}
+
+//4th Detector type B
+
+inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetshieldingleadPV1() const {
+  return shielding_lead_PV_1;
+}
+
+//inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetmoderatorironPV1() const {
+// return moderator_iron_PV_1;
+//}
+
+inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetfilteraluminumPV1() const {
+  return filter_aluminum_PV_1;
+}
+
+
+inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetshieldcapironPV1() const {
+  return shield_cap_iron_PV_1;
+}
+
+
+inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetDTsolidPV1() const {
+  return DT_solid_PV_1;
+}
+
+
+
+inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetIronsolidPV1() const {
+  return Iron_solid_PV_1;
+}
+
+//5th Detector type B
+
+inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetshieldingleadPV1_5() const {
+  return shielding_lead_PV_1_5;
+}
+
+//inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetmoderatorironPV1_5() const {
+// return moderator_iron_PV_1_5;
+//}
+
+inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetfilteraluminumPV1_5() const {
+  return filter_aluminum_PV_1_5;
+}
+
+
+inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetshieldcapironPV1_5() const {
+  return shield_cap_iron_PV_1_5;
+}
+
+
+inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetDTsolidPV1_5() const {
+  return DT_solid_PV_1_5;
+}
+
+
+
+inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetIronsolidPV1_5() const {
+  return Iron_solid_PV_1_5;
+}
+
+
+//6th Detector type B
+
+inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetshieldingleadPV1_6() const {
+  return shielding_lead_PV_1_6;
+}
+
+//inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetmoderatorironPV1_6() const {
+// return moderator_iron_PV_1_6;
+//}
+
+inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetfilteraluminumPV1_6() const {
+  return filter_aluminum_PV_1_6;
+}
+
+
+inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetshieldcapironPV1_6() const {
+  return shield_cap_iron_PV_1_6;
+}
+
+
+inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetDTsolidPV1_6() const {
+  return DT_solid_PV_1_6;
+}
+
+
+
+inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetIronsolidPV1_6() const {
+  return Iron_solid_PV_1_6;
+}
+
+
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+
 
 #endif

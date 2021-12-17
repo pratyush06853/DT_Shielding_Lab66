@@ -78,14 +78,82 @@ void IronFilterSteppingAction::UserSteppingAction(const G4Step* step)
         G4int test_volumeID;
         G4int flag=0;
 
-        if(volume == fDetConstruction->GetTestCENTERPOINTPV()){
+        //for calibration studies part one
+        //if(volume == fDetConstruction->GetTestCENTERPOINTPV()){
+        //  test_volumeID = 0;
+        //  flag=1;
+        // }
+        //else if(volume == fDetConstruction->GetInsulationPV()){
+        //  test_volumeID = 8;
+        //  flag=1;
+        //}
+
+
+        //for ambient n-capture Studies
+        //1st detector
+        if(volume == fDetConstruction->GetfilteraluminumPV2()){
           test_volumeID = 0;
           flag=1;
          }
-        else if(volume == fDetConstruction->GetInsulationPV()){
+        //1st detector
+        else if(volume == fDetConstruction->GetshieldcapironPV2()){
           test_volumeID = 8;
           flag=1;
         }
+        //2nd detector
+        else if(volume == fDetConstruction->GetfilteraluminumPV()){
+          test_volumeID = 8;
+          flag=1;
+        }
+        //2nd detector
+        else if(volume == fDetConstruction->GetshieldcapironPV()){
+          test_volumeID = 8;
+          flag=1;
+        }
+        //3rd detector
+        else if(volume == fDetConstruction->GetfilteraluminumPV3()){
+          test_volumeID = 8;
+          flag=1;
+        }
+        //3rd detector
+        else if(volume == fDetConstruction->GetshieldcapironPV3()){
+          test_volumeID = 8;
+          flag=1;
+        }
+        //4th Detector
+        else if(volume == fDetConstruction->GetfilteraluminumPV1()){
+          test_volumeID = 8;
+          flag=1;
+        }
+        //4th Detector
+        else if(volume == fDetConstruction->GetshieldcapironPV1()){
+          test_volumeID = 8;
+          flag=1;
+        }
+        //5th detector
+        else if(volume == fDetConstruction->GetfilteraluminumPV1_5()){
+          test_volumeID = 8;
+          flag=1;
+        }
+        //5th detector
+        else if(volume == fDetConstruction->GetshieldcapironPV1_5()){
+          test_volumeID = 8;
+          flag=1;
+        }
+        //6th detector
+        else if(volume == fDetConstruction->GetfilteraluminumPV1_6()){
+          test_volumeID = 8;
+          flag=1;
+        }
+        //6th detector
+        else if(volume == fDetConstruction->GetshieldcapironPV1_6()){
+          test_volumeID = 8;
+          flag=1;
+        }
+
+
+
+        //For Safety Studies
         //else if(volume == fDetConstruction->GetPhantomPV()){
         //  test_volumeID = 8;
         //  flag=0;
@@ -138,16 +206,19 @@ void IronFilterSteppingAction::UserSteppingAction(const G4Step* step)
                G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
                G4int eventID = G4EventManager::GetEventManager()->GetConstCurrentEvent()->GetEventID();
                G4double energy = postStep->GetKineticEnergy();
+               G4double edep = step->GetTotalEnergyDeposit();
                G4int trackID = track->GetTrackID();
                G4int stepID = track->GetCurrentStepNumber();
+               G4String particle_name = track->GetParticleDefinition()->GetParticleName();
                G4int particle_ID = track->GetParticleDefinition()->GetPDGEncoding();
 
                // TODO: turn this into a tree that gets filled 2112 neutrons
                //if( (particle_ID == 2112 || particle_ID == 22) ){
-              if( (particle_ID == 2112) ){
+              //if( (particle_ID == 2112) ){
+              if(  (processName  == "hIoni" && particle_name  == "triton") ){
                    //G4cout<<eventID<<"     "<<trackID<<"      "<<particle_ID<<"      "<<energy<<G4endl;
-                   //analysisManager->FillNtupleDColumn(0, step->GetTotalEnergyDeposit());
-                   analysisManager->FillNtupleDColumn(0, energy);
+                   analysisManager->FillNtupleDColumn(0, edep);
+                   //analysisManager->FillNtupleDColumn(0, energy);
                    analysisManager->FillNtupleDColumn(1, track->GetPosition().x());
                    analysisManager->FillNtupleDColumn(2, track->GetPosition().y());
                    analysisManager->FillNtupleDColumn(3, track->GetPosition().z());
