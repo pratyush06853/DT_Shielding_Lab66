@@ -92,7 +92,7 @@ void IronFilterSteppingAction::UserSteppingAction(const G4Step* step)
         //for ambient n-capture Studies
         //1st detector
         if(volume == fDetConstruction->GetfilteraluminumPV2()){
-          test_volumeID = 0;
+          test_volumeID = 8;
           flag=1;
          }
         //1st detector

@@ -711,7 +711,7 @@ G4double Front_Moderator_Thickness=1.5*cm; //changes this
 G4double Back_Moderator_Thickness=1.5*cm;
 G4double Inner_Radius =30.0*cm;
 G4double Radial_thickness=10.0*cm;//10.0*cm;
-G4double Mid_Acrylic_thickness=2.5*cm;
+G4double Mid_Acrylic_thickness=2.5*cm;//includes the thickness of two EJ426 layer 
 G4double EJ426_thickness=0.25*2*mm;
 G4double BoratedPoly_thickness = 5.0*cm; //15
 
