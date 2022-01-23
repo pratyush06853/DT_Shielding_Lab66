@@ -101,6 +101,10 @@ class IronFilterDetectorConstruction : public G4VUserDetectorConstruction
     const G4VPhysicalVolume* GetfilterscandiumPV() const; //Test_LEFTSIDE
     const G4VPhysicalVolume* Getfilterscandium2PV() const;
     //const G4VPhysicalVolume* GetLiFsolidPV() const;
+    const G4VPhysicalVolume* GetUpBpolyshieldPV() const;
+    //const G4VPhysicalVolume* GetLeftSideBpolyshieldPV() const;
+    const G4VPhysicalVolume* GetLeftSideBpolyshieldPV() const;
+    const G4VPhysicalVolume* GetRightSideBpolyshieldPV() const;
 
 
     //1st Detector type A
@@ -217,6 +221,9 @@ class IronFilterDetectorConstruction : public G4VUserDetectorConstruction
     G4VPhysicalVolume* filter_scandium_PV;
     G4VPhysicalVolume* filter_scandium_2_PV;
     //G4VPhysicalVolume* shield_cap_iron_PV;
+    G4VPhysicalVolume* Up_Bpoly_shield_PV;
+    G4VPhysicalVolume* Left_Side_Bpoly_shield_PV;
+    G4VPhysicalVolume* Right_Side_Bpoly_shield_PV;
 
 
     //fridge
@@ -629,6 +636,19 @@ inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetDTsolidPV1_6(
 
 inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetIronsolidPV1_6() const {
   return Iron_solid_PV_1_6;
+}
+
+
+inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetUpBpolyshieldPV() const {
+  return Up_Bpoly_shield_PV;
+}
+
+inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetLeftSideBpolyshieldPV() const {
+  return Left_Side_Bpoly_shield_PV;
+}
+
+inline const G4VPhysicalVolume* IronFilterDetectorConstruction::GetRightSideBpolyshieldPV() const {
+  return Right_Side_Bpoly_shield_PV;
 }
 
 

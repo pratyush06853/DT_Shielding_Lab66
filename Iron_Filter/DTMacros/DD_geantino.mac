@@ -21,7 +21,7 @@
 
 /gps/particle geantino
 #/gps/position 0 141 0 cm
-/gps/position 0 156 0 cm
+/gps/position 0 156 25 cm
 /gps/direction 0 -1 0
 #/gps/position 0 0 100 cm
 #/gps/direction 0 0 -1
