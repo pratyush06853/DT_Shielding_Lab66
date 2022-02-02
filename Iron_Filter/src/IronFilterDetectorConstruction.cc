@@ -407,6 +407,13 @@ void IronFilterDetectorConstruction::DefineMaterials()
   boratedPoly->AddElement(NatC, 81.55*perCent);
   boratedPoly->AddElement(TS_H_P, 13.45*perCent);
 
+  //from vivian communicated via whatsapp
+  //https://docs.google.com/spreadsheets/d/1W83GhE5Nq1R9f7KmCgBqi_Qkz0ilursgWs5V-Vmju8o/edit#gid=656123429
+  G4Material* boratedPoly_15 = new G4Material("boratedPoly_15", density=1.15*g/cm3, nComponents=3,kStateSolid, 296*kelvin);
+  boratedPoly_15->AddElement(NatB, 15*perCent);
+  boratedPoly_15->AddElement(NatC, 73.38*perCent);
+  boratedPoly_15->AddElement(TS_H_P, 11.62*perCent);
+
   // wood
   G4Material* wood = new G4Material("wood", density=0.9*g/cm3, nComponents=3);
   wood->AddElement(TS_H_P, 4);
@@ -560,6 +567,7 @@ G4VPhysicalVolume* IronFilterDetectorConstruction::DefineVolumes()
   G4Material* Lithium6_Fluoride = G4Material::GetMaterial("Li6F");
   G4Material* Lead = G4Material::GetMaterial("Pb");
   G4Material* BoratedPoly = G4Material::GetMaterial("boratedPoly");
+  G4Material* BoratedPoly_15 = G4Material::GetMaterial("boratedPoly_15");
   G4Material* Cobalt = G4Material::GetMaterial("NatCo");
   G4Material* Nickel60 = G4Material::GetMaterial("Ni60");
   G4Material* Iron54 = G4Material::GetMaterial("Fe54");
@@ -885,7 +893,8 @@ G4double shieldHeight =  Front_Moderator_Thickness+Mid_Acrylic_thickness+Back_Mo
   //Extra layer of borated poly on the Top
   G4VSolid* Up_Bpoly_shield_S = new G4Box("Up_Bpoly_shield", Water_cylindercal_can_radius_x/2.0 , (Water_cylindercal_can_radius)/2.0 ,(Side_shield_thickness)/2.0);
   //G4LogicalVolume* Side_Bpoly_shield_LV = new G4LogicalVolume(Side_Bpoly_shield_S, BoratedPoly, "Side_Bpoly_shield");
-  G4LogicalVolume* Up_Bpoly_shield_LV = new G4LogicalVolume(Up_Bpoly_shield_S, BoratedPoly, "Up_Bpoly_shield");
+  //G4LogicalVolume* Up_Bpoly_shield_LV = new G4LogicalVolume(Up_Bpoly_shield_S, BoratedPoly, "Up_Bpoly_shield");
+  G4LogicalVolume* Up_Bpoly_shield_LV = new G4LogicalVolume(Up_Bpoly_shield_S, BoratedPoly_15, "Up_Bpoly_shield");
   Up_Bpoly_shield_LV->SetVisAttributes(G4VisAttributes(G4Colour::Yellow()));
   Up_Bpoly_shield_PV = new G4PVPlacement(NO_ROT, G4ThreeVector(0.0, 0.0, (Water_cylindercal_can_height)/2.0-(Side_shield_thickness)/2.0 ), Up_Bpoly_shield_LV, "Up_Bpoly_shield_left", boratedwater_LV, false, 0, fCheckOverlaps);
 
@@ -893,7 +902,7 @@ G4double shieldHeight =  Front_Moderator_Thickness+Mid_Acrylic_thickness+Back_Mo
   //Extra layer of borated poly on the sides of the tanks
   G4VSolid* Side_Bpoly_shield_S = new G4Box("Side_Bpoly_shield", Side_shield_thickness/2.0, (Water_cylindercal_can_radius)/2.0,(Water_cylindercal_can_height+ConcreteSupport_height)/2.0);
   //G4LogicalVolume* Side_Bpoly_shield_LV = new G4LogicalVolume(Side_Bpoly_shield_S, BoratedPoly, "Side_Bpoly_shield");
-  G4LogicalVolume* Side_Bpoly_shield_LV = new G4LogicalVolume(Side_Bpoly_shield_S, BoratedPoly, "Side_Bpoly_shield");
+  G4LogicalVolume* Side_Bpoly_shield_LV = new G4LogicalVolume(Side_Bpoly_shield_S, BoratedPoly_15, "Side_Bpoly_shield");
   //leftSide
   Left_Side_Bpoly_shield_PV = new G4PVPlacement(NO_ROT, G4ThreeVector(Water_cylindercal_can_radius_x/2.0+Side_shield_thickness/2.0, fFilterCellSpacing+ Water_cylindercal_can_radius/2.0, (Water_cylindercal_can_height-ConcreteSupport_height)/2 - DT_Ti_T_location - Insulation_Thickness), Side_Bpoly_shield_LV, "Side_Bpoly_shield_left", vacuum_solid_LV, false, 0, fCheckOverlaps);
 
@@ -946,7 +955,8 @@ G4double shieldHeight =  Front_Moderator_Thickness+Mid_Acrylic_thickness+Back_Mo
   //G4SubtractionSolid* collimation_hole_S= new G4SubtractionSolid("collimation_hole_solid", Main_12_S, hole_1_S, NO_ROT, G4ThreeVector(0, Scandium_diameter_limited/2.0, 0));
     G4SubtractionSolid* collimation_hole_S= new G4SubtractionSolid("inner_BPoly_solid", Main_1_S, hole_1_S, NO_ROT, G4ThreeVector(0., (Water_cylindercal_can_height-ConcreteSupport_height)/2 - DT_Ti_T_location - Insulation_Thickness, 0));
   //G4VSolid* collimation_hole_S = new G4Tubs("collimation_hole", zeroRadius, Scandium_diameter_limited/2.0, hole_length/2.0, startAngle, spanningAngle);
-  G4LogicalVolume* collimation_hole_LV = new G4LogicalVolume(collimation_hole_S, BoratedPoly, "collimation_hole");
+  //G4LogicalVolume* collimation_hole_LV = new G4LogicalVolume(collimation_hole_S, BoratedPoly, "collimation_hole");
+  G4LogicalVolume* collimation_hole_LV = new G4LogicalVolume(collimation_hole_S, BoratedPoly_15, "collimation_hole");
   //collimation_hole_PV = new G4PVPlacement(turnAlongX, G4ThreeVector(0., fFilterCellSpacing-colimator_length/2.0, 0), collimation_hole_LV, "collimation_hole", vacuum_solid_LV, false, 0, fCheckOverlaps);
   collimation_hole_PV = new G4PVPlacement(turnAlongX, G4ThreeVector(0., fFilterCellSpacing-colimator_length/2.0, (Water_cylindercal_can_height-ConcreteSupport_height)/2 - DT_Ti_T_location - Insulation_Thickness), collimation_hole_LV, "collimation_hole", vacuum_solid_LV, false, 0, fCheckOverlaps);
   collimation_hole_LV->SetVisAttributes(G4VisAttributes(G4Colour::Cyan()));
@@ -959,7 +969,8 @@ G4double shieldHeight =  Front_Moderator_Thickness+Mid_Acrylic_thickness+Back_Mo
   G4SubtractionSolid* inner_BPoly_S= new G4SubtractionSolid("inner_BPoly_solid", MainShield_1_S, holeShield_1_S, NO_ROT, G4ThreeVector(0., 0, -NeutronFilter_length/2.0+hole_length/2.0));
   //G4VSolid* inner_BPoly_S= new G4Box("Main_1_solid", Poly_a/2.0 , Poly_a/2.0, NeutronFilter_length/2.0);
   //G4VSolid* inner_BPoly_S= new G4Tubs("Main_1_solid", zeroRadius,fMultiplierLeadRadius, NeutronFilter_length/2.0, startAngle, spanningAngle);
-  G4LogicalVolume *inner_BPoly_LV = new G4LogicalVolume(inner_BPoly_S, BoratedPoly,"inner_BPoly" );
+  //G4LogicalVolume *inner_BPoly_LV = new G4LogicalVolume(inner_BPoly_S, BoratedPoly,"inner_BPoly" );
+  G4LogicalVolume *inner_BPoly_LV = new G4LogicalVolume(inner_BPoly_S, BoratedPoly_15,"inner_BPoly" );
   inner_BPoly_PV = new G4PVPlacement( turnAlongX, G4ThreeVector(0., fFilterCellSpacing+NeutronFilter_length/2.0, 0.), inner_BPoly_LV, "inner_BPoly", vacuum_solid_LV, false, 0, fCheckOverlaps);
   inner_BPoly_LV->SetVisAttributes(G4VisAttributes(G4Colour::Yellow()));
 
