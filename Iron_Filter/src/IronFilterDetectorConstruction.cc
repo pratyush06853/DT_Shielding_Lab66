@@ -593,8 +593,8 @@ G4VPhysicalVolume* IronFilterDetectorConstruction::DefineVolumes()
 //
 //  calculate the Sizes of some derived units.
 //
-G4double Scandium_diameter_limited=3.5*cm;//3.5*cm;
-G4double Scandium_height_limited=30*cm;//35*cm;
+G4double Scandium_diameter_limited=5*cm;//3.5*cm;
+G4double Scandium_height_limited=20*cm;//30*cm;
 //G4double Pb_radius = fSource_radius + 5.0*cm ;
 
 
