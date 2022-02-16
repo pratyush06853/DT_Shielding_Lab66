@@ -166,7 +166,7 @@ IronFilterDetectorConstruction::IronFilterDetectorConstruction()
 
   //fPolyHeight = 41.0*cm;//
   //fPolyHeight = 35.0*cm;//
-  fPolyHeight = 30.0*cm;//
+  fPolyHeight = 30.0*cm;//this shouldn't change
 
   //fFilterCellSpacing= 50.0*cm;//5
   fFilterCellSpacing= 50.0*cm+26.0*cm;//5
@@ -281,7 +281,7 @@ void IronFilterDetectorConstruction::DefineMaterials()
 
 
   // Iron
-  new G4Material("NatScandium", z = 21.0, a = 44.95*g/mole, density = 2.985*g/cm3);
+   G4Material* scandium = new G4Material("NatScandium", z = 21.0, a = 44.95*g/mole, density = 2.985*g/cm3);
 
   // Titanium
   new G4Material("NatTi", z = 22.0, a = 47.867*g/mole, density = 4.507*g/cm3);
@@ -378,6 +378,11 @@ void IronFilterDetectorConstruction::DefineMaterials()
   G4Material* fluental = new G4Material( "fluental",density= 2.94*g/cm3, nComponents= 2); //pratyush
   fluental->AddMaterial( AlF3, 60.*perCent );  //pratyush
   fluental->AddElement( elAl, fractionMass = 40.*perCent ); //pratyush
+
+  //ScandiumOxide
+  G4Material* scandiumoxide = new G4Material( "scandiumoxide",density= 3.86*g/cm3, nComponents= 2); //pratyush
+  scandiumoxide->AddMaterial( scandium, 65.19*perCent );
+  scandiumoxide->AddElement( NatO, 34.81*perCent );
 
 
 
@@ -555,7 +560,8 @@ G4VPhysicalVolume* IronFilterDetectorConstruction::DefineVolumes()
   // Get materials
   G4Material* Vacuum = G4Material::GetMaterial("galactic");
   G4Material* Iron = G4Material::GetMaterial("NatIron");
-  G4Material* Scandium = G4Material::GetMaterial("NatScandium"); //
+  G4Material* Scandium = G4Material::GetMaterial("scandium");
+  G4Material* ScandiumOxide = G4Material::GetMaterial("scandiumoxide"); //
   G4Material* Helium = G4Material::GetMaterial("liquid_helium");
   G4Material* Aluminum = G4Material::GetMaterial("NatAluminum");
   G4Material* Titanium = G4Material::GetMaterial("NatTi");
@@ -593,8 +599,8 @@ G4VPhysicalVolume* IronFilterDetectorConstruction::DefineVolumes()
 //
 //  calculate the Sizes of some derived units.
 //
-G4double Scandium_diameter_limited=5*cm;//3.5*cm;
-G4double Scandium_height_limited=20*cm;//30*cm;
+G4double Scandium_diameter_limited=15*cm;//3.5*cm;5*cm;
+G4double Scandium_height_limited=30*cm;//30*cm;
 //G4double Pb_radius = fSource_radius + 5.0*cm ;
 
 
@@ -1002,7 +1008,8 @@ G4double shieldHeight =  Front_Moderator_Thickness+Mid_Acrylic_thickness+Back_Mo
 
   //Scandium as a the final filter
   G4VSolid* filter_scandium_S = new G4Tubs("filter_scandium", zeroRadius,  Scandium_diameter_limited/2.0,(Scandium_height_limited/2.0), startAngle, spanningAngle);
-  G4LogicalVolume *filter_scandium_LV = new G4LogicalVolume(filter_scandium_S, Scandium,"filter_scandium" );
+  //G4LogicalVolume *filter_scandium_LV = new G4LogicalVolume(filter_scandium_S, Scandium,"filter_scandium" ); //
+  G4LogicalVolume *filter_scandium_LV = new G4LogicalVolume(filter_scandium_S, ScandiumOxide,"filter_scandium" );
   filter_scandium_PV = new G4PVPlacement( turnAlongX, G4ThreeVector(0,fFilterCellSpacing+NeutronFilter_length-(fMultiplierLeadHeightRear+fMultiplierLeadHeightFront)-fModeratorAluminumHeight-fModeratorTitaniumHeight-Scandium_height_limited/2.0,0), filter_scandium_LV, "Filter_scandium",vacuum_solid_LV,false, 0, fCheckOverlaps);
   //filter_scandium_PV = new G4PVPlacement( turnAlongX, G4ThreeVector(0, fFilterCellSpacing-colimator_length+Scandium_height_limited/2.0, Scandium_diameter_limited/2.0), filter_scandium_LV, "Filter_scandium",vacuum_solid_LV,false, 0, fCheckOverlaps);
   //filter_scandium_2_PV = new G4PVPlacement( turnAlongX, G4ThreeVector(0, fFilterCellSpacing-colimator_length+Scandium_height_limited/2.0, -Scandium_diameter_limited/2.0), filter_scandium_LV, "Filter_scandium_2",vacuum_solid_LV,false, 0, fCheckOverlaps);
