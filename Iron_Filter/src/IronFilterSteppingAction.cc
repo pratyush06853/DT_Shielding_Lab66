@@ -214,8 +214,8 @@ void IronFilterSteppingAction::UserSteppingAction(const G4Step* step)
                G4int particle_ID = track->GetParticleDefinition()->GetPDGEncoding();
 
                // TODO: turn this into a tree that gets filled 2112 neutrons
-               //if( (particle_ID == 2112 || particle_ID == 22) ){
-              if( (particle_ID == 2112) ){
+              if( (particle_ID == 2112 || particle_ID == 22) ){
+              //if( (particle_ID == 2112) ){
               //if(  (processName  == "hIoni" && particle_name  == "triton") ){
                    //G4cout<<eventID<<"     "<<trackID<<"      "<<particle_ID<<"      "<<energy<<G4endl;
                    //analysisManager->FillNtupleDColumn(0, edep);
