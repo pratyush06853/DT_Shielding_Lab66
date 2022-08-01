@@ -505,17 +505,17 @@ void IronFilterDetectorConstruction::DefineMaterials()
 
 
   //concrete
-  //G4Material*concrete = new G4Material("concrete",density= 2.3*g/cm3,nComponents=10);
-  //concrete->AddElement(elH,0.01);
-  //concrete->AddElement(elC,0.001);
-  //concrete->AddElement(elO,0.529);
-  //concrete->AddElement(elNa,0.016);
-  //concrete->AddElement(elMg,0.002);
-  //concrete->AddElement(elAl,0.0334);
-  //concrete->AddElement(elSi,0.337);
-  //concrete->AddElement(elK,0.013);
-  //concrete->AddElement(elCa,0.044);
-  //concrete->AddElement(elFe,0.014);
+  G4Material*concrete = new G4Material("concrete",density= 2.3*g/cm3,nComponents=10);
+  concrete->AddElement(elH,0.01);
+  concrete->AddElement(elC,0.001);
+  concrete->AddElement(elO,0.529107);
+  concrete->AddElement(elNa,0.016);
+  concrete->AddElement(elMg,0.002);
+  concrete->AddElement(elAl,0.033872);
+  concrete->AddElement(elSi,0.337021);
+  concrete->AddElement(elK,0.013);
+  concrete->AddElement(elCa,0.044);
+  concrete->AddElement(elFe,0.014);
 
   //G4Material*concrete = new G4Material("concrete",density= 2.3*g/cm3,nComponents=6);
   //concrete->AddElement(elO, 0.52);
@@ -525,14 +525,19 @@ void IronFilterDetectorConstruction::DefineMaterials()
   //concrete->AddElement(elFe, 0.04);
   //concrete->AddElement(elAl, 0.04);
 
-  G4Material*concrete = new G4Material("concrete",density= 2.3*g/cm3,nComponents=7);
-  concrete->AddElement(elH, 0.0068);
-  concrete->AddElement(elO, 0.5323);
-  concrete->AddElement(elSi, 0.3391);
-  concrete->AddElement(elCa, 0.0443);
-  concrete->AddElement(elNa, 0.0292);
-  concrete->AddElement(elFe, 0.0141);
-  concrete->AddElement(elAl, 0.0342);
+  //concrete
+  //G4Material*concrete = new G4Material("concrete",density= 2.3*g/cm3,nComponents=10);
+  G4Material*HDconcrete = new G4Material("HDconcrete",density= 4.81*g/cm3,nComponents=10);
+  HDconcrete->AddElement(elH,0.01);
+  HDconcrete->AddElement(elC,0.001);
+  HDconcrete->AddElement(elO,0.529107);
+  HDconcrete->AddElement(elNa,0.016);
+  HDconcrete->AddElement(elMg,0.002);
+  HDconcrete->AddElement(elAl,0.033872);
+  HDconcrete->AddElement(elSi,0.337021);
+  HDconcrete->AddElement(elK,0.013);
+  HDconcrete->AddElement(elCa,0.044);
+  HDconcrete->AddElement(elFe,0.014);
 
 
 
@@ -584,6 +589,7 @@ G4VPhysicalVolume* IronFilterDetectorConstruction::DefineVolumes()
   G4Material* Iron54 = G4Material::GetMaterial("Fe54");
   G4Material*  Soft_Tissue=G4Material::GetMaterial("soft_tissue");
   G4Material*  Concrete = G4Material::GetMaterial("concrete");
+  G4Material*  HDConcrete = G4Material::GetMaterial("HDconcrete");
   G4Material*  Borated_Concrete = G4Material::GetMaterial("borated_concrete");
   G4Material*  Wood = G4Material::GetMaterial("wood");
   G4Material*  Quartz = G4Material::GetMaterial("quartz");
@@ -897,8 +903,8 @@ G4double shieldHeight =  Front_Moderator_Thickness+Mid_Acrylic_thickness+Back_Mo
 
   //G4LogicalVolume* boratedwater_LV = new G4LogicalVolume(boratedwater_S, Vacuum, "boratedwater");
   //G4LogicalVolume* boratedwater_LV = new G4LogicalVolume(boratedwater_S, BoraxBoricAcidBuffer, "boratedwater");
-  //G4LogicalVolume* boratedwater_LV = new G4LogicalVolume(boratedwater_S, Concrete, "boratedwater");
-  G4LogicalVolume* boratedwater_LV = new G4LogicalVolume(boratedwater_S, Water, "boratedwater");
+  G4LogicalVolume* boratedwater_LV = new G4LogicalVolume(boratedwater_S, HDConcrete, "boratedwater");
+  //G4LogicalVolume* boratedwater_LV = new G4LogicalVolume(boratedwater_S, Water, "boratedwater");
   //G4LogicalVolume* boratedwater_LV = new G4LogicalVolume(boratedwater_S, BoratedPoly, "boratedwater");
   boratedwater_PV = new G4PVPlacement(NO_ROT, G4ThreeVector(0., fFilterCellSpacing+ Water_cylindercal_can_radius/2.0, (Water_cylindercal_can_height)/2.0 - DT_Ti_T_location - Insulation_Thickness), boratedwater_LV, "BoratedWater", vacuum_solid_LV, false, 0, fCheckOverlaps);
   ////boratedwater_PV = new G4PVPlacement(turnAlongZ, G4ThreeVector(0., fFilterCellSpacing+Water_y/2.0, 0), boratedwater_LV, "BoratedWater", vacuum_solid_LV, false, 0, fCheckOverlaps);
@@ -946,7 +952,7 @@ G4double shieldHeight =  Front_Moderator_Thickness+Mid_Acrylic_thickness+Back_Mo
 
 
   G4VSolid* ConcreteSupport_S = new G4Box("ConcreteSupport", Water_cylindercal_can_radius_x/2.0 , Water_cylindercal_can_radius/2.0 , (ConcreteSupport_height)/2.0);
-  G4LogicalVolume* ConcreteSupport_LV = new G4LogicalVolume(ConcreteSupport_S, Concrete, "ConcreteSupport");
+  G4LogicalVolume* ConcreteSupport_LV = new G4LogicalVolume(ConcreteSupport_S, HDConcrete, "ConcreteSupport");
   //G4LogicalVolume* ConcreteSupport_LV = new G4LogicalVolume(ConcreteSupport_S, BoraxBoricAcidBuffer, "ConcreteSupport");
   //G4LogicalVolume* ConcreteSupport_LV = new G4LogicalVolume(ConcreteSupport_S, Borated_Concrete, "ConcreteSupport");
   ConcreteSupport_PV = new G4PVPlacement(NO_ROT, G4ThreeVector(0., fFilterCellSpacing+Water_cylindercal_can_radius/2.0, -(DT_Ti_T_location+Insulation_Thickness)-ConcreteSupport_height/2.0), ConcreteSupport_LV, "ConcreteSupport", vacuum_solid_LV, false, 0, fCheckOverlaps);
@@ -955,13 +961,13 @@ G4double shieldHeight =  Front_Moderator_Thickness+Mid_Acrylic_thickness+Back_Mo
 
 
   //Insulation but this is actually a surface to see the neutrons coming out of the concrete and borated water
-  //G4VSolid* Insulation_S = new G4Box("Insulation", Water_cylindercal_can_radius_x/2.0+ Side_shield_thickness +30.0*cm, delta/2.0, (Water_cylindercal_can_height+ConcreteSupport_height)/2.);
-  G4VSolid* MainInsulation_S = new G4Box("MainInsulation", Water_cylindercal_can_radius_x/2.0+ Side_shield_thickness +30.0*cm+delta, (Water_cylindercal_can_radius+colimator_length)/2.0+delta, (Water_cylindercal_can_height+ConcreteSupport_height)/2.0+delta);
-  G4VSolid* HoleInsulation_S = new G4Box("HoleInsulation", Water_cylindercal_can_radius_x/2.0+ Side_shield_thickness +30.0*cm, (Water_cylindercal_can_radius+colimator_length)/2.0, (Water_cylindercal_can_height+ConcreteSupport_height)/2.0);
-  G4SubtractionSolid* Insulation_S= new G4SubtractionSolid("Insulation", MainInsulation_S, HoleInsulation_S, NO_ROT, G4ThreeVector(0., 0, 0));
+  G4VSolid* Insulation_S = new G4Box("Insulation", Water_cylindercal_can_radius_x/2.0+ Side_shield_thickness +30.0*cm, delta/2.0, (Water_cylindercal_can_height+ConcreteSupport_height)/2.);
+  //G4VSolid* MainInsulation_S = new G4Box("MainInsulation", Water_cylindercal_can_radius_x/2.0+ Side_shield_thickness +30.0*cm+delta, (Water_cylindercal_can_radius+colimator_length)/2.0+delta, (Water_cylindercal_can_height+ConcreteSupport_height)/2.0+delta);
+  //G4VSolid* HoleInsulation_S = new G4Box("HoleInsulation", Water_cylindercal_can_radius_x/2.0+ Side_shield_thickness +30.0*cm, (Water_cylindercal_can_radius+colimator_length)/2.0, (Water_cylindercal_can_height+ConcreteSupport_height)/2.0);
+  //G4SubtractionSolid* Insulation_S= new G4SubtractionSolid("Insulation", MainInsulation_S, HoleInsulation_S, NO_ROT, G4ThreeVector(0., 0, 0));
   G4LogicalVolume* Insulation_LV = new G4LogicalVolume(Insulation_S, Vacuum, "Insulation");
-  //Insulation_PV = new G4PVPlacement(NO_ROT, G4ThreeVector(0., fFilterCellSpacing-colimator_length-3*delta/2.0, (Water_cylindercal_can_height-ConcreteSupport_height)/2 - DT_Ti_T_location - Insulation_Thickness), Insulation_LV, "Insulation", vacuum_solid_LV, false, 0, fCheckOverlaps);
-  Insulation_PV = new G4PVPlacement(NO_ROT, G4ThreeVector(0., fFilterCellSpacing+Water_cylindercal_can_radius/2.0-colimator_length/2.0, (Water_cylindercal_can_height-ConcreteSupport_height)/2 - DT_Ti_T_location - Insulation_Thickness), Insulation_LV, "Insulation", vacuum_solid_LV, false, 0, fCheckOverlaps);
+  Insulation_PV = new G4PVPlacement(NO_ROT, G4ThreeVector(0., fFilterCellSpacing-colimator_length-3*delta/2.0, (Water_cylindercal_can_height-ConcreteSupport_height)/2 - DT_Ti_T_location - Insulation_Thickness), Insulation_LV, "Insulation", vacuum_solid_LV, false, 0, fCheckOverlaps);
+  //Insulation_PV = new G4PVPlacement(NO_ROT, G4ThreeVector(0., fFilterCellSpacing+Water_cylindercal_can_radius/2.0-colimator_length/2.0, (Water_cylindercal_can_height-ConcreteSupport_height)/2 - DT_Ti_T_location - Insulation_Thickness), Insulation_LV, "Insulation", vacuum_solid_LV, false, 0, fCheckOverlaps);
   Insulation_LV->SetVisAttributes(G4VisAttributes(G4Colour::Green()));
 
 
