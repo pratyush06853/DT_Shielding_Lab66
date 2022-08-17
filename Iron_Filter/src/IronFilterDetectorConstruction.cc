@@ -1110,10 +1110,10 @@ G4double shieldHeight =  Front_Moderator_Thickness+Mid_Acrylic_thickness+Back_Mo
   moderator_titanium_LV->SetVisAttributes(G4VisAttributes(G4Colour::Green()));
 
   //Lead cylinder surrounding the Titanium and Fluental
-  //G4VSolid* Lead_around_TiAndF_S = new G4Tubs("Lead Reflector", fModeratorAluminumRadius, fMultiplierLeadRadius,(fModeratorAluminumHeight+fModeratorTitaniumHeight)/2.0, startAngle, spanningAngle);
-  //G4LogicalVolume* Lead_around_TiAndF_LV = new G4LogicalVolume(Lead_around_TiAndF_S, Lead, "reflector_Lead" );//to check with fluental
-  //Lead_around_TiAndF_PV = new G4PVPlacement( NO_ROT, G4ThreeVector(0,0,NeutronFilter_length/2.0-(fMultiplierLeadHeightRear+fMultiplierLeadHeightFront)-(fModeratorAluminumHeight+fModeratorTitaniumHeight)/2.0),Lead_around_TiAndF_LV, "Reflector_lead",inner_BPoly_LV, false, 0, fCheckOverlaps);
-  //Lead_around_TiAndF_LV->SetVisAttributes(G4VisAttributes(G4Colour::Blue()));
+  G4VSolid* Lead_around_TiAndF_S = new G4Tubs("Lead Reflector", fModeratorAluminumRadius, fMultiplierLeadRadius,(fModeratorAluminumHeight+fModeratorTitaniumHeight)/2.0, startAngle, spanningAngle);
+  G4LogicalVolume* Lead_around_TiAndF_LV = new G4LogicalVolume(Lead_around_TiAndF_S, Lead, "reflector_Lead" );//to check with fluental
+  Lead_around_TiAndF_PV = new G4PVPlacement( NO_ROT, G4ThreeVector(0,0,NeutronFilter_length/2.0-(fMultiplierLeadHeightRear+fMultiplierLeadHeightFront)-(fModeratorAluminumHeight+fModeratorTitaniumHeight)/2.0),Lead_around_TiAndF_LV, "Reflector_lead",inner_BPoly_LV, false, 0, fCheckOverlaps);
+  Lead_around_TiAndF_LV->SetVisAttributes(G4VisAttributes(G4Colour::Blue()));
 
   //Scandium as a the final filter
   G4VSolid* filter_scandium_S = new G4Tubs("filter_scandium", zeroRadius,  Scandium_diameter_limited/2.0,(Scandium_height_limited/2.0), startAngle, spanningAngle);
