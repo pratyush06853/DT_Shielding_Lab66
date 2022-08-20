@@ -378,8 +378,8 @@ void IronFilterDetectorConstruction::DefineMaterials()
 
   //Fluental
   //mixture of 40% Al and 60% of AlF_3
-  //G4Material* fluental = new G4Material( "fluental",density= 2.94*g/cm3, nComponents= 2); //pratyush
-  G4Material* fluental = new G4Material( "fluental",density= 2.50*g/cm3, nComponents= 2); //pratyush
+  G4Material* fluental = new G4Material( "fluental",density= 2.94*g/cm3, nComponents= 2); //pratyush
+  //G4Material* fluental = new G4Material( "fluental",density= 2.50*g/cm3, nComponents= 2); //pratyush
   fluental->AddMaterial( AlF3, 60.*perCent );  //pratyush
   fluental->AddElement( elAl, fractionMass = 40.*perCent ); //pratyush
 
@@ -902,10 +902,8 @@ G4double shieldHeight =  Front_Moderator_Thickness+Mid_Acrylic_thickness+Back_Mo
 
   //layer of air at the bottom of the filter
   G4VSolid* Main_S = new G4Box("Main_solid", Water_cylindercal_can_radius_x/2.0 , (Water_cylindercal_can_radius)/2.0 , (Water_cylindercal_can_height)/2.0);
-  //G4VSolid* Main_S = new G4Tubs("Main_solid", zeroRadius, Water_cylindercal_can_radius/2.0 , (Water_cylindercal_can_height)/2.0, startAngle, spanningAngle);
-  //G4VSolid* hole_S = new G4Box("hole_solid", Poly_a/2.0 , Poly_a/2.0, NeutronFilter_length/2.0);
   G4VSolid* hole_S = new G4Tubs("hole_solid", zeroRadius,fMultiplierLeadRadius, NeutronFilter_length/2.0, startAngle, spanningAngle);
-  //G4VSolid* hole_S = new G4Box("hole_solid", Poly_a/2.0 , Poly_a/2.0, NeutronFilter_length/2.0);
+  //G4VSolid* hole_S = new G4Box("hole_solid", fMultiplierLeadRadius,fMultiplierLeadRadius, NeutronFilter_length/2.0);
   G4SubtractionSolid* boratedwater_S= new G4SubtractionSolid("boratedwater", Main_S, hole_S, turnAlongX, G4ThreeVector(0., -Water_cylindercal_can_radius/2.0+NeutronFilter_length/2.0, -(Water_cylindercal_can_height)/2.0 + DT_Ti_T_location + Insulation_Thickness));
   //G4SubtractionSolid* SecondMain_S= new G4SubtractionSolid("Second", Main_S, hole_S, turnAlongX, G4ThreeVector(0., -Water_cylindercal_can_radius/2.0+NeutronFilter_length/2.0, -(Water_cylindercal_can_height)/2.0 + DT_Ti_T_location + Insulation_Thickness));
   //G4VSolid* Secondhole_S = new G4Tubs("Secondhole_solid", zeroRadius, (2*Insulation_Thickness+34*mm)/2.0, (Water_cylindercal_can_height)/2.0, startAngle, spanningAngle);
@@ -967,6 +965,7 @@ G4double shieldHeight =  Front_Moderator_Thickness+Mid_Acrylic_thickness+Back_Mo
   //BPoly inside boarted water sheild
   G4VSolid* Main6_S = new G4Box("Main6_solid", Water_cylindercal_can_radius_x/2.0 , (ExtraBoratedpoly_thickness)/2.0 , (Water_cylindercal_can_height)/2.0);
   G4VSolid* hole6_S = new G4Tubs("hole6_solid", zeroRadius,fMultiplierLeadRadius, (ExtraBoratedpoly_thickness)/2.0, startAngle, spanningAngle);
+  //G4VSolid* hole6_S = new G4Box("hole6_solid", fMultiplierLeadRadius,fMultiplierLeadRadius, (ExtraBoratedpoly_thickness)/2.0);
   G4SubtractionSolid* ExtraBoratedpoly_S= new G4SubtractionSolid("ExtraBoratedpoly", Main6_S, hole6_S, turnAlongX, G4ThreeVector(0., 0, -(Water_cylindercal_can_height)/2.0 + DT_Ti_T_location + Insulation_Thickness));
   ////G4LogicalVolume* ExtraBoratedpoly_LV = new G4LogicalVolume(ExtraBoratedpoly_S, Vacuum, "ExtraBoratedpoly");
   ////G4LogicalVolume* ExtraBoratedpoly_LV = new G4LogicalVolume(ExtraBoratedpoly_S, BoraxBoricAcidBuffer, "ExtraBoratedpoly");
@@ -1061,6 +1060,7 @@ G4double shieldHeight =  Front_Moderator_Thickness+Mid_Acrylic_thickness+Back_Mo
 
   //moderator in made of of Borated Poly surrounds Sc
   G4VSolid* MainShield_1_S = new G4Tubs("MainShield_1_solid", zeroRadius,fMultiplierLeadRadius, NeutronFilter_length/2.0, startAngle, spanningAngle);
+  //G4VSolid* MainShield_1_S = new G4Box("MainShield_1_solid", fMultiplierLeadRadius,fMultiplierLeadRadius, NeutronFilter_length/2.0);
   G4VSolid* holeShield_1_S = new G4Tubs("holeShield_1_solid", 0 , Scandium_diameter_limited/2.0, hole_length/2.0,startAngle, spanningAngle);
   G4SubtractionSolid* inner_BPoly_S= new G4SubtractionSolid("inner_BPoly_solid", MainShield_1_S, holeShield_1_S, NO_ROT, G4ThreeVector(0., 0, -NeutronFilter_length/2.0+hole_length/2.0));
   //G4VSolid* inner_BPoly_S= new G4Box("Main_1_solid", Poly_a/2.0 , Poly_a/2.0, NeutronFilter_length/2.0);
@@ -1077,21 +1077,22 @@ G4double shieldHeight =  Front_Moderator_Thickness+Mid_Acrylic_thickness+Back_Mo
 
 
   //extra shield layer of Ti
-  //G4VSolid* Titanium_shield_S = new G4Tubs("Titanium_shield", Scandium_diameter_limited/2.0, fModeratorAluminumRadius , (Titanium_shield_height)/2.0, startAngle, spanningAngle);
-  //G4LogicalVolume* Titanium_shield_LV = new G4LogicalVolume(Titanium_shield_S, Titanium, "Titanium_shield");
-  //Titanium_shield_PV = new G4PVPlacement(NO_ROT, G4ThreeVector(0,0,NeutronFilter_length/2.0-(fMultiplierLeadHeightRear+fMultiplierLeadHeightFront)-fModeratorAluminumHeight-fModeratorTitaniumHeight-Titanium_shield_height/2.0), Titanium_shield_LV, "Ti_shield", inner_BPoly_LV, false, 0, fCheckOverlaps);
-  //Titanium_shield_LV->SetVisAttributes(G4VisAttributes(G4Colour::Green()));
+  G4VSolid* Titanium_shield_S = new G4Tubs("Titanium_shield", Scandium_diameter_limited/2.0, fModeratorAluminumRadius , (Titanium_shield_height)/2.0, startAngle, spanningAngle);
+  G4LogicalVolume* Titanium_shield_LV = new G4LogicalVolume(Titanium_shield_S, Titanium, "Titanium_shield");
+  Titanium_shield_PV = new G4PVPlacement(NO_ROT, G4ThreeVector(0,0,NeutronFilter_length/2.0-(fMultiplierLeadHeightRear+fMultiplierLeadHeightFront)-fModeratorAluminumHeight-fModeratorTitaniumHeight-Titanium_shield_height/2.0), Titanium_shield_LV, "Ti_shield", inner_BPoly_LV, false, 0, fCheckOverlaps);
+  Titanium_shield_LV->SetVisAttributes(G4VisAttributes(G4Colour::Green()));
 
   //extra shield layer of Mn
-  //G4VSolid* Manganese_shield_S = new G4Tubs("Manganese_shield", Scandium_diameter_limited/2.0, fModeratorAluminumRadius , (Manganese_shield_height)/2.0, startAngle, spanningAngle);
-  //G4LogicalVolume* Manganese_shield_LV = new G4LogicalVolume(Manganese_shield_S, Manganese, "Manganese_shield");
-  //Manganese_shield_PV = new G4PVPlacement(NO_ROT, G4ThreeVector(0,0,NeutronFilter_length/2.0-(fMultiplierLeadHeightRear+fMultiplierLeadHeightFront)-fModeratorAluminumHeight-fModeratorTitaniumHeight-Titanium_shield_height-Manganese_shield_height/2.0), Manganese_shield_LV, "Mn_shield", inner_BPoly_LV, false, 0, fCheckOverlaps);
-  //Manganese_shield_LV->SetVisAttributes(G4VisAttributes(G4Colour::Cyan()));
+  G4VSolid* Manganese_shield_S = new G4Tubs("Manganese_shield", Scandium_diameter_limited/2.0, fModeratorAluminumRadius , (Manganese_shield_height)/2.0, startAngle, spanningAngle);
+  G4LogicalVolume* Manganese_shield_LV = new G4LogicalVolume(Manganese_shield_S, Manganese, "Manganese_shield");
+  Manganese_shield_PV = new G4PVPlacement(NO_ROT, G4ThreeVector(0,0,NeutronFilter_length/2.0-(fMultiplierLeadHeightRear+fMultiplierLeadHeightFront)-fModeratorAluminumHeight-fModeratorTitaniumHeight-Titanium_shield_height-Manganese_shield_height/2.0), Manganese_shield_LV, "Mn_shield", inner_BPoly_LV, false, 0, fCheckOverlaps);
+  Manganese_shield_LV->SetVisAttributes(G4VisAttributes(G4Colour::Cyan()));
 
 
 
   //lead in the form of cylinder as outer shield
   G4VSolid* multiplier_lead_S = new G4Tubs("multiplier_lead", zeroRadius, fMultiplierLeadRadius , (fMultiplierLeadHeightRear+fMultiplierLeadHeightFront)/2.0, startAngle, spanningAngle);
+  //G4VSolid* multiplier_lead_S = new G4Box("multiplier_lead", fMultiplierLeadRadius, fMultiplierLeadRadius , (fMultiplierLeadHeightRear+fMultiplierLeadHeightFront)/2.0);
   G4LogicalVolume* multiplier_lead_LV = new G4LogicalVolume(multiplier_lead_S, Lead, "multiplier_lead");
   multiplier_lead_PV = new G4PVPlacement(NO_ROT, G4ThreeVector(0., 0.,NeutronFilter_length/2.0-(fMultiplierLeadHeightRear+fMultiplierLeadHeightFront)/2.0), multiplier_lead_LV, "Pb_shield", inner_BPoly_LV, false, 0, fCheckOverlaps);
   multiplier_lead_LV->SetVisAttributes(G4VisAttributes(G4Colour::Blue()));
@@ -1099,18 +1100,23 @@ G4double shieldHeight =  Front_Moderator_Thickness+Mid_Acrylic_thickness+Back_Mo
 
   //Fluental (Aluminum) as the first moderator
   G4VSolid* moderator_aluminum_S = new G4Tubs("moderator_aluminum", zeroRadius, fModeratorAluminumRadius, (fModeratorAluminumHeight /2.0), startAngle, spanningAngle);
+  //G4VSolid* moderator_aluminum_S = new G4Box("moderator_aluminum", fModeratorAluminumRadius, fModeratorAluminumRadius, (fModeratorAluminumHeight /2.0));
   G4LogicalVolume* moderator_aluminum_LV = new G4LogicalVolume(moderator_aluminum_S, Fluental, "moderator_aluminum");
   moderator_aluminum_PV =new G4PVPlacement(NO_ROT, G4ThreeVector(0,0,NeutronFilter_length/2.0-(fMultiplierLeadHeightRear+fMultiplierLeadHeightFront)-fModeratorAluminumHeight /2.0),moderator_aluminum_LV, "Fluental_Moderator", inner_BPoly_LV, false, 0, fCheckOverlaps);
   moderator_aluminum_LV->SetVisAttributes(G4VisAttributes(G4Colour::Grey()));
 
   //Titanium as a secondary moderator in the form of cylinder
   G4VSolid* moderator_titanium_S = new G4Tubs( "moderator_titanium", zeroRadius, fModeratorTitaniumRadius,(fModeratorTitaniumHeight/2.0), startAngle, spanningAngle);
+  //G4VSolid* moderator_titanium_S = new G4Box( "moderator_titanium", fModeratorTitaniumRadius, fModeratorTitaniumRadius,(fModeratorTitaniumHeight/2.0));
   G4LogicalVolume* moderator_titanium_LV = new G4LogicalVolume( moderator_titanium_S, Titanium, "moderator_titanium" );//to check with fluental
   moderator_titanium_PV = new G4PVPlacement( NO_ROT, G4ThreeVector(0,0,NeutronFilter_length/2.0-(fMultiplierLeadHeightRear+fMultiplierLeadHeightFront)-fModeratorAluminumHeight-fModeratorTitaniumHeight/2.0),moderator_titanium_LV, "Moderator_titanium",inner_BPoly_LV, false, 0, fCheckOverlaps);
   moderator_titanium_LV->SetVisAttributes(G4VisAttributes(G4Colour::Green()));
 
   //Lead cylinder surrounding the Titanium and Fluental
   G4VSolid* Lead_around_TiAndF_S = new G4Tubs("Lead Reflector", fModeratorAluminumRadius, fMultiplierLeadRadius,(fModeratorAluminumHeight+fModeratorTitaniumHeight)/2.0, startAngle, spanningAngle);
+  //G4VSolid* Lead_around_TiAndF_S_main = new G4Box("Lead Reflector", fMultiplierLeadRadius, fMultiplierLeadRadius,(fModeratorAluminumHeight+fModeratorTitaniumHeight)/2.0);
+  //G4VSolid* Lead_around_TiAndF_S_hole = new G4Box("Lead Reflector", fModeratorAluminumRadius, fModeratorAluminumRadius,(fModeratorAluminumHeight+fModeratorTitaniumHeight)/2.0);
+  //G4SubtractionSolid* Lead_around_TiAndF_S= new G4SubtractionSolid("inner_BPoly_solid", Lead_around_TiAndF_S_main, Lead_around_TiAndF_S_hole, NO_ROT, G4ThreeVector(0., 0, 0));
   G4LogicalVolume* Lead_around_TiAndF_LV = new G4LogicalVolume(Lead_around_TiAndF_S, Lead, "reflector_Lead" );//to check with fluental
   Lead_around_TiAndF_PV = new G4PVPlacement( NO_ROT, G4ThreeVector(0,0,NeutronFilter_length/2.0-(fMultiplierLeadHeightRear+fMultiplierLeadHeightFront)-(fModeratorAluminumHeight+fModeratorTitaniumHeight)/2.0),Lead_around_TiAndF_LV, "Reflector_lead",inner_BPoly_LV, false, 0, fCheckOverlaps);
   Lead_around_TiAndF_LV->SetVisAttributes(G4VisAttributes(G4Colour::Blue()));
