@@ -378,8 +378,8 @@ void IronFilterDetectorConstruction::DefineMaterials()
 
   //Fluental
   //mixture of 40% Al and 60% of AlF_3
-  G4Material* fluental = new G4Material( "fluental",density= 2.94*g/cm3, nComponents= 2); //pratyush
-  //G4Material* fluental = new G4Material( "fluental",density= 2.50*g/cm3, nComponents= 2); //pratyush
+  //G4Material* fluental = new G4Material( "fluental",density= 2.94*g/cm3, nComponents= 2); //pratyush
+  G4Material* fluental = new G4Material( "fluental",density= 2.50*g/cm3, nComponents= 2); //pratyush
   fluental->AddMaterial( AlF3, 60.*perCent );  //pratyush
   fluental->AddElement( elAl, fractionMass = 40.*perCent ); //pratyush
 
