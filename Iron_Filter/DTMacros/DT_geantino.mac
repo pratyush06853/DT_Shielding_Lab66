@@ -3,10 +3,10 @@
 /IronFilter/det/setMultiplierLeadHeightFront 15.0 cm
 /IronFilter/det/setModeratorAluminumHeight 30 cm
 /IronFilter/det/setModeratorTitaniumHeight 5.0 cm # to get the DT position add the number till here
-/IronFilter/det/setMultiplierLeadHeightRear 20.0 cm
-/IronFilter/det/setMultiplierLeadRadius 20.0 cm
-/IronFilter/det/setModeratorAluminumRadius 15.0 cm
-/IronFilter/det/setModeratorTitaniumRadius 15.0 cm
+/IronFilter/det/setMultiplierLeadHeightRear 30.0 cm
+/IronFilter/det/setMultiplierLeadRadius 30.0 cm
+/IronFilter/det/setModeratorAluminumRadius 25.0 cm
+/IronFilter/det/setModeratorTitaniumRadius 25.0 cm
 /IronFilter/det/setTestX 0 m
 /IronFilter/det/setTestY 0 m
 /IronFilter/det/setTestZ 0 m
