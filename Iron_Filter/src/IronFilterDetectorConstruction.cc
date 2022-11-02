@@ -157,16 +157,16 @@ IronFilterDetectorConstruction::IronFilterDetectorConstruction()
   fMultiplierLeadHeightRear = 20.0*cm;//20.0*cm
   fMultiplierLeadHeightFront=  15.0*cm;//30.0*cm
 
-  fModeratorAluminumHeight= 30.0*cm;//39.0*cm
-  fModeratorTitaniumHeight= (5.0)*cm; //(34.0)*cm
+  fModeratorAluminumHeight= 40.0*cm;//39.0*cm
+  fModeratorTitaniumHeight= (7.0)*cm; //(34.0)*cm
 
-  fMultiplierLeadRadius = 20.0*cm;//20.0*cm
-  fModeratorAluminumRadius = 15.0*cm;//15.0*cm without Ti
-  fModeratorTitaniumRadius = 15.0*cm;
+  fMultiplierLeadRadius = 30.0*cm;//20.0*cm
+  fModeratorAluminumRadius = 25.0*cm;//15.0*cm without Ti
+  fModeratorTitaniumRadius = 25.0*cm;
 
   //fPolyHeight = 41.0*cm;//
   //fPolyHeight = 35.0*cm;//
-  fPolyHeight = 30.0*cm;//this shouldn't change
+  fPolyHeight = 33.0*cm;//this shouldn't change
 
   //fFilterCellSpacing= 50.0*cm;//5
   fFilterCellSpacing= 60.0*cm+26.0*cm;//50.0*cm+26.0*cm;
@@ -529,7 +529,7 @@ void IronFilterDetectorConstruction::DefineMaterials()
   baseconcrete->AddElement(elMg,0.0144);
   baseconcrete->AddElement(elNa,0.0004);
   baseconcrete->AddElement(elK,0.001);
-  baseconcrete->AddElement(elSi,0.0018);
+  baseconcrete->AddElement(elS,0.0018);
   baseconcrete->AddElement(elC,0.0742);
   baseconcrete->AddElement(elH,0.0058);
   baseconcrete->AddElement(elO,0.4603);
@@ -643,10 +643,10 @@ G4double Insulation_Thickness = 0*mm;//5*mm
 
 G4double Water_cylindercal_can_radius = 152.7175*cm;
 //G4double Water_cylindercal_can_radius_x = 120*cm;
-G4double Water_cylindercal_can_radius_x = 30*cm+152.7175*cm;//152.7175*cm;
+G4double Water_cylindercal_can_radius_x = 20*cm+152.7175*cm;//152.7175*cm;
 //G4double Water_cylindercal_can_radius_x = 152.7175*cm;
 G4double Water_cylindercal_can_height = 115.8875*cm;
-G4double ConcreteSupport_height = 99.0*cm; //80cm  90.0*cm
+G4double ConcreteSupport_height = 90.47*cm; //80cm  90.0*cm
 
 
 G4double Poly_a = 40.0*cm;
@@ -962,6 +962,8 @@ G4double shieldHeight =  Front_Moderator_Thickness+Mid_Acrylic_thickness+Back_Mo
   //Insulation_PV = new G4PVPlacement(NO_ROT, G4ThreeVector(0., fFilterCellSpacing+NeutronFilter_length+(2*Insulation_Thickness+34*mm)/2.0, (Water_cylindercal_can_height)/2.0 - DT_Ti_T_location - Insulation_Thickness), Insulation_LV, "Insulation", vacuum_solid_LV, false, 0, fCheckOverlaps);
   //Insulation_LV->SetVisAttributes(G4VisAttributes(G4Colour::Yellow()));
 
+
+
   G4double ExtraBoratedpoly_thickness =20*cm;
   //BPoly inside boarted water sheild
   G4VSolid* Main6_S = new G4Box("Main6_solid", Water_cylindercal_can_radius_x/2.0 , (ExtraBoratedpoly_thickness)/2.0 , (Water_cylindercal_can_height)/2.0);
@@ -980,8 +982,10 @@ G4double shieldHeight =  Front_Moderator_Thickness+Mid_Acrylic_thickness+Back_Mo
 
 
   //BPoly inside boarted water sheild
-  G4double Concrete_can_x=120.0*cm;
-  G4double Concrete_can_z=90*cm;
+  G4double Concrete_can_x=( 120.0 + (fModeratorAluminumRadius/10 - 15.0)*2 )*cm;
+  G4double Concrete_can_z=( 90.0 + (fModeratorAluminumRadius/10 - 15.0)*2 )*cm;
+  //G4double Concrete_can_x= 120.0 *cm;
+  //G4double Concrete_can_z= 90.0 *cm;
   G4double Concrete_can_x_thickness=30.0*cm;
   G4double Concrete_can_z_thickness=20.0*cm;//15.0*cm
 
@@ -1029,6 +1033,17 @@ G4double shieldHeight =  Front_Moderator_Thickness+Mid_Acrylic_thickness+Back_Mo
   G4LogicalVolume* BoratedPolyInFrontConcrete_LV = new G4LogicalVolume(BoratedPolyInFrontConcrete_S, BoratedPoly , "BoratedPolyInFrontConcrete");
   new G4PVPlacement(NO_ROT, G4ThreeVector(0., fFilterCellSpacing+ExtraBoratedpoly_thickness/2.0, -(DT_Ti_T_location+Insulation_Thickness)-ConcreteSupport_height/2.0), BoratedPolyInFrontConcrete_LV, "BoratedPolyInFrontConcrete", vacuum_solid_LV, false, 0, fCheckOverlaps);
   BoratedPolyInFrontConcrete_LV->SetVisAttributes(G4VisAttributes(G4Colour::Yellow()));
+
+ //Insulation but this is actually a surface to see the neutrons coming out of the concrete and borated water
+ //G4VSolid* Insulation_S = new G4Box("Insulation", Water_cylindercal_can_radius_x/2.0+ Side_shield_thickness +30.0*cm, delta/2.0, (Water_cylindercal_can_height+ConcreteSupport_height)/2.);
+ G4VSolid* MainInsulation_S = new G4Box("MainInsulation", Water_cylindercal_can_radius_x/2.0+ Side_shield_thickness +30.0*cm+delta, (Water_cylindercal_can_radius+colimator_length)/2.0+delta, (Water_cylindercal_can_height+ConcreteSupport_height+Up_BpolyThickness)/2.0+delta);
+ G4VSolid* HoleInsulation_S = new G4Box("HoleInsulation", Water_cylindercal_can_radius_x/2.0+ Side_shield_thickness +30.0*cm, (Water_cylindercal_can_radius+colimator_length)/2.0, (Water_cylindercal_can_height+ConcreteSupport_height+Up_BpolyThickness)/2.0);
+ G4SubtractionSolid* Insulation_S= new G4SubtractionSolid("Insulation", MainInsulation_S, HoleInsulation_S, NO_ROT, G4ThreeVector(0., 0, 0));
+ G4LogicalVolume* Insulation_LV = new G4LogicalVolume(Insulation_S, Vacuum, "Insulation");
+ //Insulation_PV = new G4PVPlacement(NO_ROT, G4ThreeVector(0., fFilterCellSpacing-colimator_length-3*delta/2.0, (Water_cylindercal_can_height-ConcreteSupport_height)/2 - DT_Ti_T_location - Insulation_Thickness), Insulation_LV, "Insulation", vacuum_solid_LV, false, 0, fCheckOverlaps);
+ Insulation_PV = new G4PVPlacement(NO_ROT, G4ThreeVector(0., fFilterCellSpacing+Water_cylindercal_can_radius/2.0-colimator_length/2.0, (Water_cylindercal_can_height-ConcreteSupport_height+Up_BpolyThickness)/2 - DT_Ti_T_location - Insulation_Thickness), Insulation_LV, "Insulation", vacuum_solid_LV, false, 0, fCheckOverlaps);
+ Insulation_LV->SetVisAttributes(G4VisAttributes(G4Colour::Green()));
+
 
 
 
