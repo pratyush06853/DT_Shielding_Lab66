@@ -645,7 +645,7 @@ G4double Water_cylindercal_can_radius = 152.7175*cm;
 //G4double Water_cylindercal_can_radius_x = 120*cm;
 G4double Water_cylindercal_can_radius_x = 20*cm+152.7175*cm;//152.7175*cm;
 //G4double Water_cylindercal_can_radius_x = 152.7175*cm;
-G4double Water_cylindercal_can_height =  = 114.3*cm;//115.8875*cm;
+G4double Water_cylindercal_can_height = 114.3*cm;//115.8875*cm;
 G4double ConcreteSupport_height = 90.47*cm; //80cm  90.0*cm
 
 
