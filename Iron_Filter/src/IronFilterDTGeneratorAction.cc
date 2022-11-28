@@ -136,8 +136,8 @@ void IronFilterDTGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 
   if(eventID ==0)
   {
-  //f = TFile::Open("/home/pp59a/Filter_lab_realistic_settings_cylinder/DT_Shielding_Lab66/Input/Geom21_Doseage_1pulse_input.root");
-  f = TFile::Open("/Volumes/Seagate Backup Plus Drive/Simulation IronFilter/Shielding_DT/GEANT4_build_files/Inputfiles/Geom21_Doseage_1pulse_input.root");
+  f = TFile::Open("/home/pp59a/Filter_lab_realistic_settings_cylinder/DT_Shielding_Lab66/Input/Geom94_Doseage_1pulse_input.root");
+  //f = TFile::Open("/Volumes/Seagate Backup Plus Drive/Simulation IronFilter/Shielding_DT/GEANT4_build_files/Inputfiles/Geom21_Doseage_1pulse_input.root");
   t1 = (TTree*)f->Get("IronFilter");
   nentries = (Int_t)t1->GetEntries();
 
@@ -179,7 +179,8 @@ void IronFilterDTGeneratorAction::GeneratePrimaries(G4Event* anEvent)
   }
 
   //if (eventID==1959536-1) {
-  if (eventID==2342304-1) {
+  //if (eventID==2342304-1) {
+  if (eventID==1622073-1) {
     f->Close();
   }
 

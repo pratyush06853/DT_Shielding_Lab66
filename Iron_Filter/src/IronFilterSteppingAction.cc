@@ -83,12 +83,18 @@ void IronFilterSteppingAction::UserSteppingAction(const G4Step* step)
         //  test_volumeID = 0;
         //  flag=1;
         // }
+
         //else if(volume == fDetConstruction->GetInsulationPV()){
-        if(volume == fDetConstruction->GetInsulationPV()){
+        //if(volume == fDetConstruction->GetInsulationPV()){
+        //  test_volumeID = 8;
+        //  flag=1;
+        //}
+
+        //For Safety Studies
+        if(volume == fDetConstruction->GetPhantomPV()){
           test_volumeID = 8;
           flag=1;
         }
-
 
         //for ambient n-capture Studies
         //1st detector
