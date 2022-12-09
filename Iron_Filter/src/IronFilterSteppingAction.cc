@@ -85,16 +85,16 @@ void IronFilterSteppingAction::UserSteppingAction(const G4Step* step)
         // }
 
         //else if(volume == fDetConstruction->GetInsulationPV()){
-        //if(volume == fDetConstruction->GetInsulationPV()){
-        //  test_volumeID = 8;
-        //  flag=1;
-        //}
-
-        //For Safety Studies
-        if(volume == fDetConstruction->GetPhantomPV()){
+        if(volume == fDetConstruction->GetInsulationPV()){
           test_volumeID = 8;
           flag=1;
         }
+
+        //For Safety Studies
+        //if(volume == fDetConstruction->GetPhantomPV()){
+        //  test_volumeID = 8;
+        //  flag=1;
+        //}
 
         //for ambient n-capture Studies
         //1st detector
@@ -220,8 +220,8 @@ void IronFilterSteppingAction::UserSteppingAction(const G4Step* step)
                G4int particle_ID = track->GetParticleDefinition()->GetPDGEncoding();
 
                // TODO: turn this into a tree that gets filled 2112 neutrons
-              if( (particle_ID == 2112 || particle_ID == 22) ){
-              //if( (particle_ID == 2112) ){
+              //if( (particle_ID == 2112 || particle_ID == 22) ){
+              if( (particle_ID == 2112) ){
               //if(  (processName  == "hIoni" && particle_name  == "triton") ){
                    //G4cout<<eventID<<"     "<<trackID<<"      "<<particle_ID<<"      "<<energy<<G4endl;
                    //analysisManager->FillNtupleDColumn(0, edep);

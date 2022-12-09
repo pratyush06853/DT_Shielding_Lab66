@@ -154,8 +154,8 @@ IronFilterDetectorConstruction::IronFilterDetectorConstruction()
   DD_Height = 20.0*cm;
 
   //for messenger, you vary these variables using the macro
-  fMultiplierLeadHeightRear = 20.0*cm;//20.0*cm
-  fMultiplierLeadHeightFront=  15.0*cm;//30.0*cm
+  fMultiplierLeadHeightRear = 30.0*cm;//20.0*cm
+  fMultiplierLeadHeightFront=  25.0*cm;//30.0*cm
 
   fModeratorAluminumHeight= 40.0*cm;//39.0*cm
   fModeratorTitaniumHeight= (7.0)*cm; //(34.0)*cm
@@ -383,10 +383,22 @@ void IronFilterDetectorConstruction::DefineMaterials()
   fluental->AddMaterial( AlF3, 60.*perCent );  //pratyush
   fluental->AddElement( elAl, fractionMass = 40.*perCent ); //pratyush
 
-  //ScandiumOxide
-  //G4Material* scandiumoxide = new G4Material( "scandiumoxide",density= 3.86*g/cm3, nComponents= 2); //pratyush
-  //scandiumoxide->AddMaterial( scandium, 65.19*perCent );
-  //scandiumoxide->AddElement( NatO, 34.81*perCent );
+  // Titanium
+  G4Isotope* Ti46 = new G4Isotope("Ti46", 22, 46, 45.9526316*g/mole);
+  G4Isotope* Ti47 = new G4Isotope("Ti47", 22, 47, 46.9517631*g/mole);
+  G4Isotope* Ti48 = new G4Isotope("Ti48", 22, 48, 47.9479463*g/mole);
+  G4Isotope* Ti49 = new G4Isotope("Ti49", 22, 49, 48.9478700*g/mole);
+  G4Isotope* Ti50 = new G4Isotope("Ti50", 22, 50, 49.9447912*g/mole);
+
+  G4Element* NatTi = new G4Element("titanium_natural", "Ti",5);
+  NatTi->AddIsotope(Ti46,8.25*perCent);
+  NatTi->AddIsotope(Ti47,7.44*perCent);
+  NatTi->AddIsotope(Ti48,73.72*perCent);
+  NatTi->AddIsotope(Ti49,5.41*perCent);
+  NatTi->AddIsotope(Ti50,5.18*perCent);
+
+  G4Material* titanium = new G4Material("titanium", 4.507*g/cm3,1, kStateSolid, 296*kelvin);
+  titanium->AddElement(NatTi, 1);
 
 
 
@@ -582,7 +594,8 @@ G4VPhysicalVolume* IronFilterDetectorConstruction::DefineVolumes()
   //G4Material* ScandiumOxide = G4Material::GetMaterial("scandiumoxide");
   G4Material* Helium = G4Material::GetMaterial("liquid_helium");
   G4Material* Aluminum = G4Material::GetMaterial("NatAluminum");
-  G4Material* Titanium = G4Material::GetMaterial("NatTi");
+  //G4Material* Titanium = G4Material::GetMaterial("NatTi");
+  G4Material* Titanium = G4Material::GetMaterial("titanium");
   G4Material* Sulphur = G4Material::GetMaterial("NatS");
   G4Material* Copper= G4Material::GetMaterial("NatCu");
   G4Material* Fluental = G4Material::GetMaterial("fluental");
@@ -803,7 +816,7 @@ G4double shieldHeight =  Front_Moderator_Thickness+Mid_Acrylic_thickness+Back_Mo
   G4VPhysicalVolume* vacuum_solid_PV = new G4PVPlacement(NO_ROT,G4ThreeVector{0.,0.,0.}, vacuum_solid_LV, "Vacuum_solid", 0, false, 0, fCheckOverlaps);
   vacuum_solid_LV->SetVisAttributes(G4VisAttributes::Invisible);
 
-
+/*
   //Lab_68 include ceiling
   G4VSolid* Main_2_S = new G4Box("Main_2_solid", lab68_wall_x/2.0, lab68_wall_y/2.0 , lab68_wall_z/2.0);
   //G4VSolid* hole_2_S = new G4Box("hole_2_solid", (lab68_wall_x-2*lab68_wall_thickness)/2.0, (lab68_wall_y-2*lab68_wall_thickness)/2.0, (lab68_wall_z-2*lab68_wall_thickness)/2.0);
@@ -900,7 +913,7 @@ G4double shieldHeight =  Front_Moderator_Thickness+Mid_Acrylic_thickness+Back_Mo
   //TestSurface_solid_LV->SetVisAttributes(G4VisAttributes::Invisible);
 
 
-
+*/
   //layer of air at the bottom of the filter
   G4VSolid* Main_S = new G4Box("Main_solid", Water_cylindercal_can_radius_x/2.0 , (Water_cylindercal_can_radius)/2.0 , (Water_cylindercal_can_height)/2.0);
   //G4VSolid* hole_S = new G4Tubs("hole_solid", zeroRadius,fMultiplierLeadRadius, NeutronFilter_length/2.0, startAngle, spanningAngle);
@@ -942,7 +955,6 @@ G4double shieldHeight =  Front_Moderator_Thickness+Mid_Acrylic_thickness+Back_Mo
   Right_Side_Bpoly_shield_PV = new G4PVPlacement(NO_ROT, G4ThreeVector(-Water_cylindercal_can_radius_x/2.0-Side_shield_thickness/2.0, fFilterCellSpacing+ Water_cylindercal_can_radius/2.0, (Water_cylindercal_can_height-ConcreteSupport_height)/2 - DT_Ti_T_location - Insulation_Thickness), Side_Bpoly_shield_LV, "Side_Bpoly_shield_right", vacuum_solid_LV, false, 0, fCheckOverlaps);
 
   Side_Bpoly_shield_LV->SetVisAttributes(G4VisAttributes(G4Colour::Magenta()));
-
 
 
   //G4VSolid* Main_S_1 = new G4Box("Main_solid_1", Water_cylindercal_can_radius_x/2.0 , (Water_cylindercal_can_radius)/2.0 , (Water_cylindercal_can_height)/2.0);
@@ -1014,8 +1026,8 @@ G4double shieldHeight =  Front_Moderator_Thickness+Mid_Acrylic_thickness+Back_Mo
   //Poly beneath the Filter
   G4VSolid* PolyUnderFilter_S = new G4Box("PolyUnderFilter", (Concrete_can_x/2.0-30*cm) , (Water_cylindercal_can_radius)/2.0-(ExtraBoratedpoly_thickness)/2.0 , (15.0*cm)/2.0);
   G4LogicalVolume* PolyUnderFilter_LV = new G4LogicalVolume(PolyUnderFilter_S, Polyethylene , "PolyUnderFilter");
-  new G4PVPlacement(NO_ROT, G4ThreeVector(0., 0, ConcreteSupport_height/2.0-(15.0*cm)/2.0), PolyUnderFilter_LV, "PolyUnderFilter", ConcreteSupport_LV, false, 0, fCheckOverlaps);
-  PolyUnderFilter_LV ->SetVisAttributes(G4VisAttributes(G4Colour::Cyan()));
+  //new G4PVPlacement(NO_ROT, G4ThreeVector(0., 0, ConcreteSupport_height/2.0-(15.0*cm)/2.0), PolyUnderFilter_LV, "PolyUnderFilter", ConcreteSupport_LV, false, 0, fCheckOverlaps);
+  //PolyUnderFilter_LV ->SetVisAttributes(G4VisAttributes(G4Colour::Cyan()));
 
   //Poly in base concrete
   G4VSolid* Main71_S = new G4Box("Main71_solid", Water_cylindercal_can_radius_x/2.0 , (Water_cylindercal_can_radius)/2.0-(ExtraBoratedpoly_thickness)/2.0 , (ConcreteSupport_height)/2.0);
@@ -1035,14 +1047,14 @@ G4double shieldHeight =  Front_Moderator_Thickness+Mid_Acrylic_thickness+Back_Mo
   BoratedPolyInFrontConcrete_LV->SetVisAttributes(G4VisAttributes(G4Colour::Yellow()));
 
   //Insulation but this is actually a surface to see the neutrons coming out of the concrete and borated water
-  //G4VSolid* Insulation_S = new G4Box("Insulation", Water_cylindercal_can_radius_x/2.0+ Side_shield_thickness +500.0*cm, delta/2.0, (Water_cylindercal_can_height+ConcreteSupport_height+600*cm)/2.);
-  G4VSolid* MainInsulation_S = new G4Box("MainInsulation", Water_cylindercal_can_radius_x/2.0+ Side_shield_thickness +30.0*cm+delta, (Water_cylindercal_can_radius+colimator_length)/2.0+delta, (Water_cylindercal_can_height+ConcreteSupport_height+Up_BpolyThickness)/2.0+delta);
-  G4VSolid* HoleInsulation_S = new G4Box("HoleInsulation", Water_cylindercal_can_radius_x/2.0+ Side_shield_thickness +30.0*cm, (Water_cylindercal_can_radius+colimator_length)/2.0, (Water_cylindercal_can_height+ConcreteSupport_height+Up_BpolyThickness)/2.0);
-  G4SubtractionSolid* Insulation_S= new G4SubtractionSolid("Insulation", MainInsulation_S, HoleInsulation_S, NO_ROT, G4ThreeVector(0., 0, 0));
+  G4VSolid* Insulation_S = new G4Box("Insulation", Water_cylindercal_can_radius_x/2.0+ Side_shield_thickness +500.0*cm, delta/2.0, (Water_cylindercal_can_height+ConcreteSupport_height+600*cm)/2.);
+  //G4VSolid* MainInsulation_S = new G4Box("MainInsulation", Water_cylindercal_can_radius_x/2.0+ Side_shield_thickness +30.0*cm+delta, (Water_cylindercal_can_radius+colimator_length)/2.0+delta, (Water_cylindercal_can_height+ConcreteSupport_height+Up_BpolyThickness)/2.0+delta);
+  //G4VSolid* HoleInsulation_S = new G4Box("HoleInsulation", Water_cylindercal_can_radius_x/2.0+ Side_shield_thickness +30.0*cm, (Water_cylindercal_can_radius+colimator_length)/2.0, (Water_cylindercal_can_height+ConcreteSupport_height+Up_BpolyThickness)/2.0);
+  //G4SubtractionSolid* Insulation_S= new G4SubtractionSolid("Insulation", MainInsulation_S, HoleInsulation_S, NO_ROT, G4ThreeVector(0., 0, 0));
   G4LogicalVolume* Insulation_LV = new G4LogicalVolume(Insulation_S, Vacuum, "Insulation");
-  ////Insulation_PV = new G4PVPlacement(NO_ROT, G4ThreeVector(0., fFilterCellSpacing-colimator_length-3*delta/2.0, (Water_cylindercal_can_height-ConcreteSupport_height+100*cm)/2 - DT_Ti_T_location - Insulation_Thickness), Insulation_LV, "Insulation", vacuum_solid_LV, false, 0, fCheckOverlaps);
-  //Insulation_PV = new G4PVPlacement(NO_ROT, G4ThreeVector(0., fFilterCellSpacing+Water_cylindercal_can_radius/2.0-colimator_length/2.0, (Water_cylindercal_can_height-ConcreteSupport_height+Up_BpolyThickness)/2 - DT_Ti_T_location - Insulation_Thickness), Insulation_LV, "Insulation", vacuum_solid_LV, false, 0, fCheckOverlaps);
-  //Insulation_LV->SetVisAttributes(G4VisAttributes(G4Colour::Green()));
+  Insulation_PV = new G4PVPlacement(NO_ROT, G4ThreeVector(0., fFilterCellSpacing-colimator_length-3*delta/2.0, (Water_cylindercal_can_height-ConcreteSupport_height+100*cm)/2 - DT_Ti_T_location - Insulation_Thickness), Insulation_LV, "Insulation", vacuum_solid_LV, false, 0, fCheckOverlaps);
+  ////Insulation_PV = new G4PVPlacement(NO_ROT, G4ThreeVector(0., fFilterCellSpacing+Water_cylindercal_can_radius/2.0-colimator_length/2.0, (Water_cylindercal_can_height-ConcreteSupport_height+Up_BpolyThickness)/2 - DT_Ti_T_location - Insulation_Thickness), Insulation_LV, "Insulation", vacuum_solid_LV, false, 0, fCheckOverlaps);
+  Insulation_LV->SetVisAttributes(G4VisAttributes(G4Colour::Green()));
 
 
 
@@ -1063,7 +1075,7 @@ G4double shieldHeight =  Front_Moderator_Thickness+Mid_Acrylic_thickness+Back_Mo
   collimation_hole_LV->SetVisAttributes(G4VisAttributes(G4Colour::Magenta()));
 
 
-  //Water near the collimation hole
+  //Water near the sides
   //G4VSolid* Main_1_S = new G4Box("Main_1_solid", Water_cylindercal_can_radius_x/2.0, (Water_cylindercal_can_height+ConcreteSupport_height)/2.,colimator_length/2.0);
   G4VSolid* Water_1_S = new G4Box("Water_1_solid", Water_cylindercal_can_radius_x/2.0+ Side_shield_thickness +30.0*cm, (Water_cylindercal_can_height+ConcreteSupport_height)/2., 2*colimator_length);
   G4VSolid* Waterhole_1_S = new G4Box("Waterhole_1_solid", Water_cylindercal_can_radius_x/2.0+ Side_shield_thickness, (Water_cylindercal_can_height+ConcreteSupport_height)/2., 2*colimator_length);
@@ -1139,8 +1151,8 @@ G4double shieldHeight =  Front_Moderator_Thickness+Mid_Acrylic_thickness+Back_Mo
   G4VSolid* Lead_around_TiAndF_S_hole = new G4Box("Lead Reflector_hole", fModeratorAluminumRadius, fModeratorAluminumRadius,(fModeratorAluminumHeight+fModeratorTitaniumHeight)/2.0);
   G4SubtractionSolid* Lead_around_TiAndF_S= new G4SubtractionSolid("inner_BPoly_solid", Lead_around_TiAndF_S_main, Lead_around_TiAndF_S_hole, NO_ROT, G4ThreeVector(0., 0, 0));
   G4LogicalVolume* Lead_around_TiAndF_LV = new G4LogicalVolume(Lead_around_TiAndF_S, Lead, "reflector_Lead" );//to check with fluental
-  Lead_around_TiAndF_PV = new G4PVPlacement( NO_ROT, G4ThreeVector(0,0,NeutronFilter_length/2.0-(fMultiplierLeadHeightRear+fMultiplierLeadHeightFront)-(fModeratorAluminumHeight+fModeratorTitaniumHeight)/2.0),Lead_around_TiAndF_LV, "Reflector_lead",inner_BPoly_LV, false, 0, fCheckOverlaps);
-  Lead_around_TiAndF_LV->SetVisAttributes(G4VisAttributes(G4Colour::Blue()));
+  //Lead_around_TiAndF_PV = new G4PVPlacement( NO_ROT, G4ThreeVector(0,0,NeutronFilter_length/2.0-(fMultiplierLeadHeightRear+fMultiplierLeadHeightFront)-(fModeratorAluminumHeight+fModeratorTitaniumHeight)/2.0),Lead_around_TiAndF_LV, "Reflector_lead",inner_BPoly_LV, false, 0, fCheckOverlaps);
+  //Lead_around_TiAndF_LV->SetVisAttributes(G4VisAttributes(G4Colour::Blue()));
 
   //Scandium as a the final filter
   G4VSolid* filter_scandium_S = new G4Tubs("filter_scandium", zeroRadius,  Scandium_diameter_limited/2.0,(Scandium_height_limited/2.0), startAngle, spanningAngle);
@@ -1198,7 +1210,7 @@ G4double shieldHeight =  Front_Moderator_Thickness+Mid_Acrylic_thickness+Back_Mo
   //G4LogicalVolume* Phantom_LV = new G4LogicalVolume(Phantom_S, Air, "Phantom");
   //G4LogicalVolume* Phantom_LV = new G4LogicalVolume(Phantom_S, Soft_Tissue, "Phantom");
   G4LogicalVolume* Phantom_LV = new G4LogicalVolume(Phantom_S, Vacuum, "Phantom");
-  Phantom_PV = new G4PVPlacement(NO_ROT, Phantom_Placement, Phantom_LV, "Phantom", vacuum_solid_LV, false, 0, fCheckOverlaps);
+  //Phantom_PV = new G4PVPlacement(NO_ROT, Phantom_Placement, Phantom_LV, "Phantom", vacuum_solid_LV, false, 0, fCheckOverlaps);
 
   //Phantom2_PV = new G4PVPlacement(NO_ROT, Phantom_Placement_2, Phantom_LV, "Phantom2", vacuum_solid_LV, false, 0, fCheckOverlaps);
 
@@ -1227,9 +1239,9 @@ G4double shieldHeight =  Front_Moderator_Thickness+Mid_Acrylic_thickness+Back_Mo
   //G4SubtractionSolid* Main_2a_S= new G4SubtractionSolid("Main_2a_solid", Main_2_S, hole_2_S, NO_ROT, G4ThreeVector(0.,0., 0.));
   G4LogicalVolume* LabFloorExtended_solid_LV = new G4LogicalVolume(LabFloorExtended_solid_S, Soil, "LabFloorExtended_solid");
   ////G4LogicalVolume* LabFloorExtended_solid_LV = new G4LogicalVolume(LabFloorExtended_solid_S, Vacuum, "LabFloorExtended_solid");
-  LabFloorExtended_solid_PV = new G4PVPlacement(turnAlong, G4ThreeVector{lab68_wall_x/2.0,-lab68_wall_y/2.0,lab68_wall_z/2.0}-position_of_origin-G4ThreeVector(0., 0., lab68_wall_z/2.0+soil_width/2.0), LabFloorExtended_solid_LV, "LabFloor_extended", vacuum_solid_LV, false, 0, fCheckOverlaps);
+  //LabFloorExtended_solid_PV = new G4PVPlacement(turnAlong, G4ThreeVector{lab68_wall_x/2.0,-lab68_wall_y/2.0,lab68_wall_z/2.0}-position_of_origin-G4ThreeVector(0., 0., lab68_wall_z/2.0+soil_width/2.0), LabFloorExtended_solid_LV, "LabFloor_extended", vacuum_solid_LV, false, 0, fCheckOverlaps);
   LabFloorExtended_solid_LV->SetVisAttributes(G4VisAttributes(G4Colour::Brown()));
-  ////LabFloorExtended_solid_LV->SetVisAttributes(G4VisAttributes::Invisible);
+  ///LabFloorExtended_solid_LV->SetVisAttributes(G4VisAttributes::Invisible);
 
   //DilutionUnit contains superfluid Helium
   //G4VSolid* DilutionUnit_S = new G4Tubs( "DilutionUnit", zeroRadius, DilutionUnit_Radius, (DilutionUnit_Height /2.0), startAngle, spanningAngle);
