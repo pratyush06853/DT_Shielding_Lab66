@@ -154,19 +154,19 @@ IronFilterDetectorConstruction::IronFilterDetectorConstruction()
   DD_Height = 20.0*cm;
 
   //for messenger, you vary these variables using the macro
-  fMultiplierLeadHeightRear = 30.0*cm;//20.0*cm
+  fMultiplierLeadHeightRear = 24.0*cm;//20.0*cm
   fMultiplierLeadHeightFront=  25.0*cm;//30.0*cm
 
   fModeratorAluminumHeight= 40.0*cm;//39.0*cm
   fModeratorTitaniumHeight= (7.0)*cm; //(34.0)*cm
 
-  fMultiplierLeadRadius = 30.0*cm;//20.0*cm
-  fModeratorAluminumRadius = 25.0*cm;//15.0*cm without Ti
-  fModeratorTitaniumRadius = 25.0*cm;
+  fMultiplierLeadRadius = 27.86*cm;//20.0*cm
+  fModeratorAluminumRadius = 22.86*cm;//15.0*cm without Ti
+  fModeratorTitaniumRadius = 22.86*cm;
 
   //fPolyHeight = 41.0*cm;//
   //fPolyHeight = 35.0*cm;//
-  fPolyHeight = 33.0*cm;//this shouldn't change
+  fPolyHeight = 28.0*cm;//this shouldn't change
 
   //fFilterCellSpacing= 50.0*cm;//5
   fFilterCellSpacing= 60.0*cm+26.0*cm;//50.0*cm+26.0*cm;
@@ -1002,7 +1002,7 @@ G4double shieldHeight =  Front_Moderator_Thickness+Mid_Acrylic_thickness+Back_Mo
   G4double Concrete_can_z_thickness=15.0*cm;//15.0*cm
 
   G4VSolid* Main70_S = new G4Box("Main70_solid", Concrete_can_x/2.0 , (Water_cylindercal_can_radius)/2.0-(ExtraBoratedpoly_thickness)/2.0 , (Concrete_can_z)/2.0);
-  G4VSolid* hole70_S = new G4Box("hole70_solid", Concrete_can_x/2.0-30*cm , (Water_cylindercal_can_radius)/2.0-(ExtraBoratedpoly_thickness)/2.0 , (Concrete_can_z)/2.0-15.0*cm);
+  G4VSolid* hole70_S = new G4Box("hole70_solid", Concrete_can_x/2.0-Concrete_can_x_thickness , (Water_cylindercal_can_radius)/2.0-(ExtraBoratedpoly_thickness)/2.0 , (Concrete_can_z)/2.0-Concrete_can_z_thickness);
   G4SubtractionSolid* ShellConcrete_S= new G4SubtractionSolid("ShellBoratedpoly", Main70_S, hole70_S, NO_ROT, G4ThreeVector(0., 0, -15.0*cm));
 
   G4LogicalVolume* ShellConcrete_LV = new G4LogicalVolume(ShellConcrete_S, BaseConcrete, "ShellConcrete");
@@ -1151,8 +1151,8 @@ G4double shieldHeight =  Front_Moderator_Thickness+Mid_Acrylic_thickness+Back_Mo
   G4VSolid* Lead_around_TiAndF_S_hole = new G4Box("Lead Reflector_hole", fModeratorAluminumRadius, fModeratorAluminumRadius,(fModeratorAluminumHeight+fModeratorTitaniumHeight)/2.0);
   G4SubtractionSolid* Lead_around_TiAndF_S= new G4SubtractionSolid("inner_BPoly_solid", Lead_around_TiAndF_S_main, Lead_around_TiAndF_S_hole, NO_ROT, G4ThreeVector(0., 0, 0));
   G4LogicalVolume* Lead_around_TiAndF_LV = new G4LogicalVolume(Lead_around_TiAndF_S, Lead, "reflector_Lead" );//to check with fluental
-  //Lead_around_TiAndF_PV = new G4PVPlacement( NO_ROT, G4ThreeVector(0,0,NeutronFilter_length/2.0-(fMultiplierLeadHeightRear+fMultiplierLeadHeightFront)-(fModeratorAluminumHeight+fModeratorTitaniumHeight)/2.0),Lead_around_TiAndF_LV, "Reflector_lead",inner_BPoly_LV, false, 0, fCheckOverlaps);
-  //Lead_around_TiAndF_LV->SetVisAttributes(G4VisAttributes(G4Colour::Blue()));
+  Lead_around_TiAndF_PV = new G4PVPlacement( NO_ROT, G4ThreeVector(0,0,NeutronFilter_length/2.0-(fMultiplierLeadHeightRear+fMultiplierLeadHeightFront)-(fModeratorAluminumHeight+fModeratorTitaniumHeight)/2.0),Lead_around_TiAndF_LV, "Reflector_lead",inner_BPoly_LV, false, 0, fCheckOverlaps);
+  Lead_around_TiAndF_LV->SetVisAttributes(G4VisAttributes(G4Colour::Blue()));
 
   //Scandium as a the final filter
   G4VSolid* filter_scandium_S = new G4Tubs("filter_scandium", zeroRadius,  Scandium_diameter_limited/2.0,(Scandium_height_limited/2.0), startAngle, spanningAngle);
