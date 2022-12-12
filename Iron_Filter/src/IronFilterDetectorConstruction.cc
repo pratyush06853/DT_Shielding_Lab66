@@ -1095,8 +1095,8 @@ G4double shieldHeight =  Front_Moderator_Thickness+Mid_Acrylic_thickness+Back_Mo
   //G4VSolid* inner_BPoly_S= new G4Tubs("Main_1_solid", zeroRadius,fMultiplierLeadRadius, NeutronFilter_length/2.0, startAngle, spanningAngle);
   //G4LogicalVolume *inner_BPoly_LV = new G4LogicalVolume(inner_BPoly_S, BoratedPoly,"inner_BPoly" );
   //G4LogicalVolume *inner_BPoly_LV = new G4LogicalVolume(inner_BPoly_S, Polyethylene,"inner_BPoly" );
-  G4LogicalVolume *inner_BPoly_LV = new G4LogicalVolume(inner_BPoly_S, BaseConcrete,"inner_BPoly" );
-  //G4LogicalVolume *inner_BPoly_LV = new G4LogicalVolume(inner_BPoly_S, BoratedPoly_15,"inner_BPoly" );
+  //G4LogicalVolume *inner_BPoly_LV = new G4LogicalVolume(inner_BPoly_S, BaseConcrete,"inner_BPoly" );
+  G4LogicalVolume *inner_BPoly_LV = new G4LogicalVolume(inner_BPoly_S, BoratedPoly_15,"inner_BPoly" );
   inner_BPoly_PV = new G4PVPlacement( turnAlongX, G4ThreeVector(0., fFilterCellSpacing+NeutronFilter_length/2.0, 0.), inner_BPoly_LV, "inner_BPoly", vacuum_solid_LV, false, 0, fCheckOverlaps);
   inner_BPoly_LV->SetVisAttributes(G4VisAttributes(G4Colour::Yellow()));
 
