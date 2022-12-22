@@ -1099,7 +1099,7 @@ G4double shieldHeight =  Front_Moderator_Thickness+Mid_Acrylic_thickness+Back_Mo
   //G4VSolid* PolyUnderFilter_S = new G4Box("PolyUnderFilter", (Concrete_can_x/2.0-30*cm) , (Water_cylindercal_can_radius)/2.0-(ExtraBoratedpoly_thickness)/2.0 , (15.0*cm)/2.0);
   //G4LogicalVolume* PolyUnderFilter_LV = new G4LogicalVolume(PolyUnderFilter_S, Polyethylene , "PolyUnderFilter");
   G4VSolid* MainConcreteBlock_S = new G4Box("MainConcreteBlock", fMultiplierLeadRadius,fMultiplierLeadRadius , (fPolyHeight-Titanium_shield_height-Manganese_shield_height)/2.0);
-  G4VSolid* MainConcreteBlockHole_S = new G4Box("MainConcreteBlockHole", 12*cm,12*cm , (fPolyHeight-Titanium_shield_height-Manganese_shield_height)/2.0);
+  G4VSolid* MainConcreteBlockHole_S = new G4Box("MainConcreteBlockHole", 8.0*cm,8.0*cm , (fPolyHeight-Titanium_shield_height-Manganese_shield_height)/2.0);
   G4SubtractionSolid* ConcreteAroundSc_S= new G4SubtractionSolid("ConcreteAroundSc", MainConcreteBlock_S, MainConcreteBlockHole_S, NO_ROT, G4ThreeVector(0., 0, 0));
   G4LogicalVolume* ConcreteAroundSc_LV = new G4LogicalVolume(ConcreteAroundSc_S, BaseConcrete , "ConcreteAroundSc");
   new G4PVPlacement(NO_ROT, G4ThreeVector(0., 0, NeutronFilter_length/2.0-(fMultiplierLeadHeightRear+fMultiplierLeadHeightFront)-fModeratorAluminumHeight-fModeratorTitaniumHeight-Titanium_shield_height-Manganese_shield_height-(fPolyHeight-Titanium_shield_height-Manganese_shield_height)/2.0), ConcreteAroundSc_LV, "PolyUnderFilter", inner_BPoly_LV, false, 0, fCheckOverlaps);
