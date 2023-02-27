@@ -1162,11 +1162,11 @@ G4double shieldHeight =  Front_Moderator_Thickness+Mid_Acrylic_thickness+Back_Mo
 
   //Scandium as a the final filter
   G4VSolid* filter_scandium_S = new G4Tubs("filter_scandium", zeroRadius,  Scandium_diameter_limited/2.0,(Scandium_height_limited/2.0), startAngle, spanningAngle);
-  G4LogicalVolume *filter_scandium_LV = new G4LogicalVolume(filter_scandium_S, Scandium,"filter_scandium" );
-  //G4LogicalVolume *filter_scandium_LV = new G4LogicalVolume(filter_scandium_S, ScandiumOxide,"filter_scandium" );
+  //G4LogicalVolume *filter_scandium_LV = new G4LogicalVolume(filter_scandium_S, Scandium,"filter_scandium" );
+  G4LogicalVolume *filter_scandium_LV = new G4LogicalVolume(filter_scandium_S, BoratedPoly_15,"filter_scandium" );
   filter_scandium_PV = new G4PVPlacement( turnAlongX, G4ThreeVector(0,fFilterCellSpacing+NeutronFilter_length-(fMultiplierLeadHeightRear+fMultiplierLeadHeightFront)-fModeratorAluminumHeight-fModeratorTitaniumHeight-Scandium_height_limited/2.0,0), filter_scandium_LV, "Filter_scandium",vacuum_solid_LV,false, 0, fCheckOverlaps);
-  //filter_scandium_PV = new G4PVPlacement( turnAlongX, G4ThreeVector(0, fFilterCellSpacing-colimator_length+Scandium_height_limited/2.0, Scandium_diameter_limited/2.0), filter_scandium_LV, "Filter_scandium",vacuum_solid_LV,false, 0, fCheckOverlaps);
-  //filter_scandium_2_PV = new G4PVPlacement( turnAlongX, G4ThreeVector(0, fFilterCellSpacing-colimator_length+Scandium_height_limited/2.0, -Scandium_diameter_limited/2.0), filter_scandium_LV, "Filter_scandium_2",vacuum_solid_LV,false, 0, fCheckOverlaps);
+  ////filter_scandium_PV = new G4PVPlacement( turnAlongX, G4ThreeVector(0, fFilterCellSpacing-colimator_length+Scandium_height_limited/2.0, Scandium_diameter_limited/2.0), filter_scandium_LV, "Filter_scandium",vacuum_solid_LV,false, 0, fCheckOverlaps);
+  /////filter_scandium_2_PV = new G4PVPlacement( turnAlongX, G4ThreeVector(0, fFilterCellSpacing-colimator_length+Scandium_height_limited/2.0, -Scandium_diameter_limited/2.0), filter_scandium_LV, "Filter_scandium_2",vacuum_solid_LV,false, 0, fCheckOverlaps);
   filter_scandium_LV->SetVisAttributes(G4VisAttributes(G4Colour::Red()));
 
 
