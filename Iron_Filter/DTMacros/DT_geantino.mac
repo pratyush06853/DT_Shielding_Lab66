@@ -1,12 +1,12 @@
-/IronFilter/det/setFilterCellSpacing 86.0 cm #76.0 cm
+/IronFilter/det/setFilterCellSpacing 91.0 cm #76.0 cm
 /IronFilter/det/setPolyHeight 28.0 cm #scandium length or the bore length
 /IronFilter/det/setMultiplierLeadHeightFront 25.0 cm
 /IronFilter/det/setModeratorAluminumHeight 40 cm
 /IronFilter/det/setModeratorTitaniumHeight 7.0 cm # to get the DT position add the number till here
-/IronFilter/det/setMultiplierLeadHeightRear 24.0 cm
-/IronFilter/det/setMultiplierLeadRadius 22.86 cm
-/IronFilter/det/setModeratorAluminumRadius 22.86 cm
-/IronFilter/det/setModeratorTitaniumRadius 22.86 cm
+/IronFilter/det/setMultiplierLeadHeightRear 30.0 cm
+/IronFilter/det/setMultiplierLeadRadius 30 cm
+/IronFilter/det/setModeratorAluminumRadius 25 cm
+/IronFilter/det/setModeratorTitaniumRadius 25 cm
 /IronFilter/det/setTestX 0 m
 /IronFilter/det/setTestY 0 m
 /IronFilter/det/setTestZ 0 m
@@ -25,7 +25,7 @@
 #/gps/position 35 0 -50 cm
 #/gps/position 0 0 0 cm
 #/gps/direction 0 1 0
-/gps/position 10 186 0 cm
+/gps/position 0 186 0 cm
 /gps/direction 0 -1 0
 
 
