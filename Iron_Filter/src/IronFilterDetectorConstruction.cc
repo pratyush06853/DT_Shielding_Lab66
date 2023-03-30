@@ -169,7 +169,7 @@ IronFilterDetectorConstruction::IronFilterDetectorConstruction()
   fPolyHeight = 28.0*cm;//this shouldn't change
 
   //fFilterCellSpacing= 50.0*cm;//5
-  fFilterCellSpacing= 65.0*cm+26.0*cm;//50.0*cm+26.0*cm;
+  fFilterCellSpacing= 60.0*cm+26.0*cm;//50.0*cm+26.0*cm;
 
   ftestx = 0*m;
   ftesty = 0*m;
@@ -666,8 +666,8 @@ G4double Poly_a = 40.0*cm;
 G4double hole_length = NeutronFilter_length-(fMultiplierLeadHeightRear+fMultiplierLeadHeightFront)-fModeratorAluminumHeight-fModeratorTitaniumHeight;
 //G4double hole_length = NeutronFilter_length-(fMultiplierLeadHeightRear+fMultiplierLeadHeightFront)-fModeratorAluminumHeight-fModeratorTitaniumHeight;
 //G4double colimator_length=26.0*cm;
-//G4double colimator_length=30.0*cm;
-G4double colimator_length=35.0*cm;
+//G4double colimator_length=35.0*cm;
+G4double colimator_length=33.0*cm;
 
 G4double Side_shield_thickness=20.0*cm;
 
@@ -697,9 +697,14 @@ G4double lab68_reardoor_width = 0.91*m;
 G4double lab68_frontdoor_x_coordinate = lab68_wall_x/2 -lab68_frontdoor_glass_width/2.0-1.2*m;
 G4double lab68_reardoor_x_coordinate = -lab68_wall_x/2.0 +lab68_reardoor_width/2.0+2.613*m;
 
-G4ThreeVector position_of_origin = {2.721*m, -2.703*m, 1.4547*m}; //with repect to the outer upper left corner of the room(Doug's corner)
+//G4ThreeVector position_of_origin = {2.721*m, -2.703*m, 1.4547*m}; //with repect to the outer upper left corner of the room(Doug's corner)
+
+G4ThreeVector position_of_origin = {3.221*m, -2.603*m, 1.4547*m};
+
 
 G4ThreeVector xyposition_of_origin = {2.721*m, -2.703*m, 0};
+
+
 
 G4double Phantom_Radius=0.4*m;
 G4double Phantom_Height=2.0*m;
