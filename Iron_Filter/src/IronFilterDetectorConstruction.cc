@@ -239,6 +239,8 @@ void IronFilterDetectorConstruction::DefineMaterials()
 
   G4Element* elCa = new G4Element("Calcium",symbol ="Ca",z = 20.,a= 40.08*g/mole);
 
+  G4Element* elMn  = new G4Element(name = "Manganese", symbol = "Mn", z = 25.0, a = 54.938*g/mole);
+  
   G4Element* elFe  = new G4Element("Iron",symbol ="Fe",z = 26.,a= 55.85*g/mole);
 
   G4Element* elZn = new G4Element("Zinc",symbol ="Zn",z = 30.,a= 65.38*g/mole);
@@ -548,17 +550,20 @@ void IronFilterDetectorConstruction::DefineMaterials()
 
   //concrete
   //G4Material*concrete = new G4Material("concrete",density= 2.3*g/cm3,nComponents=10);
-  G4Material*HDconcrete = new G4Material("HDconcrete",density= 4.81*g/cm3,nComponents=10);
-  HDconcrete->AddElement(elH,0.01);
-  HDconcrete->AddElement(elC,0.001);
-  HDconcrete->AddElement(elO,0.529107);
-  HDconcrete->AddElement(elNa,0.016);
-  HDconcrete->AddElement(elMg,0.002);
-  HDconcrete->AddElement(elAl,0.033872);
-  HDconcrete->AddElement(elSi,0.337021);
-  HDconcrete->AddElement(elK,0.013);
-  HDconcrete->AddElement(elCa,0.044);
-  HDconcrete->AddElement(elFe,0.014);
+  G4Material*HDconcrete = new G4Material("HDconcrete",density= 3.2*g/cm3,nComponents=12);
+  HDconcrete->AddElement(elFe,0.4126);
+  HDconcrete->AddElement(elSi,0.0227);
+  HDconcrete->AddElement(elAl,0.0075);
+  HDconcrete->AddElement(elCa,0.1564);
+  HDconcrete->AddElement(elMg,0.0087);
+  HDconcrete->AddElement(elNa,0.0003);
+  HDconcrete->AddElement(elK,0.0009);
+  HDconcrete->AddElement(elSi,0.0016);
+  HDconcrete->AddElement(elMn,0.0003);
+  HDconcrete->AddElement(elC,0.0361);
+  HDconcrete->AddElement(elH,0.0049);
+  HDconcrete->AddElement(elO,0.3480);
+
 
 
 
@@ -807,6 +812,9 @@ G4double shieldHeight =  Front_Moderator_Thickness+Mid_Acrylic_thickness+Back_Mo
   turnAlongZ->rotateZ(90*deg);
   turnAlongZ->rotateZ(-90*deg);
 
+  G4RotationMatrix* turnX90degree = new G4RotationMatrix;
+  turnX90degree->rotateX(90*deg);
+
 
 
 //
@@ -944,7 +952,11 @@ G4double shieldHeight =  Front_Moderator_Thickness+Mid_Acrylic_thickness+Back_Mo
 
  //Extra layer of borated poly on the Top
  G4double Up_BpolyThickness=20.0*cm;
- G4VSolid* Up_Bpoly_shield_S = new G4Box("Up_Bpoly_shield", Water_cylindercal_can_radius_x/2.0+Side_shield_thickness , (Water_cylindercal_can_radius)/2.0 ,(Up_BpolyThickness)/2.0);
+ //G4VSolid* Up_Bpoly_shield_S = new G4Box("Up_Bpoly_shield", Water_cylindercal_can_radius_x/2.0+Side_shield_thickness , (Water_cylindercal_can_radius)/2.0 ,(Up_BpolyThickness)/2.0);
+ G4VSolid* Up_Bpoly_shield_main_S = new G4Box("Up_Bpoly_shield_main_solid", Water_cylindercal_can_radius_x/2.0+Side_shield_thickness , (Water_cylindercal_can_radius)/2.0 ,(Up_BpolyThickness)/2.0);
+ G4VSolid* Up_Bpoly_shield_hole_S = new G4Tubs("Up_Bpoly_shield_hole_solid", 0.0, 3.5*cm/2, (Up_BpolyThickness),startAngle, spanningAngle);
+ G4SubtractionSolid* Up_Bpoly_shield_S= new G4SubtractionSolid("Up_Bpoly_shield_solid", Up_Bpoly_shield_main_S, Up_Bpoly_shield_hole_S, NO_ROT, G4ThreeVector(5*cm,-Water_cylindercal_can_radius/2.0
+   +fMultiplierLeadHeightFront+fModeratorAluminumHeight+fModeratorTitaniumHeight+fPolyHeight, 0));
  G4LogicalVolume* Up_Bpoly_shield_LV = new G4LogicalVolume(Up_Bpoly_shield_S, BoratedPoly_15, "Up_Bpoly_shield");
  Up_Bpoly_shield_LV->SetVisAttributes(G4VisAttributes(G4Colour::Magenta()));
  Up_Bpoly_shield_PV = new G4PVPlacement(turnholenegative, G4ThreeVector(( Water_cylindercal_can_radius/2.0 -hole_length)*TMath::Tan(10*TMath::DegToRad()*rad), fFilterCellSpacing+ Water_cylindercal_can_radius/2.0, (Water_cylindercal_can_height)/2.0 - DT_Ti_T_location - Insulation_Thickness+(Water_cylindercal_can_height)/2.0+(Up_BpolyThickness)/2.0), Up_Bpoly_shield_LV, "Up_Bpoly_shield_left", vacuum_solid_LV, false, 0, fCheckOverlaps);
@@ -990,12 +1002,20 @@ G4double shieldHeight =  Front_Moderator_Thickness+Mid_Acrylic_thickness+Back_Mo
 
  //main sheidling
  G4VSolid* Main_S = new G4Box("Main_solid", Water_cylindercal_can_radius_x/2.0 , (Water_cylindercal_can_radius)/2.0 , (Water_cylindercal_can_height)/2.0);
+ G4VSolid* Main_hole_S = new G4Tubs("Main_hole_solid", 0.0, 3.5*cm/2, (Water_cylindercal_can_height),startAngle, spanningAngle);
+ G4SubtractionSolid* boratedwater1_S= new G4SubtractionSolid("boratedwater1", Main_S, Main_hole_S, NO_ROT, G4ThreeVector(5*cm, -Water_cylindercal_can_radius/2.0
+                +fMultiplierLeadHeightFront+fModeratorAluminumHeight+fModeratorTitaniumHeight+fPolyHeight, 0));
+
  G4VSolid* hole_S = new G4Box("hole_solid", fMultiplierLeadRadius,fMultiplierLeadRadius, NeutronFilter_length/2.0);
- G4SubtractionSolid* boratedwater_S= new G4SubtractionSolid("boratedwater", Main_S, hole_S, turnAlongX, G4ThreeVector(0., -Water_cylindercal_can_radius/2.0+NeutronFilter_length/2.0, -(Water_cylindercal_can_height)/2.0 + DT_Ti_T_location + Insulation_Thickness));
- G4LogicalVolume* boratedwater_LV = new G4LogicalVolume(boratedwater_S, Polyethylene, "boratedwater");
+ G4SubtractionSolid* boratedwater_S= new G4SubtractionSolid("boratedwater", boratedwater1_S ,hole_S, turnAlongX, G4ThreeVector(0., -Water_cylindercal_can_radius/2.0+NeutronFilter_length/2.0, -(Water_cylindercal_can_height)/2.0 + DT_Ti_T_location + Insulation_Thickness));
+ //G4LogicalVolume* boratedwater_LV = new G4LogicalVolume(boratedwater_S, Polyethylene, "boratedwater");
+ G4LogicalVolume* boratedwater_LV = new G4LogicalVolume(boratedwater_S, HDConcrete, "boratedwater");
  //boratedwater_PV = new G4PVPlacement(turnholenegative, G4ThreeVector((NeutronFilter_length/2.0-hole_length)*TMath::Tan(10*TMath::DegToRad()*rad), fFilterCellSpacing+ Water_cylindercal_can_radius/2.0, (Water_cylindercal_can_height)/2.0 - DT_Ti_T_location - Insulation_Thickness), boratedwater_LV, "BoratedWater", vacuum_solid_LV, false, 0, fCheckOverlaps);
  boratedwater_PV = new G4PVPlacement(turnholenegative, G4ThreeVector((Water_cylindercal_can_radius/2.0-hole_length)*TMath::Tan(10*TMath::DegToRad()*rad), fFilterCellSpacing+ Water_cylindercal_can_radius/2.0, (Water_cylindercal_can_height)/2.0 - DT_Ti_T_location - Insulation_Thickness), boratedwater_LV, "BoratedWater", vacuum_solid_LV, false, 0, fCheckOverlaps);
  boratedwater_LV->SetVisAttributes(G4VisAttributes(G4Colour::Cyan()));
+
+
+
 
  //front Borated poly inside main sheild
  G4double ExtraBoratedpoly_thickness =20*cm;
@@ -1012,24 +1032,32 @@ G4double shieldHeight =  Front_Moderator_Thickness+Mid_Acrylic_thickness+Back_Mo
  //Concrete shell inside main shielding
  G4double Concrete_can_x=( 120.0 + (fMultiplierLeadRadius/10 - 15.0)*2 )*cm;
  G4double Concrete_can_z=( 80.0 + (fMultiplierLeadRadius/10 - 15.0)*2 )*cm;
- //G4double Concrete_can_x= 120.0 *cm;
- //G4double Concrete_can_z= 90.0 *cm;
+
  G4double Concrete_can_x_thickness=30.0*cm;
  G4double Concrete_can_z_thickness=15.0*cm;//15.0*cm
 
  G4VSolid* Main70_S = new G4Box("Main70_solid", Concrete_can_x/2.0 , (Water_cylindercal_can_radius)/2.0-(ExtraBoratedpoly_thickness)/2.0 , (Concrete_can_z)/2.0);
+
+ G4VSolid* Main70_hole_S = new G4Tubs("Main70_hole_solid", 0.0, 3.5*cm/2, (Water_cylindercal_can_height),startAngle, spanningAngle);
+ G4SubtractionSolid* ShellConcrete1_S= new G4SubtractionSolid("ShellConcrete1", Main70_S, Main70_hole_S, NO_ROT, G4ThreeVector(5*cm, -Water_cylindercal_can_radius/2.0-(ExtraBoratedpoly_thickness)/2.0
+                +fMultiplierLeadHeightFront+fModeratorAluminumHeight+fModeratorTitaniumHeight+fPolyHeight, 0));
+
  G4VSolid* hole70_S = new G4Box("hole70_solid", Concrete_can_x/2.0-30*cm , (Water_cylindercal_can_radius)/2.0-(ExtraBoratedpoly_thickness)/2.0 , (Concrete_can_z)/2.0-15.0*cm);
- G4SubtractionSolid* ShellConcrete_S= new G4SubtractionSolid("ShellBoratedpoly", Main70_S, hole70_S, NO_ROT, G4ThreeVector(0., 0, -15.0*cm));
- G4LogicalVolume* ShellConcrete_LV = new G4LogicalVolume(ShellConcrete_S, BaseConcrete, "ShellConcrete");
+ G4SubtractionSolid* ShellConcrete_S= new G4SubtractionSolid("ShellBoratedpoly", ShellConcrete1_S, hole70_S, NO_ROT, G4ThreeVector(0., 0, -15.0*cm));
+
+ //G4LogicalVolume* ShellConcrete_LV = new G4LogicalVolume(ShellConcrete_S, BaseConcrete, "ShellConcrete");
+ G4LogicalVolume* ShellConcrete_LV = new G4LogicalVolume(ShellConcrete_S, HDConcrete, "ShellConcrete");
  new G4PVPlacement(NO_ROT, G4ThreeVector(0, (ExtraBoratedpoly_thickness)/2.0, -Water_cylindercal_can_height/2.0+ (Concrete_can_z)/2.0), ShellConcrete_LV, "ShellConcrete", boratedwater_LV, false, 0, fCheckOverlaps);
 
  //*******************base*******************//
  //base concrete support
  //G4VSolid* ConcreteSupport_S = new G4Box("ConcreteSupport", Water_cylindercal_can_radius_x/2.0 , (Water_cylindercal_can_radius)/2.0 , (ConcreteSupport_height)/2.0);
  G4VSolid* ConcreteSupport_S = new G4Box("ConcreteSupport", Concrete_can_x/2.0 , (Water_cylindercal_can_radius)/2.0 , (ConcreteSupport_height)/2.0);
- G4LogicalVolume* ConcreteSupport_LV = new G4LogicalVolume(ConcreteSupport_S, BaseConcrete , "ConcreteSupport");
+ G4LogicalVolume* ConcreteSupport_LV = new G4LogicalVolume(ConcreteSupport_S, HDConcrete , "ConcreteSupport");
+ //G4LogicalVolume* ConcreteSupport_LV = new G4LogicalVolume(ConcreteSupport_S, BaseConcrete , "ConcreteSupport");
  ConcreteSupport_PV = new G4PVPlacement(turnholenegative, G4ThreeVector((Water_cylindercal_can_radius/2.0-hole_length)*TMath::Tan(10*TMath::DegToRad()*rad), fFilterCellSpacing+Water_cylindercal_can_radius/2.0, -(DT_Ti_T_location+Insulation_Thickness)-ConcreteSupport_height/2.0), ConcreteSupport_LV, "ConcreteSupport", vacuum_solid_LV, false, 0, fCheckOverlaps);
  ConcreteSupport_LV->SetVisAttributes(G4VisAttributes(G4Colour::Green()));
+
 
  //Poly in base concrete support
  G4VSolid* Main71_S = new G4Box("Main71_solid", Water_cylindercal_can_radius_x/2.0 , (Water_cylindercal_can_radius)/2.0, (ConcreteSupport_height)/2.0);
@@ -1043,7 +1071,7 @@ G4double shieldHeight =  Front_Moderator_Thickness+Mid_Acrylic_thickness+Back_Mo
 
 
  // collimator
- G4VSolid* Main_1_S = new G4Box("Main_1_solid", Water_cylindercal_can_radius_x/2.0+ Side_shield_thickness +40.0*cm, (Water_cylindercal_can_height+ConcreteSupport_height)/2.,colimator_length/2.0);
+ G4VSolid* Main_1_S = new G4Box("Main_1_solid", Water_cylindercal_can_radius_x/2.0+ Side_shield_thickness +30.0*cm, (Water_cylindercal_can_height+ConcreteSupport_height)/2.,colimator_length/2.0);
  G4VSolid* hole_1_S = new G4Tubs("hole_1_solid", 0 , (Scandium_diameter_limited+0.22*cm)/2.0, colimator_length,startAngle, spanningAngle);
  G4SubtractionSolid* collimation_hole_S= new G4SubtractionSolid("collimation_hole_solid", Main_1_S, hole_1_S, turnhole, G4ThreeVector((colimator_length/2.0+hole_length)*TMath::Tan(10*TMath::DegToRad()*rad), (Water_cylindercal_can_height-ConcreteSupport_height)/2 - DT_Ti_T_location - Insulation_Thickness, 0));
  G4LogicalVolume* collimation_hole_LV = new G4LogicalVolume(collimation_hole_S, BoratedPoly_15, "collimation_hole");
@@ -1052,21 +1080,37 @@ G4double shieldHeight =  Front_Moderator_Thickness+Mid_Acrylic_thickness+Back_Mo
 
 
 
+
+
+ //Main neutron fiilter geometry mother volume
  G4VSolid* MainShield_1_S = new G4Box("MainShield_1_solid", fMultiplierLeadRadius,fMultiplierLeadRadius, NeutronFilter_length/2.0);
+
+ G4VSolid* MainShield_hole_S = new G4Tubs("MainShield_hole_solid", 0.0, 3.5*cm/2, (fMultiplierLeadRadius),startAngle, spanningAngle);
+ G4SubtractionSolid* inner_BPoly1_S= new G4SubtractionSolid("inner_BPoly1", MainShield_1_S, MainShield_hole_S, turnX90degree, G4ThreeVector(5*cm, -fMultiplierLeadRadius, -NeutronFilter_length/2.0
+                +fMultiplierLeadHeightFront+fModeratorAluminumHeight+fModeratorTitaniumHeight+fPolyHeight));
+
+
  G4VSolid* holeShield_1_S = new G4Tubs("holeShield_1_solid", 0 , (Scandium_diameter_limited+0.2*cm)/2.0, hole_length/2.0,startAngle, spanningAngle);
- G4SubtractionSolid* inner_BPoly_S= new G4SubtractionSolid("inner_BPoly_solid", MainShield_1_S, holeShield_1_S, turnhole, G4ThreeVector((hole_length)/2.0*TMath::Tan(10*TMath::DegToRad()*rad), 0, -NeutronFilter_length/2.0+hole_length/2.0));
+ G4SubtractionSolid* inner_BPoly_S= new G4SubtractionSolid("inner_BPoly_solid", inner_BPoly1_S, holeShield_1_S, turnhole, G4ThreeVector((hole_length)/2.0*TMath::Tan(10*TMath::DegToRad()*rad), 0, -NeutronFilter_length/2.0+hole_length/2.0));
  G4LogicalVolume *inner_BPoly_LV = new G4LogicalVolume(inner_BPoly_S, BoratedPoly_15,"inner_BPoly" );
  //inner_BPoly_PV = new G4PVPlacement( turnAlongX, G4ThreeVector(0., fFilterCellSpacing+NeutronFilter_length/2.0, 0.), inner_BPoly_LV, "inner_BPoly", vacuum_solid_LV, false, 0, fCheckOverlaps);
  inner_BPoly_PV = new G4PVPlacement( turncollimation_hole, G4ThreeVector((NeutronFilter_length/2.0-hole_length)*TMath::Tan(10*TMath::DegToRad()*rad), fFilterCellSpacing+NeutronFilter_length/2.0, 0.), inner_BPoly_LV, "inner_BPoly", vacuum_solid_LV, false, 0, fCheckOverlaps);
  inner_BPoly_LV->SetVisAttributes(G4VisAttributes(G4Colour::Grey()));
 
+ //DT
+ G4VSolid* DT_S = new G4Tubs("DT", zeroRadius,  3.5*cm/2.0, (131.5*cm/2.0), startAngle, spanningAngle);
+ G4LogicalVolume *DT_LV = new G4LogicalVolume(DT_S, Vacuum,"DT_Vacuum" );
+ new G4PVPlacement( NO_ROT, G4ThreeVector(17.3648*cm,184.4807*cm ,(131.5*cm/2.0)-10*cm ), DT_LV, "DT_Vacuum",vacuum_solid_LV,false, 0, fCheckOverlaps);
+ DT_LV->SetVisAttributes(G4VisAttributes(G4Colour::Red()));
+
+
  //concrete just aound the bpoly that surrounds the scandium
- G4VSolid* MainConcreteBlock_S = new G4Box("MainConcreteBlock", fMultiplierLeadRadius,fMultiplierLeadRadius , (fPolyHeight-Titanium_shield_height-Manganese_shield_height)/2.0);
- G4VSolid* MainConcreteBlockHole_S = new G4Box("MainConcreteBlockHole", 15.24*cm,15.24*cm , (fPolyHeight-Titanium_shield_height-Manganese_shield_height)/2.0);
- G4SubtractionSolid* ConcreteAroundSc_S= new G4SubtractionSolid("ConcreteAroundSc", MainConcreteBlock_S, MainConcreteBlockHole_S, NO_ROT, G4ThreeVector(0., 0, 0));
- G4LogicalVolume* ConcreteAroundSc_LV = new G4LogicalVolume(ConcreteAroundSc_S, BaseConcrete , "ConcreteAroundSc");
- new G4PVPlacement(NO_ROT, G4ThreeVector(0., 0, NeutronFilter_length/2.0-(fMultiplierLeadHeightRear+fMultiplierLeadHeightFront)-fModeratorAluminumHeight-fModeratorTitaniumHeight-Titanium_shield_height-Manganese_shield_height-(fPolyHeight-Titanium_shield_height-Manganese_shield_height)/2.0), ConcreteAroundSc_LV, "PolyUnderFilter", inner_BPoly_LV, false, 0, fCheckOverlaps);
- ConcreteAroundSc_LV->SetVisAttributes(G4VisAttributes(G4Colour::Cyan()));
+ //G4VSolid* MainConcreteBlock_S = new G4Box("MainConcreteBlock", fMultiplierLeadRadius,fMultiplierLeadRadius , (fPolyHeight-Titanium_shield_height-Manganese_shield_height)/2.0);
+ //G4VSolid* MainConcreteBlockHole_S = new G4Box("MainConcreteBlockHole", 15.24*cm,15.24*cm , (fPolyHeight-Titanium_shield_height-Manganese_shield_height)/2.0);
+ //G4SubtractionSolid* ConcreteAroundSc_S= new G4SubtractionSolid("ConcreteAroundSc", MainConcreteBlock_S, MainConcreteBlockHole_S, NO_ROT, G4ThreeVector(0., 0, 0));
+ //G4LogicalVolume* ConcreteAroundSc_LV = new G4LogicalVolume(ConcreteAroundSc_S, BaseConcrete , "ConcreteAroundSc");
+ //new G4PVPlacement(NO_ROT, G4ThreeVector(0., 0, NeutronFilter_length/2.0-(fMultiplierLeadHeightRear+fMultiplierLeadHeightFront)-fModeratorAluminumHeight-fModeratorTitaniumHeight-Titanium_shield_height-Manganese_shield_height-(fPolyHeight-Titanium_shield_height-Manganese_shield_height)/2.0), ConcreteAroundSc_LV, "PolyUnderFilter", inner_BPoly_LV, false, 0, fCheckOverlaps);
+ //ConcreteAroundSc_LV->SetVisAttributes(G4VisAttributes(G4Colour::Cyan()));
 
 
  //extra shield layer of Ti
