@@ -938,26 +938,28 @@ G4double shieldHeight =  Front_Moderator_Thickness+Mid_Acrylic_thickness+Back_Mo
  G4RotationMatrix* turnholenegative = new G4RotationMatrix;
  turnholenegative->rotateZ(10*deg);
 
- //Insulation but this is actually a surface to see the neutrons coming out of the concrete and borated water
- G4VSolid* Insulation_S = new G4Box("Insulation", Water_cylindercal_can_radius_x/2.0+ Side_shield_thickness +500.0*cm, delta/2.0, (Water_cylindercal_can_height+ConcreteSupport_height+600*cm)/2.);
- //G4VSolid* MainInsulation_S = new G4Box("MainInsulation", Water_cylindercal_can_radius_x/2.0+ Side_shield_thickness +30.0*cm+delta, (Water_cylindercal_can_radius+colimator_length)/2.0+delta, (Water_cylindercal_can_height+ConcreteSupport_height+Up_BpolyThickness)/2.0+delta);
- //G4VSolid* HoleInsulation_S = new G4Box("HoleInsulation", Water_cylindercal_can_radius_x/2.0+ Side_shield_thickness +30.0*cm, (Water_cylindercal_can_radius+colimator_length)/2.0, (Water_cylindercal_can_height+ConcreteSupport_height+Up_BpolyThickness)/2.0);
- //G4SubtractionSolid* Insulation_S= new G4SubtractionSolid("Insulation", MainInsulation_S, HoleInsulation_S, NO_ROT, G4ThreeVector(0., 0, 0));
- G4LogicalVolume* Insulation_LV = new G4LogicalVolume(Insulation_S, Vacuum, "Insulation");
- Insulation_PV = new G4PVPlacement(turnholenegative, G4ThreeVector(( colimator_length+5*delta/2.0+hole_length)*TMath::Tan(10*TMath::DegToRad()*rad), fFilterCellSpacing-colimator_length-10*delta/2.0, (Water_cylindercal_can_height-ConcreteSupport_height+100*cm)/2 - DT_Ti_T_location - Insulation_Thickness), Insulation_LV, "Insulation", vacuum_solid_LV, false, 0, fCheckOverlaps);
- ////Insulation_PV = new G4PVPlacement(NO_ROT, G4ThreeVector(0., fFilterCellSpacing+Water_cylindercal_can_radius/2.0-colimator_length/2.0, (Water_cylindercal_can_height-ConcreteSupport_height+Up_BpolyThickness)/2 - DT_Ti_T_location - Insulation_Thickness), Insulation_LV, "Insulation", vacuum_solid_LV, false, 0, fCheckOverlaps);
- Insulation_LV->SetVisAttributes(G4VisAttributes(G4Colour::Green()));
-
 
 
  ///****************Extra Shielding *********************
 
  //Extra layer of borated poly on the Top
- G4double Up_BpolyThickness=30.0*cm;
+ G4double Up_BpolyThickness=20.0*cm;
  G4VSolid* Up_Bpoly_shield_S = new G4Box("Up_Bpoly_shield", Water_cylindercal_can_radius_x/2.0+Side_shield_thickness , (Water_cylindercal_can_radius)/2.0 ,(Up_BpolyThickness)/2.0);
  G4LogicalVolume* Up_Bpoly_shield_LV = new G4LogicalVolume(Up_Bpoly_shield_S, BoratedPoly_15, "Up_Bpoly_shield");
  Up_Bpoly_shield_LV->SetVisAttributes(G4VisAttributes(G4Colour::Magenta()));
  Up_Bpoly_shield_PV = new G4PVPlacement(turnholenegative, G4ThreeVector(( Water_cylindercal_can_radius/2.0 -hole_length)*TMath::Tan(10*TMath::DegToRad()*rad), fFilterCellSpacing+ Water_cylindercal_can_radius/2.0, (Water_cylindercal_can_height)/2.0 - DT_Ti_T_location - Insulation_Thickness+(Water_cylindercal_can_height)/2.0+(Up_BpolyThickness)/2.0), Up_Bpoly_shield_LV, "Up_Bpoly_shield_left", vacuum_solid_LV, false, 0, fCheckOverlaps);
+
+
+ //Insulation but this is actually a surface to see the neutrons coming out of the concrete and borated water
+ //G4VSolid* Insulation_S = new G4Box("Insulation", Water_cylindercal_can_radius_x/2.0+ Side_shield_thickness +500.0*cm, delta/2.0, (Water_cylindercal_can_height+ConcreteSupport_height+600*cm)/2.);
+ G4VSolid* MainInsulation_S = new G4Box("MainInsulation", Water_cylindercal_can_radius_x/2.0+ Side_shield_thickness +45.0*cm+delta, (Water_cylindercal_can_radius+colimator_length)/2.0+5.0*cm+delta, (Water_cylindercal_can_height+ConcreteSupport_height+Up_BpolyThickness)/2.0+delta);
+ G4VSolid* HoleInsulation_S = new G4Box("HoleInsulation", Water_cylindercal_can_radius_x/2.0+ Side_shield_thickness +45.0*cm, (Water_cylindercal_can_radius+colimator_length)/2.0+5.0*cm, (Water_cylindercal_can_height+ConcreteSupport_height+Up_BpolyThickness)/2.0);
+ G4SubtractionSolid* Insulation_S= new G4SubtractionSolid("Insulation", MainInsulation_S, HoleInsulation_S, NO_ROT, G4ThreeVector(0., 0, 0));
+ G4LogicalVolume* Insulation_LV = new G4LogicalVolume(Insulation_S, Vacuum, "Insulation");
+ //Insulation_PV = new G4PVPlacement(turnholenegative, G4ThreeVector(( colimator_length+5*delta/2.0+hole_length)*TMath::Tan(10*TMath::DegToRad()*rad), fFilterCellSpacing-colimator_length-10*delta/2.0, (Water_cylindercal_can_height-ConcreteSupport_height+100*cm)/2 - DT_Ti_T_location - Insulation_Thickness), Insulation_LV, "Insulation", vacuum_solid_LV, false, 0, fCheckOverlaps);
+ Insulation_PV = new G4PVPlacement(turnholenegative, G4ThreeVector(0., fFilterCellSpacing+Water_cylindercal_can_radius/2.0-colimator_length/2.0, (Water_cylindercal_can_height-ConcreteSupport_height+Up_BpolyThickness)/2 - DT_Ti_T_location - Insulation_Thickness), Insulation_LV, "Insulation", vacuum_solid_LV, false, 0, fCheckOverlaps);
+ Insulation_LV->SetVisAttributes(G4VisAttributes(G4Colour::Green()));
+
 
 
 
