@@ -930,7 +930,7 @@ G4double shieldHeight =  Front_Moderator_Thickness+Mid_Acrylic_thickness+Back_Mo
 
 
 
-
+/*
 
   ////Filter begins here
  //moderator in made of of Borated Poly surrounds Filter
@@ -1049,7 +1049,7 @@ G4double shieldHeight =  Front_Moderator_Thickness+Mid_Acrylic_thickness+Back_Mo
  G4LogicalVolume* ShellConcrete_LV = new G4LogicalVolume(ShellConcrete_S, HDConcrete, "ShellConcrete");
  new G4PVPlacement(NO_ROT, G4ThreeVector(0, (ExtraBoratedpoly_thickness)/2.0, -Water_cylindercal_can_height/2.0+ (Concrete_can_z)/2.0), ShellConcrete_LV, "ShellConcrete", boratedwater_LV, false, 0, fCheckOverlaps);
 
- //*******************base*******************//
+ ///////////////////base////////////////
  //base concrete support
  //G4VSolid* ConcreteSupport_S = new G4Box("ConcreteSupport", Water_cylindercal_can_radius_x/2.0 , (Water_cylindercal_can_radius)/2.0 , (ConcreteSupport_height)/2.0);
  G4VSolid* ConcreteSupport_S = new G4Box("ConcreteSupport", Concrete_can_x/2.0 , (Water_cylindercal_can_radius)/2.0 , (ConcreteSupport_height)/2.0);
@@ -1067,7 +1067,7 @@ G4double shieldHeight =  Front_Moderator_Thickness+Mid_Acrylic_thickness+Back_Mo
  new G4PVPlacement(turnholenegative, G4ThreeVector((Water_cylindercal_can_radius/2.0-hole_length)*TMath::Tan(10*TMath::DegToRad()*rad), fFilterCellSpacing+Water_cylindercal_can_radius/2.0, -(DT_Ti_T_location+Insulation_Thickness)-ConcreteSupport_height/2.0), PolyAround_ConcreteSupport_LV, "PolyAround_ConcreteSupport", vacuum_solid_LV, false, 0, fCheckOverlaps);
  PolyAround_ConcreteSupport_LV->SetVisAttributes(G4VisAttributes(G4Colour::White()));
 
- //*******************base*******************//
+ //////////////////base//////////////////
 
 
  // collimator
@@ -1164,7 +1164,7 @@ G4double shieldHeight =  Front_Moderator_Thickness+Mid_Acrylic_thickness+Back_Mo
  filter_scandium_PV = new G4PVPlacement( turnAlongX, G4ThreeVector(0,fFilterCellSpacing+NeutronFilter_length-(fMultiplierLeadHeightRear+fMultiplierLeadHeightFront)-fModeratorAluminumHeight-fModeratorTitaniumHeight-Scandium_height_limited/2.0,0), filter_scandium_LV, "Filter_scandium",vacuum_solid_LV,false, 0, fCheckOverlaps);
  filter_scandium_LV->SetVisAttributes(G4VisAttributes(G4Colour::Red()));
 
-
+*/
 
 
 
