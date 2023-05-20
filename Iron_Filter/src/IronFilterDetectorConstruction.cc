@@ -240,7 +240,7 @@ void IronFilterDetectorConstruction::DefineMaterials()
   G4Element* elCa = new G4Element("Calcium",symbol ="Ca",z = 20.,a= 40.08*g/mole);
 
   G4Element* elMn  = new G4Element(name = "Manganese", symbol = "Mn", z = 25.0, a = 54.938*g/mole);
-  
+
   G4Element* elFe  = new G4Element("Iron",symbol ="Fe",z = 26.,a= 55.85*g/mole);
 
   G4Element* elZn = new G4Element("Zinc",symbol ="Zn",z = 30.,a= 65.38*g/mole);
@@ -829,7 +829,7 @@ G4double shieldHeight =  Front_Moderator_Thickness+Mid_Acrylic_thickness+Back_Mo
   G4VPhysicalVolume* vacuum_solid_PV = new G4PVPlacement(NO_ROT,G4ThreeVector{0.,0.,0.}, vacuum_solid_LV, "Vacuum_solid", 0, false, 0, fCheckOverlaps);
   vacuum_solid_LV->SetVisAttributes(G4VisAttributes::Invisible);
 
-/*
+
   //Lab_68 include ceiling
   G4VSolid* Main_2_S = new G4Box("Main_2_solid", lab68_wall_x/2.0, lab68_wall_y/2.0 , lab68_wall_z/2.0);
   //G4VSolid* hole_2_S = new G4Box("hole_2_solid", (lab68_wall_x-2*lab68_wall_thickness)/2.0, (lab68_wall_y-2*lab68_wall_thickness)/2.0, (lab68_wall_z-2*lab68_wall_thickness)/2.0);
@@ -926,7 +926,7 @@ G4double shieldHeight =  Front_Moderator_Thickness+Mid_Acrylic_thickness+Back_Mo
   //TestSurface_solid_LV->SetVisAttributes(G4VisAttributes::Invisible);
 
 
-*/
+
 
 
 
@@ -1216,7 +1216,7 @@ G4double shieldHeight =  Front_Moderator_Thickness+Mid_Acrylic_thickness+Back_Mo
   //G4LogicalVolume* Phantom_LV = new G4LogicalVolume(Phantom_S, Air, "Phantom");
   //G4LogicalVolume* Phantom_LV = new G4LogicalVolume(Phantom_S, Soft_Tissue, "Phantom");
   G4LogicalVolume* Phantom_LV = new G4LogicalVolume(Phantom_S, Vacuum, "Phantom");
-  //Phantom_PV = new G4PVPlacement(NO_ROT, Phantom_Placement, Phantom_LV, "Phantom", vacuum_solid_LV, false, 0, fCheckOverlaps);
+  Phantom_PV = new G4PVPlacement(NO_ROT, Phantom_Placement, Phantom_LV, "Phantom", vacuum_solid_LV, false, 0, fCheckOverlaps);
 
   //Phantom2_PV = new G4PVPlacement(NO_ROT, Phantom_Placement_2, Phantom_LV, "Phantom2", vacuum_solid_LV, false, 0, fCheckOverlaps);
 
