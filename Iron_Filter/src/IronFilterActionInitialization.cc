@@ -63,7 +63,7 @@ void IronFilterActionInitialization::Build() const
 {
   //SetUserAction(new IronFilterPrimaryGeneratorAction);
   SetUserAction(new IronFilterDTGeneratorAction);
-  SetUserAction(new IronFilterGPSGeneratorAction);
+  //SetUserAction(new IronFilterGPSGeneratorAction);
   SetUserAction(new IronFilterRunAction);
   IronFilterEventAction* eventAction = new IronFilterEventAction;
   SetUserAction(eventAction);
